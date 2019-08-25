@@ -1,0 +1,1 @@
+C:\Data\GitHub\Gears\Gears.UWP\Gears.UWP.csproj;x86
