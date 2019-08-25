@@ -9,8 +9,7 @@
              Title="Menu">
              
     <StackLayout VerticalOptions="FillAndExpand">
-        <Image Source="{res:ImageResource Source=Gears.Resources.等截面刀具與工件-Xn0.9-v2.png}"
-               HeightRequest="100"/>
+        <Image Source="{res:ImageResource Source=Gears.Resources.等截面刀具與工件-Xn0.9-v2.png}"/>
         <ListView x:Name="ListViewMenu"
                     HasUnevenRows="True">
             <ListView.ItemTemplate>

@@ -23,6 +23,8 @@ namespace Gears.Views
             {
                 new HomeMenuItem {Title="Browse", PageType = typeof(ItemsPage)},
                 new HomeMenuItem {Title="Input", PageType = typeof(InputPage)},
+                new HomeMenuItem {Title="3D Modeling", PageType = typeof(InputPage)},
+                new HomeMenuItem {Title="Settings", PageType = typeof(InputPage)},
                 new HomeMenuItem {Title="About", PageType = typeof(AboutPage) }
             };
 
