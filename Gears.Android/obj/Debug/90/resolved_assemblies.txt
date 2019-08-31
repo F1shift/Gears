@@ -4,6 +4,12 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Gears.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Java.Interop.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Mono.Android.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\mscorlib.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\SQLite-net.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\SQLitePCLRaw.batteries_green.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\SQLitePCLRaw.batteries_v2.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\SQLitePCLRaw.core.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\SQLitePCLRaw.lib.e_sqlite3.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\SQLitePCLRaw.provider.e_sqlite3.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Core.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Numerics.dll
@@ -66,4 +72,14 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Net.Http.d
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Runtime.Serialization.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.ServiceModel.Internals.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Web.Services.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Collections.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Runtime.Extensions.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Linq.Expressions.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Reflection.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Diagnostics.Debug.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Threading.Tasks.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Linq.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Threading.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Reflection.Extensions.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Globalization.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Mono.Security.dll

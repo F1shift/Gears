@@ -1,14 +1,16 @@
 ﻿using System;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Gears.Services;
 using Gears.Views;
+using Gears.Models;
+using System.Collections.Generic;
 
 namespace Gears
 {
     public partial class App : Application
     {
-
         public App()
         {
             InitializeComponent();

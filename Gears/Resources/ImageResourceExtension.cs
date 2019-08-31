@@ -18,7 +18,6 @@ namespace Gears.Resources
 
             // Do your translation lookup here, using whatever method you require
             var imageSource = ImageSource.FromResource(Source);
-
             return imageSource;
         }
     }

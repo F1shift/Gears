@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Gears.Views.ItemsPage"
-             Title="{Binding Title}"
+             Title="Browse"
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
