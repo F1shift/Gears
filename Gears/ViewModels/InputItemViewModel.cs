@@ -111,5 +111,10 @@ namespace Gears.ViewModels
                 }
             }
         }
+
+        public SimpleCommand AlertCommand { get; set; } = new SimpleCommand(
+            (page) => {
+                ((Page)page).DisplayAlert("By LongPressEffect", "Long press event trigged!", "Canceled");
+            });
     }
 }

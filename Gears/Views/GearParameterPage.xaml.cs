@@ -44,9 +44,9 @@ namespace Gears.Views
             }
         }
 
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ViewCell_Tapped(object sender, EventArgs e)
         {
-            ((ListView)sender).SelectedItem = null;
+            DisplayAlert("Title", "msg", "cancel");
         }
     }
 }

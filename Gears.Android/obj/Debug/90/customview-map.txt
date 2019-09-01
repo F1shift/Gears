@@ -29,6 +29,7 @@ FrameLayout;C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\lp\46\jl\res\layout\
 item;C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\lp\46\jl\res\values\styles.xml
 item;obj\Debug\90\res\values\styles.xml
 LinearLayout;C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\lp\46\jl\res\layout\bottomtablayout.xml
+md58432a647068b097f9637064b8985a5e0.FormsViewPager;C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\lp\46\jl\res\layout\rootlayout.xml
 paths;C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\lp\45\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 resources;C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\lp\46\jl\res\values\styles.xml
 resources;obj\Debug\90\res\values\colors.xml

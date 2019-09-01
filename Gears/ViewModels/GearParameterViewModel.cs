@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Gears.DataBases;
 using Gears.Models;
+using Xamarin.Forms;
 
 namespace Gears.ViewModels
 {
@@ -12,9 +14,13 @@ namespace Gears.ViewModels
     {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
+        public SimpleCommand AlertCommand { get; set; } = new SimpleCommand(
+            (page) => {
+                ((Page)page).DisplayAlert("By LongPressEffect", "Long press event trigged!", "Canceled");
+            });
 
-        ModuleItem _Module;
-        public ModuleItem Module
+        ModuleItemViewModel _Module;
+        public ModuleItemViewModel Module
         {
             get
             {
@@ -29,8 +35,8 @@ namespace Gears.ViewModels
                 }
             }
         }
-        List<ModuleItem> _ModuleList;
-        public List<ModuleItem> ModuleList
+        List<ModuleItemViewModel> _ModuleList;
+        public List<ModuleItemViewModel> ModuleList
         {
             get
             {
@@ -68,7 +74,9 @@ namespace Gears.ViewModels
         }
 
         public async void Init() {
-            ModuleList = (await JIS1701DataBase.DataBase.Table<ModuleItem>().OrderBy((item) => item.Value).ToListAsync());
+            var moduleItemList = (await JIS1701DataBase.DataBase.Table<ModuleItem>().OrderBy((item) => item.Value).ToListAsync());
+            ModuleList = (from item in moduleItemList
+                         select new ModuleItemViewModel() { Value = item.Value, Serial = item.Serial, Annotation = item.Annotation }).ToList();
             Module = ModuleList[0];
             InputItems = new ObservableCollection<object>() {
                 new InputItemViewModel(){ Name = "歯数１", Value = 17.0, Min = 6.0, Max = 200.0, Step = 1  },
