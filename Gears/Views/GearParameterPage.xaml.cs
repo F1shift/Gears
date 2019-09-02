@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,11 +12,39 @@ using Gears.ViewModels;
 namespace Gears.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GearParameterPage : ContentPage
+    public partial class GearParameterPage : ContentPage, IPopup
     {
         public GearParameterPage()
         {
             InitializeComponent();
+        }
+
+        public ContentView PopupContainer { get; set; }
+        public void ClosePopup()
+        {
+            if (PopupContainer != null && AbsParent.Children.Contains(PopupContainer))
+            {
+                AbsParent.Children.Remove(PopupContainer);
+            }
+        }
+
+        public Page GetPage()
+        {
+            return this;
+        }
+
+        public void ShowPopup(View content)
+        {
+            PopupContainer = new ContentView()
+            {
+                BackgroundColor = Color.FromHex("#C0808080"),
+                Padding = new Thickness(10, 0),
+                IsVisible = true,
+            };
+            AbsoluteLayout.SetLayoutBounds(PopupContainer, new Rectangle(0, 0, 1, 1));
+            AbsoluteLayout.SetLayoutFlags(PopupContainer, AbsoluteLayoutFlags.All);
+            PopupContainer.Content = content;
+            this.AbsParent.Children.Add(PopupContainer);
         }
 
         private void Slider_DragCompleted(object sender, EventArgs e)

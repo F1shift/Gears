@@ -17,7 +17,5 @@ namespace Gears.ViewModels
                 return str;
             }
         }
-
-        
     }
 }

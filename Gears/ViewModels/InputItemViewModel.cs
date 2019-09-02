@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using Xamarin.Forms;
+using Gears.Views;
 
 namespace Gears.ViewModels
 {
@@ -112,9 +113,44 @@ namespace Gears.ViewModels
             }
         }
 
-        public SimpleCommand AlertCommand { get; set; } = new SimpleCommand(
+        IPopup _Popup;
+        NumberEntryPopupView _EntryView;
+        public NumberEntryPopupView EntryView { get {
+                if (_EntryView == null)
+                {
+                    _EntryView = new NumberEntryPopupView();
+                    _EntryView.Entry.Text = Value.ToString();
+                    _EntryView.OKButton.Clicked += (o, e) =>
+                    {
+                        try
+                        {
+                            Value = Convert.ToDouble(_EntryView.Entry.Text);
+                            _Popup.ClosePopup();
+                        }
+                        catch(Exception ex)
+                        {
+                            _Popup.GetPage().DisplayAlert("Error !", ex.Message, "OK");
+                        }
+                    };
+                    _EntryView.CancelButton.Clicked += (o, e) => _Popup.ClosePopup();
+                }
+                return _EntryView;
+            }
+            set {
+                _EntryView = value;   
+            }
+        }
+
+        public SimpleCommand ShowEntryCommand { get; set; }
+
+        public InputItemViewModel()
+        {
+            ShowEntryCommand = new SimpleCommand(
             (page) => {
-                ((Page)page).DisplayAlert("By LongPressEffect", "Long press event trigged!", "Canceled");
+                EntryView.Entry.Text = Value.ToString();
+                _Popup = (IPopup)page;
+                _Popup.ShowPopup(EntryView);
             });
+        }
     }
 }
