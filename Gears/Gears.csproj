@@ -17,12 +17,14 @@
 
   <ItemGroup>
     <None Remove="DataBases\JIS1701.db3" />
+    <None Remove="Resources\Arrow.png" />
     <None Remove="Resources\dsc_8390_3.jpg" />
     <None Remove="Resources\等截面刀具與工件-Xn0.9-v2.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="DataBases\JIS1701.db3" />
+    <EmbeddedResource Include="Resources\Arrow.png" />
     <EmbeddedResource Include="Resources\dsc_8390_3.jpg" />
     <EmbeddedResource Include="Resources\等截面刀具與工件-Xn0.9-v2.png" />
   </ItemGroup>

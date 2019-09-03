@@ -31,17 +31,30 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout x:Name="AbsParent">
-            <StackLayout Padding="20"
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                         AbsoluteLayout.LayoutFlags="All">
-                <Image Source="{local:ImageResource Gears.Resources.dsc_8390_3.jpg}" 
+            <Image Source="{local:ImageResource Gears.Resources.dsc_8390_3.jpg}" 
                    eff:LongPressEffect.Command="{Binding AlertCommand}"
                    eff:LongPressEffect.CommandParameter="{x:Reference Self}"
-                    Grid.Row="0" Aspect="Fill" VerticalOptions="StartAndExpand" MinimumHeightRequest="250">
-                    <Image.Effects>
-                        <eff:LongPressEffect/>
-                    </Image.Effects>
-                </Image>
+                    Grid.Row="0" Aspect="AspectFill"
+                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <Image.Effects>
+                    <eff:LongPressEffect/>
+                </Image.Effects>
+            </Image>
+            <StackLayout Padding="20, 0, 20, 20" x:Name="InputArea"
+                         AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.5"
+                         AbsoluteLayout.LayoutFlags="All"
+                         BackgroundColor="White">
+                <AbsoluteLayout HeightRequest="100">
+                    <Button x:Name="CollapseButton"
+                             BackgroundColor="Transparent"
+                            AbsoluteLayout.LayoutFlags="All"
+                            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                             Clicked="CollapseButton_Clicked" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                    <Image x:Name="ArrowImage"
+                        Source="{local:ImageResource Gears.Resources.Arrow.png}"
+                        AbsoluteLayout.LayoutFlags="PositionProportional"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 20, 20"/>
+                </AbsoluteLayout>
                 <StackLayout Orientation="Horizontal"  Padding="0,0,12,0" VerticalOptions="End">
                     <Label Text="モジュール" VerticalOptions="Center"/>
                     <Picker
