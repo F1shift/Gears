@@ -6,7 +6,7 @@
             xmlns:v="clr-namespace:Gears.Views"
              mc:Ignorable="d"
             Title="Design"
-             x:Class="Gears.Views.DesignPage">
+             x:Class="Gears.Views.DesignPage" Padding="0">
   <!--Pages can be added as references or inline-->
     <v:RackParameterPage Title="Rack"/>
     <v:GearParameterPage Title="Gear"/>

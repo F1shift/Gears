@@ -35,16 +35,16 @@
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                          AbsoluteLayout.LayoutFlags="All">
                 <Image Source="{local:ImageResource Gears.Resources.dsc_8390_3.jpg}" 
-                   HeightRequest="250"
                    eff:LongPressEffect.Command="{Binding AlertCommand}"
-                   eff:LongPressEffect.CommandParameter="{x:Reference Self}">
+                   eff:LongPressEffect.CommandParameter="{x:Reference Self}"
+                    Grid.Row="0" Aspect="Fill" VerticalOptions="StartAndExpand" MinimumHeightRequest="250">
                     <Image.Effects>
                         <eff:LongPressEffect/>
                     </Image.Effects>
                 </Image>
-                <StackLayout Orientation="Horizontal"  Padding="0,0,12,0">
-                    <Label Grid.Column="0" Text="モジュール" VerticalOptions="Center"/>
-                    <Picker Grid.Column="1"
+                <StackLayout Orientation="Horizontal"  Padding="0,0,12,0" VerticalOptions="End">
+                    <Label Text="モジュール" VerticalOptions="Center"/>
+                    <Picker
                         ItemsSource="{Binding ModuleList}"
                         ItemDisplayBinding="{Binding DisplayName}" 
                         SelectedItem="{Binding Module}"
@@ -52,7 +52,7 @@
                         SelectedIndex="1">
                     </Picker>
                 </StackLayout>
-                <ListView x:Name="listView" ItemsSource="{Binding InputItems}" SelectionMode="None">
+                <ListView x:Name="listView" ItemsSource="{Binding InputItems}" SelectionMode="None" VerticalOptions="End">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
