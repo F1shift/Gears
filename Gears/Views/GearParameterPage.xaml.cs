@@ -86,13 +86,13 @@ namespace Gears.Views
             if (_InputExpanded)
             {
                 InputArea.TranslateTo(0, InputArea.Height - CollapseButton.Height, _interval, Easing.CubicInOut);
-                ArrowImage.RotateTo(180, _interval, Easing.CubicInOut);
+                ArrowImage.RotateTo(0, _interval, Easing.CubicInOut);
                 _InputExpanded = false;
             }
             else
             {
                 InputArea.TranslateTo(0, 0, _interval, Easing.CubicInOut);
-                ArrowImage.RotateTo(0, _interval, Easing.CubicInOut);
+                ArrowImage.RotateTo(180, _interval, Easing.CubicInOut);
                 _InputExpanded = true;
             }
         }

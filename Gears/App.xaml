@@ -4,16 +4,38 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Gears.ViewModels"
+             xmlns:cs="clr-namespace:Gears.Custom.Controls"
+             xmlns:view="clr-namespace:Gears.Views"
              mc:Ignorable="d"
-             x:Class="Gears.App">
+             x:Class="Gears.App"
+             >
 
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Color x:Key="PageBackgroundColor">#1E1E1E</Color>
+            <Color x:Key="NavigationBarColor">#007ACC</Color>
+            <Color x:Key="PrimaryColor">#007ACC</Color>
+            <Color x:Key="SecondaryColor">White</Color>
+            <Color x:Key="PrimaryTextColor">White</Color>
+            <Color x:Key="SecondaryTextColor">White</Color>
+            <Color x:Key="TertiaryTextColor">WhiteSmoke</Color>
+            <Color x:Key="TransparentColor">Transparent</Color>
+            <Color x:Key="SliderColorMin">#959595</Color>
+            <Color x:Key="SliderColorMax">LightGray</Color>
+            <Color x:Key="TranslucantColor">#BAFFFFFF</Color>
+            <!--<Color x:Key="NavigationBarColor"></Color>-->
             <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationBarColor}" />
                 <Setter Property="BarTextColor" Value="White" />
+            </Style>
+            <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationBarColor}"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource NavigationBarColor}"/>
+            </Style>
+            <Style TargetType="Slider" ApplyToDerivedTypes="True">
+                <Setter Property="MinimumTrackColor" Value="{StaticResource SliderColorMin}"/>
+                <Setter Property="MaximumTrackColor" Value="{StaticResource SliderColorMax}"/>
             </Style>
             <!--View Model Instances-->
           <vm:GearParameterViewModel x:Key="GearParameterViewModel"/>

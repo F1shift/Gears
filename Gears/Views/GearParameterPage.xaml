@@ -13,6 +13,7 @@
              x:Class="Gears.Views.GearParameterPage"
              x:Name="Self"
              BindingContext="{StaticResource GearParameterViewModel}"
+             x:DataType="vm:GearParameterViewModel"
               >
     <ContentPage.Resources>
         <Style x:Key="ItemName" TargetType="Label">
@@ -43,17 +44,19 @@
             <StackLayout Padding="20, 0, 20, 20" x:Name="InputArea"
                          AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.5"
                          AbsoluteLayout.LayoutFlags="All"
-                         BackgroundColor="White">
+                         BackgroundColor="{StaticResource TranslucantColor}">
                 <AbsoluteLayout HeightRequest="100">
                     <Button x:Name="CollapseButton"
                              BackgroundColor="Transparent"
                             AbsoluteLayout.LayoutFlags="All"
                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                              Clicked="CollapseButton_Clicked" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-                    <Image x:Name="ArrowImage"
+                    <ImageButton x:Name="ArrowImage"
                         Source="{local:ImageResource Gears.Resources.Arrow.png}"
                         AbsoluteLayout.LayoutFlags="PositionProportional"
-                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 20, 20"/>
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 20, 20"
+                        Clicked="CollapseButton_Clicked" Rotation="180"
+                        BackgroundColor="Transparent"/>
                 </AbsoluteLayout>
                 <StackLayout Orientation="Horizontal"  Padding="0,0,12,0" VerticalOptions="End">
                     <Label Text="モジュール" VerticalOptions="Center"/>
@@ -67,7 +70,7 @@
                 </StackLayout>
                 <ListView x:Name="listView" ItemsSource="{Binding InputItems}" SelectionMode="None" VerticalOptions="End">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="vm:InputItemViewModel">
                             <ViewCell>
                                 <StackLayout 
                                 eff:LongPressEffect.Command="{Binding ShowEntryCommand}"

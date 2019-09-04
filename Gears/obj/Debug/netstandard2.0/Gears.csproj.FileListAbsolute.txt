@@ -36,3 +36,4 @@ C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\XamlC.stamp
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\GearParameterPage.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\RackParameterPage.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\NumberEntryPopupView.xaml.g.cs
+C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\RiseUpStackLayout.xaml.g.cs

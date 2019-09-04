@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rs="clr-namespace:Gears.Resources"
+             mc:Ignorable="d"
+             x:Class="Gears.Views.RiseUpStackLayout">
+    <AbsoluteLayout x:Name="AbsoluteLayout" HeightRequest="40">
+        <Button x:Name="CollapseButton"
+                             BackgroundColor="Transparent"
+                            AbsoluteLayout.LayoutFlags="All"
+                            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                             Clicked="CollapseButton_Clicked" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+        <ImageButton x:Name="ArrowImage"
+                        Source="{rs:ImageResource Gears.Resources.Arrow.png}"
+                        AbsoluteLayout.LayoutFlags="PositionProportional"
+                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 20, 20"
+                        Clicked="CollapseButton_Clicked" Rotation="180"
+                        BackgroundColor="Transparent"/>
+    </AbsoluteLayout>
+</StackLayout>

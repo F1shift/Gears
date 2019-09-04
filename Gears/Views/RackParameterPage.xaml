@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rs="clr-namespace:Gears.Resources"
+             xmlns:view="clr-namespace:Gears.Views"
              mc:Ignorable="d"
              x:Class="Gears.Views.RackParameterPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            <view:RiseUpStackLayout BackgroundColor="{StaticResource TranslucantColor}" 
+                                    AbsoluteLayout.LayoutFlags="All"
+                                    AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.45">
+            </view:RiseUpStackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
