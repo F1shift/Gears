@@ -120,6 +120,7 @@ namespace Gears.ViewModels
                 {
                     _EntryView = new NumberEntryPopupView();
                     _EntryView.Entry.Text = Value.ToString();
+                    _EntryView.TitleLable.Text = Name;
                     _EntryView.OKButton.Clicked += (o, e) =>
                     {
                         try

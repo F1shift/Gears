@@ -11,7 +11,13 @@
         <AbsoluteLayout>
             <view:RiseUpStackLayout BackgroundColor="{StaticResource TranslucantColor}" 
                                     AbsoluteLayout.LayoutFlags="All"
-                                    AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.45">
+                                    AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.5"
+                                    IsExpanded="False">
+                <view:RiseUpStackLayout.Content>
+                    <StackLayout>
+                        <Entry Placeholder="AAA"/>
+                    </StackLayout>
+                </view:RiseUpStackLayout.Content>
             </view:RiseUpStackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>

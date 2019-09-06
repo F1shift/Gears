@@ -14,11 +14,6 @@ namespace Gears.ViewModels
     {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
-        public SimpleCommand AlertCommand { get; set; } = new SimpleCommand(
-            (page) => {
-                ((Page)page).DisplayAlert("By LongPressEffect", "Long press event trigged!", "Canceled");
-            });
-
         ModuleItemViewModel _Module;
         public ModuleItemViewModel Module
         {
@@ -35,6 +30,7 @@ namespace Gears.ViewModels
                 }
             }
         }
+
         List<ModuleItemViewModel> _ModuleList;
         public List<ModuleItemViewModel> ModuleList
         {
@@ -86,7 +82,6 @@ namespace Gears.ViewModels
                 new InputItemViewModel(){ Name = "中心距離偏移率", Value = 0.0, Min = -1.0, Max = 1.0,  Step = 0.00001 },
                 new InputItemViewModel(){ Name = "歯幅率", Value = 10.0, Min = 1.0, Max = 10.0,  Step = 0.1  },
             };
-            
         }
     }
 }

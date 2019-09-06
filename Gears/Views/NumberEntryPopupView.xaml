@@ -11,7 +11,7 @@
   <ContentView.Content>
       
       <StackLayout Padding="15" Spacing="10">
-            <Label Text="{Binding Source={x:Reference main}, Path=Title, Mode=OneTime}"/>
+            <Label x:Name="TitleLable" x:FieldModifier="public" Style="{x:DynamicResource Key=SubTitleStyle}"/>
             <Entry x:Name="Entry" x:FieldModifier="public" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
             <Grid ColumnSpacing="10">
                 <Grid.ColumnDefinitions>

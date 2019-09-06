@@ -32,73 +32,60 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout x:Name="AbsParent">
-            <Image Source="{local:ImageResource Gears.Resources.dsc_8390_3.jpg}" 
-                   eff:LongPressEffect.Command="{Binding AlertCommand}"
-                   eff:LongPressEffect.CommandParameter="{x:Reference Self}"
+            <Image Source="{local:ImageResource Gears.Resources.dsc_8390_3.jpg}"
                     Grid.Row="0" Aspect="AspectFill"
                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <Image.Effects>
-                    <eff:LongPressEffect/>
-                </Image.Effects>
             </Image>
-            <StackLayout Padding="20, 0, 20, 20" x:Name="InputArea"
+            <view:RiseUpStackLayout Padding="20, 0, 20, 20" x:Name="InputArea"
                          AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.5"
                          AbsoluteLayout.LayoutFlags="All"
                          BackgroundColor="{StaticResource TranslucantColor}">
-                <AbsoluteLayout HeightRequest="100">
-                    <Button x:Name="CollapseButton"
-                             BackgroundColor="Transparent"
-                            AbsoluteLayout.LayoutFlags="All"
-                            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                             Clicked="CollapseButton_Clicked" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-                    <ImageButton x:Name="ArrowImage"
-                        Source="{local:ImageResource Gears.Resources.Arrow.png}"
-                        AbsoluteLayout.LayoutFlags="PositionProportional"
-                        AbsoluteLayout.LayoutBounds="0.5, 0.5, 20, 20"
-                        Clicked="CollapseButton_Clicked" Rotation="180"
-                        BackgroundColor="Transparent"/>
-                </AbsoluteLayout>
-                <StackLayout Orientation="Horizontal"  Padding="0,0,12,0" VerticalOptions="End">
-                    <Label Text="モジュール" VerticalOptions="Center"/>
-                    <Picker
+                <view:RiseUpStackLayout.Content>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal"  Padding="0,0,12,0" VerticalOptions="End">
+                            <Label Text="モジュール" VerticalOptions="Center"/>
+                            <Picker
                         ItemsSource="{Binding ModuleList}"
                         ItemDisplayBinding="{Binding DisplayName}" 
                         SelectedItem="{Binding Module}"
                         HorizontalOptions="FillAndExpand"
                         SelectedIndex="1">
-                    </Picker>
-                </StackLayout>
-                <ListView x:Name="listView" ItemsSource="{Binding InputItems}" SelectionMode="None" VerticalOptions="End">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="vm:InputItemViewModel">
-                            <ViewCell>
-                                <StackLayout 
-                                eff:LongPressEffect.Command="{Binding ShowEntryCommand}"
-                                eff:LongPressEffect.CommandParameter="{x:Reference Self}">
-                                    <StackLayout.Effects>
-                                        <eff:LongPressEffect/>
-                                    </StackLayout.Effects>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="50"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Text="{Binding Name}"/>
-                                        <Label Grid.Column="1" Text="{Binding GuideString}"/>
-                                        <Label Grid.Column="2" Text="{Binding Value}"/>
-                                    </Grid>
-                                    <cs:MySlider
-                                        Maximum="{Binding Max}"
-                                        Minimum="{Binding Min}"
-                                        Value="{Binding Value}" 
-                                        ValueChanged="Slider_ValueChanged"/>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
+                            </Picker>
+                        </StackLayout>
+                        <ListView x:Name="listView" ItemsSource="{Binding InputItems}" SelectionMode="None" VerticalOptions="End">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="vm:InputItemViewModel">
+                                    <ViewCell>
+                                        <StackLayout 
+                                            eff:LongPressEffect.Command="{Binding ShowEntryCommand}"
+                                            eff:LongPressEffect.CommandParameter="{x:Reference Self}">      
+                                            <StackLayout.Effects>
+                                                <eff:LongPressEffect/>
+                                            </StackLayout.Effects>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="50"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0" Text="{Binding Name}"/>
+                                                <Label Grid.Column="1" Text="{Binding GuideString}"/>
+                                                <Label Grid.Column="2" Text="{Binding Value}"/>
+                                            </Grid>
+                                            <cs:MySlider
+                                                Maximum="{Binding Max}"
+                                                Minimum="{Binding Min}"
+                                                Value="{Binding Value}"
+                                                Step="{Binding Step}"
+                                                IsStepped="True"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </view:RiseUpStackLayout.Content>
+            </view:RiseUpStackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
