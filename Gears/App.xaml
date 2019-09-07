@@ -7,9 +7,7 @@
              xmlns:cs="clr-namespace:Gears.Custom.Controls"
              xmlns:view="clr-namespace:Gears.Views"
              mc:Ignorable="d"
-             x:Class="Gears.App"
-             >
-
+             x:Class="Gears.App">
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
@@ -38,7 +36,7 @@
                 <Setter Property="MaximumTrackColor" Value="{StaticResource SliderColorMax}"/>
             </Style>
             <!--View Model Instances-->
-          <vm:GearParameterViewModel x:Key="GearParameterViewModel"/>
+            <vm:GearDesignViewModel x:Key="GearDesignViewModel"/>
         </ResourceDictionary>
     </Application.Resources>
     

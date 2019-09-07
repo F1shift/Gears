@@ -11,8 +11,6 @@
              mc:Ignorable="d"
              Title="Gear Design"
              x:Class="Gears.Views.GearParameterPage"
-             x:Name="Self"
-             BindingContext="{StaticResource GearParameterViewModel}"
              x:DataType="vm:GearParameterViewModel"
               >
     <ContentPage.Resources>
@@ -31,34 +29,24 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <AbsoluteLayout x:Name="AbsParent">
+        <AbsoluteLayout x:Name="AbsLayout">
             <Image Source="{local:ImageResource Gears.Resources.dsc_8390_3.jpg}"
                     Grid.Row="0" Aspect="AspectFill"
                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             </Image>
             <view:RiseUpStackLayout Padding="20, 0, 20, 20" x:Name="InputArea"
-                         AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.5"
+                         AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.4"
                          AbsoluteLayout.LayoutFlags="All"
                          BackgroundColor="{StaticResource TranslucantColor}">
                 <view:RiseUpStackLayout.Content>
                     <StackLayout>
-                        <StackLayout Orientation="Horizontal"  Padding="0,0,12,0" VerticalOptions="End">
-                            <Label Text="モジュール" VerticalOptions="Center"/>
-                            <Picker
-                        ItemsSource="{Binding ModuleList}"
-                        ItemDisplayBinding="{Binding DisplayName}" 
-                        SelectedItem="{Binding Module}"
-                        HorizontalOptions="FillAndExpand"
-                        SelectedIndex="1">
-                            </Picker>
-                        </StackLayout>
                         <ListView x:Name="listView" ItemsSource="{Binding InputItems}" SelectionMode="None" VerticalOptions="End">
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="vm:InputItemViewModel">
                                     <ViewCell>
                                         <StackLayout 
                                             eff:LongPressEffect.Command="{Binding ShowEntryCommand}"
-                                            eff:LongPressEffect.CommandParameter="{x:Reference Self}">      
+                                            eff:LongPressEffect.CommandParameter="{x:Reference AbsLayout}">      
                                             <StackLayout.Effects>
                                                 <eff:LongPressEffect/>
                                             </StackLayout.Effects>

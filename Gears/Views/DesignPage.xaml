@@ -5,11 +5,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             xmlns:v="clr-namespace:Gears.Views"
+            xmlns:vm="clr-namespace:Gears.ViewModels"
              mc:Ignorable="d"
             Title="Design"
             android:TabbedPage.IsSwipePagingEnabled="False"
-             x:Class="Gears.Views.DesignPage" Padding="0">
+             x:Class="Gears.Views.DesignPage" Padding="0"
+            x:DataType="vm:GearDesignViewModel"
+            BindingContext="{StaticResource GearDesignViewModel}">
   <!--Pages can be added as references or inline-->
-    <v:RackParameterPage Title="Base Rack"/>
-    <v:GearParameterPage Title="Gear"/>
+    <v:RackParameterPage Title="Base Rack" BindingContext="{Binding RackParameterViewModel}"/>
+    <v:GearParameterPage Title="Gear" BindingContext="{Binding GearParameterViewModel}"/>
+    <v:GearDetailView Title="Detail" BindingContext="{Binding GearDetailViewModel}"/>
 </TabbedPage>

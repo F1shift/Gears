@@ -4,6 +4,7 @@ using System.Text;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Gears.Views;
+using Gears.Custom.Effects;
 
 namespace Gears.ViewModels
 {
@@ -113,7 +114,8 @@ namespace Gears.ViewModels
             }
         }
 
-        IPopup _Popup;
+        PopupController _popupController = new PopupController();
+
         NumberEntryPopupView _EntryView;
         public NumberEntryPopupView EntryView { get {
                 if (_EntryView == null)
@@ -126,14 +128,14 @@ namespace Gears.ViewModels
                         try
                         {
                             Value = Convert.ToDouble(_EntryView.Entry.Text);
-                            _Popup.ClosePopup();
+                            _popupController.ClosePopup();
                         }
                         catch(Exception ex)
                         {
-                            _Popup.GetPage().DisplayAlert("Error !", ex.Message, "OK");
+                            ((Page)Utility.FindPerant<Page>(_EntryView)).DisplayAlert("Error !", ex.Message, "OK");
                         }
                     };
-                    _EntryView.CancelButton.Clicked += (o, e) => _Popup.ClosePopup();
+                    _EntryView.CancelButton.Clicked += (o, e) => _popupController.ClosePopup();
                 }
                 return _EntryView;
             }
@@ -147,10 +149,9 @@ namespace Gears.ViewModels
         public InputItemViewModel()
         {
             ShowEntryCommand = new SimpleCommand(
-            (page) => {
+            (area) => {
                 EntryView.Entry.Text = Value.ToString();
-                _Popup = (IPopup)page;
-                _Popup.ShowPopup(EntryView);
+                _popupController.ShowPopup((AbsoluteLayout)area, EntryView);
             });
         }
     }
