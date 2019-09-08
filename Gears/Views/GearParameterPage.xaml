@@ -30,7 +30,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout x:Name="AbsLayout">
-            <Image Source="{local:ImageResource Gears.Resources.dsc_8390_3.jpg}"
+            <Image Source="{local:ImageResource Gears.Resources.Gear.jpg}"
                     Grid.Row="0" Aspect="AspectFill"
                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             </Image>

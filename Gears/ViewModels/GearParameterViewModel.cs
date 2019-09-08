@@ -42,7 +42,8 @@ namespace Gears.ViewModels
                 new InputItemViewModel(){ Name = "歯数１", Value = 17.0, Min = 6.0, Max = 200.0, Step = 1  },
                 new InputItemViewModel(){ Name = "歯数２", Value = 39.0, Min = 6.0, Max = 200.0,  Step = 1 },
                 new InputItemViewModel(){ Name = "ねじれ角", Value = 15.0, Min = -45.0, Max = 45.0,  Step = 1  },
-                new InputItemViewModel(){ Name = "中心距離偏移率", Value = 0.0, Min = -1.0, Max = 1.0,  Step = 0.00001 },
+                new InputItemViewModel(){ Name = "中心距離修正", Value = 0.0, Min = -1.0, Max = 1.0,  Step = 0.00001 },
+                new InputItemViewModel(){ Name = "歯車1転位係数", Value = 0.0, Min = -1.0, Max = 1.0,  Step = 0.00001 },
                 new InputItemViewModel(){ Name = "歯幅率", Value = 10.0, Min = 1.0, Max = 10.0,  Step = 0.1  },
             };
         }

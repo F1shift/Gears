@@ -10,7 +10,7 @@ namespace Gears.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        GearParameterViewModel _GearParameterViewModel = new GearParameterViewModel();
+        GearParameterViewModel _GearParameterViewModel;
         public GearParameterViewModel GearParameterViewModel
         {
             get
@@ -27,7 +27,7 @@ namespace Gears.ViewModels
             }
         }
 
-        RackParameterViewModel _RackParameterViewModel = new RackParameterViewModel();
+        RackParameterViewModel _RackParameterViewModel;
         public RackParameterViewModel RackParameterViewModel
         {
             get
@@ -44,7 +44,7 @@ namespace Gears.ViewModels
             }
         }
 
-        GearDetailViewModel _GearDetailViewModel = new GearDetailViewModel();
+        GearDetailViewModel _GearDetailViewModel;
         public GearDetailViewModel GearDetailViewModel
         {
             get
@@ -59,6 +59,15 @@ namespace Gears.ViewModels
                     PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(GearDetailViewModel)));
                 }
             }
+        }
+
+        public GearDesignViewModel()
+        {
+            GearParameterViewModel = new GearParameterViewModel();
+            RackParameterViewModel = new RackParameterViewModel();
+            GearDetailViewModel = new GearDetailViewModel();
+            GearDetailViewModel.GearParameterViewModel = this.GearParameterViewModel;
+            GearDetailViewModel.RackParameterViewModel = this.RackParameterViewModel;
         }
     }
 }
