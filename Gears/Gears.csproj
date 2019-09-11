@@ -32,19 +32,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.3.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\GearDetailPage.xaml.cs">
+      <DependentUpon>GearDetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\GearParameterPage.xaml.cs">
       <DependentUpon>GearParameterPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\GearDetailView.xaml">
+    <EmbeddedResource Update="Views\GearDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\DesignPage.xaml">

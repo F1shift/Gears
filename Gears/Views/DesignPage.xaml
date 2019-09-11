@@ -15,5 +15,5 @@
   <!--Pages can be added as references or inline-->
     <v:RackParameterPage Title="Base Rack" BindingContext="{Binding RackParameterViewModel}"/>
     <v:GearParameterPage Title="Gear" BindingContext="{Binding GearParameterViewModel}"/>
-    <v:GearDetailView Title="Detail" BindingContext="{Binding GearDetailViewModel}"/>
+    <v:GearDetailPage Title="Detail" BindingContext="{Binding GearDetailViewModel}"/>
 </TabbedPage>

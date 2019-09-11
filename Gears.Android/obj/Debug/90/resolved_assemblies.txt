@@ -4,6 +4,7 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Gears.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Java.Interop.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Mono.Android.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\mscorlib.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Newtonsoft.Json.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\SQLite-net.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\SQLitePCLRaw.batteries_green.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\SQLitePCLRaw.batteries_v2.dll

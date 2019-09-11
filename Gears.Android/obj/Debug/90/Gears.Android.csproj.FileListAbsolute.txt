@@ -1033,3 +1033,5 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\stamp\_GenerateJavaStubs.stamp
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\stamp\_GeneratePackageManagerJava.stamp
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\stamp\_ResolveLibraryProjectImports.stamp
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\src\md5a6214798b54a77ffaae91ebf993268bc\MySliderRenderer.java
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\linksrc\Newtonsoft.Json.dll
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Newtonsoft.Json.dll

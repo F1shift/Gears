@@ -46,7 +46,7 @@ namespace Gears.Custom.Controls
             {
                 var slider = (Slider)sender;
                 double orgValue = slider.Value;
-                double stepedValue = Math.Round(Math.Round(orgValue / (step)) * step, 10);
+                double stepedValue = System.Math.Round(System.Math.Round(orgValue / (step)) * step, 10);
                 if (slider.Value != stepedValue)
                 {
                     slider.Value = stepedValue;

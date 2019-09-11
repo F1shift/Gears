@@ -5,6 +5,7 @@ public class MonoPackageManager_Resources {
 		"Gears.Android.dll",
 		"FormsViewGroup.dll",
 		"Gears.dll",
+		"Newtonsoft.Json.dll",
 		"SQLite-net.dll",
 		"SQLitePCLRaw.batteries_green.dll",
 		"SQLitePCLRaw.batteries_v2.dll",

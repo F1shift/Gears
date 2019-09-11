@@ -46,8 +46,8 @@ namespace Gears.ViewModels
                 }
             }
         }
-        ObservableCollection<object> _InputItems;
-        public ObservableCollection<object> InputItems
+        ObservableCollection<InputItemViewModel> _InputItems;
+        public ObservableCollection<InputItemViewModel> InputItems
         {
             get
             {
@@ -74,10 +74,10 @@ namespace Gears.ViewModels
             ModuleList = (from item in moduleItemList
                           select new ModuleItemViewModel() { Value = item.Value, Serial = item.Serial, Annotation = item.Annotation }).ToList();
             Module = ModuleList[0];
-            InputItems = new ObservableCollection<object>() {
-                new InputItemViewModel(){ Name = "歯先係数", Value = 17.0, Min = 6.0, Max = 200.0, Step = 1  },
-                new InputItemViewModel(){ Name = "歯元係数", Value = 39.0, Min = 6.0, Max = 200.0,  Step = 1 },
-                new InputItemViewModel(){ Name = "圧力角", Value = 20.0, Min = 15.0, Max = 35.0,  Step = 0.5  }
+            InputItems = new ObservableCollection<InputItemViewModel>() {
+                new InputItemViewModel(){ Name = "圧力角", Value = 20.0, Min = 15.0, Max = 35.0,  Step = 0.5  },
+                new InputItemViewModel(){ Name = "歯先係数", Value = 1, Min = 0.5, Max = 1.3, Step = 0.01  },
+                new InputItemViewModel(){ Name = "歯元係数", Value = 1.25, Min = 0.6, Max = 1.5,  Step = 0.01 },
             };
         }
     }
