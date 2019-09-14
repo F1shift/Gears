@@ -20,7 +20,7 @@
                    BackgroundColor="White"/>
             <view:RiseUpStackLayout BackgroundColor="{StaticResource TranslucantColor}" 
                                     AbsoluteLayout.LayoutFlags="All"
-                                    AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.35"
+                                    AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.45"
                                     Padding="20, 0, 20, 20"
                                     IsExpanded="True">
                 <view:RiseUpStackLayout.Content>
@@ -35,17 +35,20 @@
                                 SelectedIndex="1">
                             </Picker>
                         </StackLayout>
-                        <ListView ItemsSource="{Binding InputItems}">
+                        <ListView ItemsSource="{Binding InputItems}" RowHeight="80" SelectionMode="None">
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="vm:InputItemViewModel">
                                     <ViewCell>
-                                        <StackLayout 
-                                            eff:LongPressEffect.Command="{Binding ShowEntryCommand}"
-                                            eff:LongPressEffect.CommandParameter="{x:Reference AbsLayout}">
-                                            <StackLayout.Effects>
-                                                <eff:LongPressEffect/>
-                                            </StackLayout.Effects>
-                                            <Grid>
+                                        <StackLayout VerticalOptions="FillAndExpand">
+                                            <Grid Padding="0, 10, 0, 5"
+                                                eff:LongPressEffect.Command="{Binding ShowEntryCommand}"
+                                                eff:LongPressEffect.CommandParameter="{x:Reference AbsLayout}">
+                                                <Grid.Effects>
+                                                    <eff:LongPressEffect/>
+                                                </Grid.Effects>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition />

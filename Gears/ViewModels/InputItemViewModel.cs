@@ -12,107 +12,17 @@ namespace Gears.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        string _Name;
-        public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                if (_Name != value)
-                {
-                    _Name = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
-                }
-            }
-        }
+        public string Name { get; set; }
 
-        double _Value;
-        public double Value
-        {
-            get
-            {
-                return _Value;
-            }
-            set
-            {
-                if (_Value != value)
-                {
-                    _Value = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
-                }
-            }
-        }
+        public double Value { get; set; }
 
-        double _Max;
-        public double Max
-        {
-            get
-            {
-                return _Max;
-            }
-            set
-            {
-                if (_Max != value)
-                {
-                    _Max = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max)));
-                }
-            }
-        }
+        public double Max { get; set; }
 
-        double _Min;
-        public double Min
-        {
-            get
-            {
-                return _Min;
-            }
-            set
-            {
-                if (_Min != value)
-                {
-                    _Min = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min)));
-                }
-            }
-        }
+        public double Min { get; set; }
 
-        double _Step;
-        public double Step
-        {
-            get
-            {
-                return _Step;
-            }
-            set
-            {
-                if (_Step != value)
-                {
-                    _Step = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Step)));
-                }
-            }
-        }
+        public double Step { get; set; }
 
-        string _GuideString;
-        public string GuideString
-        {
-            get
-            {
-                return _GuideString;
-            }
-            set
-            {
-                if (_GuideString != value)
-                {
-                    _GuideString = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GuideString)));
-                }
-            }
-        }
+        public string GuideString { get; set; }
 
         PopupController _popupController = new PopupController();
 

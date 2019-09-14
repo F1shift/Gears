@@ -15,22 +15,7 @@ namespace Gears.ViewModels
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
        
-        ObservableCollection<InputItemViewModel> _InputItems;
-        public ObservableCollection<InputItemViewModel> InputItems
-        {
-            get
-            {
-                return _InputItems;
-            }
-            set
-            {
-                if (_InputItems != value)
-                {
-                    _InputItems = value;
-                    PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(InputItems)));
-                }
-            }
-        }
+        public ObservableCollection<InputItemViewModel> InputItems { get; set; }
 
         public GearParameterViewModel()
         {

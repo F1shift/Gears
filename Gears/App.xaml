@@ -21,7 +21,7 @@
             <Color x:Key="TransparentColor">Transparent</Color>
             <Color x:Key="SliderColorMin">#959595</Color>
             <Color x:Key="SliderColorMax">LightGray</Color>
-            <Color x:Key="TranslucantColor">#7AFFFFFF</Color>
+            <Color x:Key="TranslucantColor">#ABFFFFFF</Color>
             <!--<Color x:Key="NavigationBarColor"></Color>-->
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationBarColor}" />

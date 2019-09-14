@@ -10,56 +10,11 @@ namespace Gears.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        GearParameterViewModel _GearParameterViewModel;
-        public GearParameterViewModel GearParameterViewModel
-        {
-            get
-            {
-                return _GearParameterViewModel;
-            }
-            set
-            {
-                if (_GearParameterViewModel != value)
-                {
-                    _GearParameterViewModel = value;
-                    PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(GearParameterViewModel)));
-                }
-            }
-        }
+        public GearParameterViewModel GearParameterViewModel { get; set; }
 
-        RackParameterViewModel _RackParameterViewModel;
-        public RackParameterViewModel RackParameterViewModel
-        {
-            get
-            {
-                return _RackParameterViewModel;
-            }
-            set
-            {
-                if (_RackParameterViewModel != value)
-                {
-                    _RackParameterViewModel = value;
-                    PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(RackParameterViewModel)));
-                }
-            }
-        }
+        public RackParameterViewModel RackParameterViewModel { get; set; }
 
-        GearDetailViewModel _GearDetailViewModel;
-        public GearDetailViewModel GearDetailViewModel
-        {
-            get
-            {
-                return _GearDetailViewModel;
-            }
-            set
-            {
-                if (_GearDetailViewModel != value)
-                {
-                    _GearDetailViewModel = value;
-                    PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(GearDetailViewModel)));
-                }
-            }
-        }
+        public GearDetailViewModel GearDetailViewModel { get; set; }
 
         public GearDesignViewModel()
         {

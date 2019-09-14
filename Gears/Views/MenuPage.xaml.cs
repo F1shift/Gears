@@ -23,7 +23,7 @@ namespace Gears.Views
             {
                 new HomeMenuItem {Title="Browse", PageType = typeof(ItemsPage)},
                 new HomeMenuItem {Title="Gear Design", PageType = typeof(DesignPage)},
-                new HomeMenuItem {Title="3D Modeling", PageType = typeof(ContentPage)},
+                new HomeMenuItem {Title="3D Modeling", PageType = typeof(ThreeDModelingPage)},
                 new HomeMenuItem {Title="Settings", PageType = typeof(ContentPage)},
                 new HomeMenuItem {Title="About", PageType = typeof(AboutPage) }
             };
@@ -46,10 +46,6 @@ namespace Gears.Views
                 ListViewMenu.SelectedItem = menuItems[i];
             }
 
-            if (menuItems[i].PageInstance == null)
-            {
-                menuItems[i].PageInstance = (Page)Activator.CreateInstance(menuItems[i].PageType);
-            }
             RootPage.Detail = new NavigationPage(menuItems[i].PageInstance);
 
             if (Device.RuntimePlatform == Device.Android)
@@ -58,7 +54,7 @@ namespace Gears.Views
             RootPage.IsPresented = false;
         }
     }
-    
+
 
     public class HomeMenuItem
     {
@@ -66,12 +62,13 @@ namespace Gears.Views
 
         private Type _PageType;
         public Type PageType {
-            get{
+            get {
                 return _PageType;
             }
             set {
                 if (value.IsSubclassOf(typeof(Page)))
                 {
+                    _PageInstance = null;
                     _PageType = value;
                 }
                 else
@@ -80,6 +77,18 @@ namespace Gears.Views
                 }
             }
         }
-        public Page PageInstance { get; set; }
+        Page _PageInstance;
+        public Page PageInstance
+        {
+            get
+            {
+                if (_PageInstance == null)
+                {
+                    _PageInstance = (Page)Activator.CreateInstance(PageType);
+                }
+                return _PageInstance;
+            }
+        }
+        
     }
 }

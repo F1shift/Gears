@@ -21,11 +21,8 @@ namespace Gears.Droid.Custom.Effects
 {
     class LongPressEffect : PlatformEffect
     {
-        bool _attatched;
         protected override void OnAttached()
         {
-            //if (!_attatched)
-            //{
                 if (Control != null)
                 {
                     Control.LongClickable = true;
@@ -36,36 +33,30 @@ namespace Gears.Droid.Custom.Effects
                     Container.LongClickable = true;
                     Container.LongClick += Control_LongClick;
                 }
-                //_attatched = true;
-            //}
         }
 
         protected override void OnDetached()
         {
             try
             {
-                //    if (_attatched)
-                //    {
                 if (Control != null )
-            {
-                var IsDisposedProperty = Control.GetType().GetProperty("IsDisposed");
-                if (IsDisposedProperty == null || !(bool)IsDisposedProperty.GetValue(Control))
                 {
-                    Control.LongClickable = true;
-                    Control.LongClick -= Control_LongClick;
+                    var IsDisposedProperty = Control.GetType().GetProperty("IsDisposed");
+                    if (IsDisposedProperty == null || !(bool)IsDisposedProperty.GetValue(Control))
+                    {
+                        Control.LongClickable = true;
+                        Control.LongClick -= Control_LongClick;
+                    }
                 }
-            }
-            else
-            {
-                var IsDisposedProperty = Container.GetType().GetProperty("IsDisposed");
-                if (IsDisposedProperty == null || !(bool)IsDisposedProperty.GetValue(Container))
+                else
                 {
-                    Container.LongClickable = true;
-                    Container.LongClick -= Control_LongClick;
+                    var IsDisposedProperty = Container.GetType().GetProperty("IsDisposed");
+                    if (IsDisposedProperty == null || !(bool)IsDisposedProperty.GetValue(Container))
+                    {
+                        Container.LongClickable = true;
+                        Container.LongClick -= Control_LongClick;
+                    }
                 }
-            }
-                //        _attatched = false;
-                //    }
             }
             catch (Exception e)
             {

@@ -58,6 +58,7 @@ C:\Users\formy\source\repos\Gears\Gears.UWP\obj\x86\Debug\Xamarin.Essentials.pri
 C:\Users\formy\source\repos\Gears\Gears.UWP\obj\x86\Debug\Xamarin.Forms.Platform.UAP.pri.xml
 C:\Users\formy\source\repos\Gears\Gears.UWP\obj\x86\Debug\ProjectArchitectures.txt
 C:\Users\formy\source\repos\Gears\Gears.UWP\obj\x86\Debug\.winmd_cache\$Microsoft.Graphics.Canvas.winmd_636160427180000000.json
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\CoreData.pak
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\App.xbf
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\MainPage.xbf
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.xr.xml
@@ -68,7 +69,16 @@ C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\AppxManifest.xml
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\AppxManifest.xml
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\Gears.UWP.exe
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.build.appxrecipe
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Newtonsoft.Json.dll
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\System.Runtime.dll
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLite-net.dll
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLitePCLRaw.batteries_green.dll
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLitePCLRaw.batteries_v2.dll
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLitePCLRaw.core.dll
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\e_sqlite3.dll
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLitePCLRaw.provider.e_sqlite3.dll
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\mono-urho.dll
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\UrhoSharp.Forms.dll
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Microsoft.Graphics.Canvas.dll
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Microsoft.Graphics.Canvas.winmd
 C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Xamarin.Essentials.dll
@@ -94,6 +104,7 @@ C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\App.xbf
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\MainPage.xbf
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\XamlSaveStateFile.xml
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Gears.UWP.csproj.CoreCompileInputs.cache
+C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Gears.UWP.csproj.Fody.CopyLocal.cache
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\XamlC.stamp
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Gears.UWP.csproj.CopyComplete
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Gears.UWP.exe
@@ -118,9 +129,3 @@ C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Xamarin.Essentials.pri.xml
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Xamarin.Forms.Platform.UAP.pri.xml
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\ProjectArchitectures.txt
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\.winmd_cache\$Microsoft.Graphics.Canvas.winmd_636160427180000000.json
-C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLite-net.dll
-C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLitePCLRaw.batteries_green.dll
-C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLitePCLRaw.batteries_v2.dll
-C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLitePCLRaw.core.dll
-C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\e_sqlite3.dll
-C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\SQLitePCLRaw.provider.e_sqlite3.dll

@@ -9,6 +9,7 @@ using Android.OS;
 
 namespace Gears.Droid
 {
+    
     [Activity(Label = "Gears", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
@@ -16,6 +17,8 @@ namespace Gears.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            global::Android.Webkit.WebView.SetWebContentsDebuggingEnabled(true);
 
             base.OnCreate(savedInstanceState);
 

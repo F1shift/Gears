@@ -10,26 +10,10 @@ namespace Gears.ViewModels
 {
     class GearDetailViewModel : INotifyPropertyChanged
     {
+        
         public RackParameterViewModel RackParameterViewModel { get; set; }
         public GearParameterViewModel GearParameterViewModel { get; set; }
-
-
-        string _Result;
-        public string Result
-        {
-            get
-            {
-                return _Result;
-            }
-            set
-            {
-                if (_Result != value)
-                {
-                    _Result = value;
-                    PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(Result)));
-                }
-            }
-        }
+        public string Result { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -58,36 +42,27 @@ namespace Gears.ViewModels
 
         public void Update(object para) {
             var model = new CylindricalGearBasic();
+
             model.mn = RackParameterViewModel.Module.Value;
-            model.αn = DegToRad((from item in RackParameterViewModel.InputItems
-                       where item.Name == "圧力角"
-                       select item.Value).Single());
-            model.ha_c = (from item in RackParameterViewModel.InputItems
-                          where item.Name == "歯先係数"
-                          select item.Value).Single();
-            model.hf_c = (from item in RackParameterViewModel.InputItems
-                          where item.Name == "歯元係数"
-                          select item.Value).Single();
-            model.z[0] = Convert.ToInt32((from item in GearParameterViewModel.InputItems
-                       where item.Name == "歯数１"
-                                          select item.Value).Single());
-            model.z[1] = Convert.ToInt32((from item in GearParameterViewModel.InputItems
-                                         where item.Name == "歯数２"
-                                         select item.Value).Single());
-            model.β = DegToRad((from item in GearParameterViewModel.InputItems
-                                         where item.Name == "ねじれ角"
-                                          select item.Value).Single());
-            model.a = (from item in GearParameterViewModel.InputItems
-                                         where item.Name == "中心距離"
-                                          select item.Value).Single();
-            model.xn[0] = (from item in GearParameterViewModel.InputItems
-                                         where item.Name == "歯車1転位係数"
-                                           select item.Value).Single();
-            model.b_c[0] = model.b_c[1] = (from item in GearParameterViewModel.InputItems
-                                         where item.Name == "歯幅率"
-                                           select item.Value).Single();
+            model.αn = DegToRad(GetValueFromList(RackParameterViewModel.InputItems, "圧力角"));
+            model.ha_c = GetValueFromList(RackParameterViewModel.InputItems, "歯先係数");
+            model.hf_c = GetValueFromList(RackParameterViewModel.InputItems, "歯先係数"); 
+            model.z[0] = Convert.ToInt32(GetValueFromList(GearParameterViewModel.InputItems, "歯数１"));
+            model.z[1] = Convert.ToInt32(GetValueFromList(GearParameterViewModel.InputItems, "歯数２"));
+            model.β = DegToRad(GetValueFromList(GearParameterViewModel.InputItems, "ねじれ角")); 
+            model.a = GetValueFromList(GearParameterViewModel.InputItems, "中心距離");
+            model.xn[0] = GetValueFromList(GearParameterViewModel.InputItems, "歯車1転位係数"); 
+            model.b_c[0] = model.b_c[1] = GetValueFromList(GearParameterViewModel.InputItems, "歯幅率"); 
+
             model.SolveFromCenterDistance();
             Result = Newtonsoft.Json.JsonConvert.SerializeObject(model, Newtonsoft.Json.Formatting.Indented);
+        }
+
+        public double GetValueFromList(IEnumerable<InputItemViewModel> list, string name)
+        {
+            return (from item in list
+             where item.Name == name
+                    select item.Value).Single();
         }
     }
 }

@@ -2,6 +2,12 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
+      "Fody/6.0.0": {
+        "type": "package",
+        "build": {
+          "build/Fody.targets": {}
+        }
+      },
       "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
         "compile": {
@@ -33,6 +39,22 @@
         },
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "PropertyChanged.Fody/3.1.3": {
+        "type": "package",
+        "dependencies": {
+          "Fody": "6.0.0",
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.0/PropertyChanged.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/PropertyChanged.dll": {}
+        },
+        "build": {
+          "build/PropertyChanged.Fody.props": {}
         }
       },
       "sqlite-net-pcl/1.5.231": {
@@ -84,6 +106,28 @@
           "lib/netstandard2.0/System.Numerics.Vectors.dll": {}
         }
       },
+      "UrhoSharp.Forms/1.9.67": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "3.3.0.967583"
+        },
+        "compile": {
+          "lib/netstandard2.0/UrhoSharp.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/UrhoSharp.Forms.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win10-x64/native/mono-urho.dll": {
+            "assetType": "native",
+            "rid": "win10-x64"
+          },
+          "runtimes/win10-x86/native/mono-urho.dll": {
+            "assetType": "native",
+            "rid": "win10-x86"
+          }
+        }
+      },
       "Xamarin.Essentials/1.3.0": {
         "type": "package",
         "dependencies": {
@@ -116,6 +160,38 @@
     }
   },
   "libraries": {
+    "Fody/6.0.0": {
+      "sha512": "rH9Q7GapghyLYESfeCUOqh0S70eLc3FAikIgEEyGeng3JJf1M7mt2BUxjz93o3ipDXLrKn1s69AIEolmnVn8xg==",
+      "type": "package",
+      "path": "fody/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/Fody.targets",
+        "fody.6.0.0.nupkg.sha512",
+        "fody.nuspec",
+        "netclassictask/Fody.dll",
+        "netclassictask/FodyCommon.dll",
+        "netclassictask/FodyHelpers.dll",
+        "netclassictask/FodyIsolated.dll",
+        "netclassictask/Mono.Cecil.Pdb.dll",
+        "netclassictask/Mono.Cecil.Pdb.pdb",
+        "netclassictask/Mono.Cecil.Rocks.dll",
+        "netclassictask/Mono.Cecil.Rocks.pdb",
+        "netclassictask/Mono.Cecil.dll",
+        "netclassictask/Mono.Cecil.pdb",
+        "netstandardtask/Fody.dll",
+        "netstandardtask/FodyCommon.dll",
+        "netstandardtask/FodyHelpers.dll",
+        "netstandardtask/FodyIsolated.dll",
+        "netstandardtask/Mono.Cecil.Pdb.dll",
+        "netstandardtask/Mono.Cecil.Pdb.pdb",
+        "netstandardtask/Mono.Cecil.Rocks.dll",
+        "netstandardtask/Mono.Cecil.Rocks.pdb",
+        "netstandardtask/Mono.Cecil.dll",
+        "netstandardtask/Mono.Cecil.pdb"
+      ]
+    },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
       "type": "package",
@@ -289,6 +365,24 @@
         "newtonsoft.json.nuspec"
       ]
     },
+    "PropertyChanged.Fody/3.1.3": {
+      "sha512": "GaTTQdS8NCVMBrBGIu43XwyicIyD7iIp9zFLK57Q2kfba6BffMGt4bl0jwfkMysbdqUjP4oZcunvbQBauWieUQ==",
+      "type": "package",
+      "path": "propertychanged.fody/3.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/PropertyChanged.Fody.props",
+        "lib/net40/PropertyChanged.dll",
+        "lib/net40/PropertyChanged.xml",
+        "lib/netstandard1.0/PropertyChanged.dll",
+        "lib/netstandard1.0/PropertyChanged.xml",
+        "propertychanged.fody.3.1.3.nupkg.sha512",
+        "propertychanged.fody.nuspec",
+        "weaver/PropertyChanged.Fody.dll",
+        "weaver/PropertyChanged.Fody.xcf"
+      ]
+    },
     "sqlite-net-pcl/1.5.231": {
       "sha512": "B9jScvqkishSMkpa9Mc4Q85LTHxRTzcUXZx9EQqgrvdz7MFEDHfpiPcKdjy1qXHdmHttEXfY4h6gu4FlgWP2Sw==",
       "type": "package",
@@ -423,6 +517,38 @@
         "system.numerics.vectors.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "UrhoSharp.Forms/1.9.67": {
+      "sha512": "rN6dKazZKFKDAslYwH1MRoBs6CZqivC32nkMaLfgQN23J+jTnt9ADx7jVAeQxyTrKkqgyDn1cv7pbtuWw4q7/w==",
+      "type": "package",
+      "path": "urhosharp.forms/1.9.67",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/uap10.0.16299/UrhoSharp.Forms.targets",
+        "build/xamarin.ios10/UrhoSharp.Forms.targets",
+        "lib/Xamarin.iOS10/UrhoSharp.Forms.XML",
+        "lib/Xamarin.iOS10/UrhoSharp.Forms.dll",
+        "lib/monoandroid81/Urho.Droid.SdlBinding.dll",
+        "lib/monoandroid81/UrhoSharp.Forms.XML",
+        "lib/monoandroid81/UrhoSharp.Forms.dll",
+        "lib/netstandard2.0/UrhoSharp.Forms.XML",
+        "lib/netstandard2.0/UrhoSharp.Forms.dll",
+        "lib/portable-net45 win8 wpa81/UrhoSharp.Forms.XML",
+        "lib/portable-net45 win8 wpa81/UrhoSharp.Forms.dll",
+        "lib/uap10.0.16299/UrhoSharp.Forms.XML",
+        "lib/uap10.0.16299/UrhoSharp.Forms.dll",
+        "native/Android/arm64-v8a/libmono-urho.so",
+        "native/Android/armeabi-v7a/libmono-urho.so",
+        "native/Android/armeabi/libmono-urho.so",
+        "native/Android/x86/libmono-urho.so",
+        "native/Android/x86_64/libmono-urho.so",
+        "native/CoreData.pak",
+        "runtimes/win10-x64/native/mono-urho.dll",
+        "runtimes/win10-x86/native/mono-urho.dll",
+        "urhosharp.forms.1.9.67.nupkg.sha512",
+        "urhosharp.forms.nuspec"
       ]
     },
     "Xamarin.Essentials/1.3.0": {
@@ -728,6 +854,8 @@
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "Newtonsoft.Json >= 12.0.2",
+      "PropertyChanged.Fody >= 3.1.3",
+      "UrhoSharp.Forms >= 1.9.67",
       "Xamarin.Essentials >= 1.3.0",
       "Xamarin.Forms >= 4.2.0.709249",
       "sqlite-net-pcl >= 1.5.231"
@@ -786,6 +914,14 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[12.0.2, )"
+          },
+          "PropertyChanged.Fody": {
+            "target": "Package",
+            "version": "[3.1.3, )"
+          },
+          "UrhoSharp.Forms": {
+            "target": "Package",
+            "version": "[1.9.67, )"
           },
           "Xamarin.Essentials": {
             "target": "Package",

@@ -13,55 +13,9 @@ namespace Gears.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        ModuleItemViewModel _Module;
-        public ModuleItemViewModel Module
-        {
-            get
-            {
-                return _Module;
-            }
-            set
-            {
-                if (_Module != value)
-                {
-                    _Module = value;
-                    PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(Module)));
-                }
-            }
-        }
-
-        List<ModuleItemViewModel> _ModuleList;
-        public List<ModuleItemViewModel> ModuleList
-        {
-            get
-            {
-                return _ModuleList;
-            }
-            set
-            {
-                if (_ModuleList != value)
-                {
-                    _ModuleList = value;
-                    PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(ModuleList)));
-                }
-            }
-        }
-        ObservableCollection<InputItemViewModel> _InputItems;
-        public ObservableCollection<InputItemViewModel> InputItems
-        {
-            get
-            {
-                return _InputItems;
-            }
-            set
-            {
-                if (_InputItems != value)
-                {
-                    _InputItems = value;
-                    PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(InputItems)));
-                }
-            }
-        }
+        public ModuleItemViewModel Module { get; set; }
+        public List<ModuleItemViewModel> ModuleList { get; set; }
+        public ObservableCollection<InputItemViewModel> InputItems { get; set; }
 
         public RackParameterViewModel()
         {

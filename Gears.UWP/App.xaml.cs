@@ -40,7 +40,6 @@ namespace Gears.UWP
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
-
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
