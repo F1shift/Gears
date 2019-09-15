@@ -4,15 +4,12 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:urho="clr-namespace:Urho.Forms;assembly=UrhoSharp.Forms"
+             xmlns:rs="clr-namespace:Gears.Resources"
              mc:Ignorable="d"
              x:Class="Gears.Views.ThreeDModelingPage">
     <ContentPage.Content>
-        <AbsoluteLayout>
-            <WebView x:Name="myWebView"
-                     AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
-
-            </WebView>
+        <AbsoluteLayout x:Name="RootLayout">
+            
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

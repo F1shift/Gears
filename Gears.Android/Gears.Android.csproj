@@ -76,13 +76,13 @@
   <ItemGroup>
     <Compile Include="Custom\Effects\LongPressEffect.cs" />
     <Compile Include="Custom\Renderer\MySliderRenderer.cs" />
+    <Compile Include="Custom\Renderer\MyWebViewRenderer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +115,14 @@
       <Project>{C28C7808-3B1B-461D-A3A0-2D0F97DC5F25}</Project>
       <Name>Gears</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\www\index.html" />
+    <AndroidAsset Include="Assets\www\index2.js" />
+    <AndroidAsset Include="Assets\www\jquery-3.3.1.min.js" />
+    <AndroidAsset Include="Assets\www\OrbitControls.js" />
+    <AndroidAsset Include="Assets\www\stats.min.js" />
+    <AndroidAsset Include="Assets\www\three.js" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

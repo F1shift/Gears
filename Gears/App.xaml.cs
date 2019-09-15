@@ -6,6 +6,7 @@ using Gears.Services;
 using Gears.Views;
 using Gears.Models;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Gears
 {
@@ -15,13 +16,16 @@ namespace Gears
         {
             InitializeComponent();
 
+            //Check ww folder exist
+            Gears.Resources.FileResourceExtention.CopyToLocal();
+
             DependencyService.Register<MockDataStore>();
             MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            
         }
 
         protected override void OnSleep()

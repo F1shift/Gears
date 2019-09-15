@@ -94,6 +94,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Custom\Effects\LongPressEffect.cs" />
+    <Compile Include="Custom\Renderer\MyWebViewRenderer.cs" />
     <Compile Include="Custom\Renderer\MySliderRenderer.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -106,6 +107,12 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\www\index.html" />
+    <Content Include="Assets\www\index2.js" />
+    <Content Include="Assets\www\jquery-3.3.1.min.js" />
+    <Content Include="Assets\www\OrbitControls.js" />
+    <Content Include="Assets\www\stats.min.js" />
+    <Content Include="Assets\www\three.js" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
@@ -166,6 +173,7 @@
       <Name>Gears</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

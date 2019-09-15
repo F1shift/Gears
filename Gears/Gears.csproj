@@ -19,14 +19,8 @@
     <None Remove="DataBases\JIS1701.db3" />
     <None Remove="Resources\Arrow.png" />
     <None Remove="Resources\Gear.jpg" />
+    <None Remove="Resources\PowerSkiving.png" />
     <None Remove="Resources\Rack.jpg" />
-    <None Remove="Resources\等截面刀具與工件-Xn0.9-v2.png" />
-    <None Remove="www\index.html" />
-    <None Remove="www\index2.js" />
-    <None Remove="www\jquery-3.3.1.min.js" />
-    <None Remove="www\OrbitControls.js" />
-    <None Remove="www\stats.min.js" />
-    <None Remove="www\three.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,13 +28,7 @@
     <EmbeddedResource Include="Resources\Arrow.png" />
     <EmbeddedResource Include="Resources\Gear.jpg" />
     <EmbeddedResource Include="Resources\Rack.jpg" />
-    <EmbeddedResource Include="Resources\等截面刀具與工件-Xn0.9-v2.png" />
-    <EmbeddedResource Include="www\index.html" />
-    <EmbeddedResource Include="www\index2.js" />
-    <EmbeddedResource Include="www\jquery-3.3.1.min.js" />
-    <EmbeddedResource Include="www\OrbitControls.js" />
-    <EmbeddedResource Include="www\stats.min.js" />
-    <EmbeddedResource Include="www\three.js" />
+    <EmbeddedResource Include="Resources\PowerSkiving.png" />
   </ItemGroup>
 
   <ItemGroup>

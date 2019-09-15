@@ -18,7 +18,6 @@ C:\Users\formy\source\repos\Gears\Gears\obj\Debug\netstandard2.0\Gears.pdb
 C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.deps.json
 C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.dll
 C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.pdb
-C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.csprojAssemblyReference.cache
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\App.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\AboutPage.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\DesignPage.xaml.g.cs
@@ -32,11 +31,12 @@ C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\NewItemPage.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\NumberEntryPopupView.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\RackParameterPage.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\RiseUpStackLayout.xaml.g.cs
+C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\ThreeDModelingPage.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.csproj.CoreCompileInputs.cache
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.AssemblyInfoInputs.cache
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.AssemblyInfo.cs
-C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.dll
-C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.pdb
-C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\ThreeDModelingPage.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.csproj.Fody.CopyLocal.cache
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.dll
+C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.pdb
+C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.csprojAssemblyReference.cache

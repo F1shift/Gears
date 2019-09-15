@@ -19,7 +19,7 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
     <LayoutDir>C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>0CAFEFFBFB7E2536B2E627CADE7BE61F24286A83B2045B9B2EC0F3B8A7076EB1</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>A58BC3905DB36342B81667606185EE89069FFA50BC57AE0B312994A2C690C31E</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>516bf294-928c-4bbc-9887-025361029732_1.0.0.0_x86__fxh4w7adeh9cm</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>516bf294-928c-4bbc-9887-025361029732_fxh4w7adeh9cm!App</RegisteredUserModeAppID>
     <RegisteredPackageID>516bf294-928c-4bbc-9887-025361029732</RegisteredPackageID>
@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-09-14T14:38:24.076</Modified>
+      <Modified>2019-09-15T14:08:00.545</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.exe">
       <PackagePath>entrypoint\Gears.UWP.exe</PackagePath>
-      <Modified>2019-09-14T14:38:23.459</Modified>
+      <Modified>2019-09-15T14:07:59.376</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\newtonsoft.json\12.0.2\lib\netstandard2.0\Newtonsoft.Json.dll">
       <PackagePath>Newtonsoft.Json.dll</PackagePath>
@@ -104,11 +104,35 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.dll">
       <PackagePath>Gears.dll</PackagePath>
-      <Modified>2019-09-14T14:12:09.653</Modified>
+      <Modified>2019-09-15T14:07:53.874</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Microsoft\Xamarin\NuGet\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
       <Modified>2016-11-29T18:58:38.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index.html">
+      <PackagePath>Assets\www\index.html</PackagePath>
+      <Modified>2019-09-15T12:24:18.041</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index2.js">
+      <PackagePath>Assets\www\index2.js</PackagePath>
+      <Modified>2019-09-15T12:14:53.042</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery-3.3.1.min.js">
+      <PackagePath>Assets\www\jquery-3.3.1.min.js</PackagePath>
+      <Modified>2019-09-15T12:14:53.045</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\OrbitControls.js">
+      <PackagePath>Assets\www\OrbitControls.js</PackagePath>
+      <Modified>2019-09-15T12:14:53.047</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.min.js">
+      <PackagePath>Assets\www\stats.min.js</PackagePath>
+      <Modified>2019-09-15T12:14:53.049</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.js">
+      <PackagePath>Assets\www\three.js</PackagePath>
+      <Modified>2019-09-15T12:14:53.053</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -275,11 +299,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-09-14T14:38:23.218</Modified>
+      <Modified>2019-09-15T14:07:59.103</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-09-14T14:38:23.218</Modified>
+      <Modified>2019-09-15T14:07:59.103</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -291,11 +315,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2019-09-14T14:38:23.719</Modified>
+      <Modified>2019-09-15T14:07:59.846</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\Gears.UWP.exe">
       <PackagePath>Gears.UWP.exe</PackagePath>
-      <Modified>2019-09-14T14:38:24.073</Modified>
+      <Modified>2019-09-15T14:08:00.524</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
