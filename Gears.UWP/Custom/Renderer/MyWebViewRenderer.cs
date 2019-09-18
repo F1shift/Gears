@@ -14,20 +14,37 @@ using Gears.UWP.Custom.Renderer;
 [assembly: ExportRenderer(typeof(MyWebView), typeof(MyWebViewRenderer))]
 namespace Gears.UWP.Custom.Renderer
 {
-    public class MyWebViewRenderer : WebViewRenderer
+    public class MyWebViewRenderer : ViewRenderer<MyWebView, Windows.UI.Xaml.Controls.WebView>
     {
-        public MyWebViewRenderer():base()
-        {
-            
-        }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.WebView> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<MyWebView> e)
         {
             base.OnElementChanged(e);
-            if ((e.OldElement != null) || (this.Element == null))
-                return;
-            SetNativeControl(new Windows.UI.Xaml.Controls.WebView(WebViewExecutionMode.SeparateProcess));
+
+            if (e.OldElement != null)
+            {
+                e.OldElement.PropertyChanged -= UpdateURI;
+            }
+            if (e.NewElement != null)
+            {
+                if (Control == null)
+                {
+                    SetNativeControl(new Windows.UI.Xaml.Controls.WebView(WebViewExecutionMode.SeparateProcess));
+                }
+                e.NewElement.PropertyChanged += UpdateURI;
+            }
         }
 
+        protected void UpdateURI(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (this.Element.Uri == null)
+            {
+            }
+            else
+            {
+                this.Control.Source = new Uri(this.Element.Uri);
+            }
+            
+        }
     }
 }

@@ -85,11 +85,11 @@
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index.html">
       <PackagePath>Assets\www\index.html</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index2.js">
-      <PackagePath>Assets\www\index2.js</PackagePath>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\SceneBuilder.js">
+      <PackagePath>Assets\www\SceneBuilder.js</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery-3.3.1.min.js">
-      <PackagePath>Assets\www\jquery-3.3.1.min.js</PackagePath>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery.js">
+      <PackagePath>Assets\www\jquery.js</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\OrbitControls.js">
       <PackagePath>Assets\www\OrbitControls.js</PackagePath>

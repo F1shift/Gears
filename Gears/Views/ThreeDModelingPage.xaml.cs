@@ -9,6 +9,7 @@ using Urho.Forms;
 using Gears.Resources;
 using System.IO;
 using Gears.Custom.Controls;
+using Gears.Services;
 
 namespace Gears.Views
 {
@@ -16,7 +17,7 @@ namespace Gears.Views
     public partial class ThreeDModelingPage : Xamarin.Forms.ContentPage
     {
         //public UrhoSurface UrhoSurface { get; set; }
-        public WebView myWebView { get; set; }
+        public MyWebView myWebView { get; set; }
         public ThreeDModelingPage()
         {
             InitializeComponent();
@@ -25,13 +26,9 @@ namespace Gears.Views
             AbsoluteLayout.SetLayoutFlags(myWebView, AbsoluteLayoutFlags.All);
             AbsoluteLayout.SetLayoutBounds(myWebView, new Rectangle(0, 0, 1, 1));
             this.RootLayout.Children.Add(myWebView);
-
-            //UrhoSurface = new UrhoSurface();
-            //UrhoSurface.BackgroundColor = Color.Transparent;
-            //AbsoluteLayout.SetLayoutFlags(UrhoSurface, AbsoluteLayoutFlags.All);
-            //AbsoluteLayout.SetLayoutBounds(UrhoSurface, new Rectangle(0, 0, 1, 1));
-            //this.RootLayout.Children.Add(UrhoSurface);
         }
+
+        
 
         protected override void OnAppearing()
         {
@@ -48,7 +45,7 @@ namespace Gears.Views
                     url = "";
                     break;
             }
-            myWebView.Source = url;
+            myWebView.Uri = url;
         }
     }
 }

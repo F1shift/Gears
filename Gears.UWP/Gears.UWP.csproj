@@ -108,8 +108,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\www\index.html" />
-    <Content Include="Assets\www\index2.js" />
-    <Content Include="Assets\www\jquery-3.3.1.min.js" />
+    <Content Include="Assets\www\SceneBuilder.js" />
+    <Content Include="Assets\www\jquery.js" />
     <Content Include="Assets\www\OrbitControls.js" />
     <Content Include="Assets\www\stats.min.js" />
     <Content Include="Assets\www\three.js" />
@@ -173,7 +173,9 @@
       <Name>Gears</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -2,7 +2,7 @@ package md5a6214798b54a77ffaae91ebf993268bc;
 
 
 public class MyWebViewRenderer
-	extends md51558244f76c53b6aeda52c8a337f2c37.WebViewRenderer
+	extends md51558244f76c53b6aeda52c8a337f2c37.ViewRenderer_2
 	implements
 		mono.android.IGCUserPeer
 {

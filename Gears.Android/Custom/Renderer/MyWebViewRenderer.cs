@@ -20,32 +20,46 @@ using Gears.Droid.Custom.Renderer;
 namespace Gears.Droid.Custom.Renderer
 {
     
-    class MyWebViewRenderer : WebViewRenderer
+    class MyWebViewRenderer : ViewRenderer<MyWebView, Android.Webkit.WebView>
     {
-        public MyWebViewRenderer(Context context = null):base(context)
+        Context _context;
+
+        public MyWebViewRenderer(Context context) : base(context)
         {
-            
+            _context = context;
         }
 
-        //protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.WebView> e)
-        //{
-        //    base.OnElementChanged(e);
-        //    var webView = (Android.Webkit.WebView)this.Control;
-        //    //webView.Settings.JavaScriptEnabled = true;
-        //    //webView.Settings.DefaultTextEncodingName = "UTF-8";
-        //    //webView.Settings.SetAppCacheEnabled(true);
-        //    //webView.Settings.SetAppCacheMaxSize(16 * 1024 * 1024);
-        //    webView.SetLayerType(View.w, null);
-        //}
+        protected override void OnElementChanged(ElementChangedEventArgs<MyWebView> e)
+        {
+            base.OnElementChanged(e);
 
-        //protected override void OnElementChanged(ElementChangedEventArgs<WebView> e)
-        //{
-        //    base.OnElementChanged(e);
-        //    if ((e.OldElement != null) || (this.Element == null))
-        //        return;
-        //    var webview = new Android.Webkit.WebView(Context);
-        //    var a = webview.IsHardwareAccelerated;
-        //SetNativeControl(webview);
-        //}
+            if (e.OldElement != null)
+            {
+                e.OldElement.PropertyChanged -= UpdateURI;
+            }
+            if (e.NewElement != null)
+            {
+                if (Control == null)
+                {
+                    var webView = new Android.Webkit.WebView(_context);
+                    webView.Settings.JavaScriptEnabled = true;
+                    webView.Settings.SetRenderPriority(WebSettings.RenderPriority.High);
+                    webView.SetLayerType(LayerType.Hardware, null);
+                    SetNativeControl(webView);
+                }
+                e.NewElement.PropertyChanged += UpdateURI;
+            }
+        }
+
+        protected void UpdateURI(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+            try
+            {
+                this.Control.LoadUrl(this.Element.Uri);
+            }
+            catch(Exception msg)
+            {
+                Console.WriteLine(msg.Message);
+            }
+        }
     }
 }

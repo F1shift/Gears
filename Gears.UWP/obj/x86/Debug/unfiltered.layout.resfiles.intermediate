@@ -27,9 +27,9 @@ Assets\Wide310x150Logo.scale-100.png
 Assets\Wide310x150Logo.scale-200.png
 Assets\Wide310x150Logo.scale-400.png
 Assets\www\index.html
-Assets\www\index2.js
-Assets\www\jquery-3.3.1.min.js
+Assets\www\jquery.js
 Assets\www\OrbitControls.js
+Assets\www\SceneBuilder.js
 Assets\www\stats.min.js
 Assets\www\three.js
 App.xbf

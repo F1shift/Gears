@@ -49,6 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -109,6 +110,7 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gears\Gears.csproj">
@@ -118,11 +120,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\www\index.html" />
-    <AndroidAsset Include="Assets\www\index2.js" />
-    <AndroidAsset Include="Assets\www\jquery-3.3.1.min.js" />
     <AndroidAsset Include="Assets\www\OrbitControls.js" />
     <AndroidAsset Include="Assets\www\stats.min.js" />
     <AndroidAsset Include="Assets\www\three.js" />
+    <AndroidAsset Include="Assets\www\jquery.js" />
+    <AndroidAsset Include="Assets\www\SceneBuilder.js" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
