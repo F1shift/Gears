@@ -22,8 +22,6 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Numerics.V
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Runtime.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Xml.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\System.Xml.Linq.dll
-C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Urho.Droid.SdlBinding.dll
-C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\UrhoSharp.Forms.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Xamarin.Android.Arch.Core.Common.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Xamarin.Android.Arch.Core.Runtime.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Xamarin.Android.Arch.Lifecycle.Common.dll

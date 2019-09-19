@@ -1,16 +1,39 @@
 function SceneInit(targetCanvas) {
-	
+	var platform = navigator.appVersion.includes("Windows")? "PC" : "mobile";
+	var performanceSetting;
+	if(platform == "PC") //On computer
+	{
+		performanceSetting = {
+			antialias : window.devicePixelRatio > 1.5 ? false : true,
+			shadowEnabled : true,
+			shadowMapType : THREE.PCFSoftShadowMap,
+			shadowMapSize : 2048,
+		};
+	}
+	else // On mobile
+	{
+		performanceSetting = {
+			antialias : false,
+			shadowEnabled : true,
+			shadowMapType : THREE.BasicShadowMap,
+			shadowMapSize : 1024,
+		};
+	}
+
+
 	var ScenController = {};
     //#region レンダラーを作成
     var renderer = new THREE.WebGLRenderer({ 
 		canvas: targetCanvas,
-		alpha: true //透明背景を作るため
+		alpha: true, //透明背景を作るため
+		antialias : performanceSetting.antialias,
 		});
 	renderer.setClearColor(0x000000, 0);//透明背景を作るため
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.shadowMap.enabled = navigator.appVersion.includes("Windows")? true : false;
-    renderer.shadowMap.renderReverseSided = false;//面を両面から見えるようにする。
+    //renderer.shadowMap.enabled = navigator.appVersion.includes("Windows")? true : false;
+    renderer.shadowMap.enabled = performanceSetting.shadowEnabled;
+	renderer.shadowMap.type = performanceSetting.shadowMapType;
     //#endregion
 	
     //#region シーンを作成
@@ -25,7 +48,7 @@ function SceneInit(targetCanvas) {
 
     //#region コントロール
     var controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.addEventListener('change', render);
+    //controls.addEventListener('change', render);
     controls.minDistance = 20;
     controls.maxDistance = 2000;
     controls.enablePan = false;
@@ -40,8 +63,13 @@ function SceneInit(targetCanvas) {
 	//#endregion
 
     //#region window.addEventListener
-    window.addEventListener('click', onClick);
-    window.addEventListener('resize', OnResize, false);
+	$(window).on('click', onClick);
+	if(platform == "mobile")
+	{
+		$(window).on('touchstart', onTouchStart);
+		$(window).on('touchend', onTouchEnd);
+	}
+    $(window).on('resize', OnResize);
     //#endregion
 
    //#region 光源
@@ -54,11 +82,13 @@ function SceneInit(targetCanvas) {
     pointLight.castShadow = true; // default false
 
     //Set up shadow properties for the light;
-	var mapSize = 2048;
-    pointLight.shadow.mapSize.width = mapSize; // default 1024
-    pointLight.shadow.mapSize.height = mapSize; // default 1024
+    pointLight.shadow.mapSize.width = performanceSetting.shadowMapSize; // default 1024
+    pointLight.shadow.mapSize.height = performanceSetting.shadowMapSize; // default 1024
     pointLight.shadow.camera.near = 1; // default
-    pointLight.shadow.camera.far = 10000;
+	pointLight.distance = 3000;
+    pointLight.shadow.camera.far = 3000;
+	pointLight.decay = 2;
+	pointLight.power = Math.PI * 4;
     pointLight.shadow.bias = - 0.0005; // reduces self-shadowing on double-sided objects
     scene.add(pointLight);
 
@@ -74,10 +104,14 @@ function SceneInit(targetCanvas) {
     pointLight2.position.set(0, -100, 800);
     pointLight2.castShadow = true; // default false
 
-    pointLight2.shadow.mapSize.width = mapSize; // default 1024
-    pointLight2.shadow.mapSize.height = mapSize; // default 1024
+    pointLight2.shadow.mapSize.width = performanceSetting.shadowMapSize; // default 1024
+    pointLight2.shadow.mapSize.height = performanceSetting.shadowMapSize; // default 1024
     pointLight2.shadow.camera.near = 1; // default
-    pointLight2.shadow.camera.far = 10000;
+	pointLight2.distance = 3000;
+    pointLight2.shadow.camera.far = 3000;
+	pointLight2.penumbra = 0.2;
+	pointLight2.decay = 2;
+	pointLight2.power = Math.PI * 4;
     pointLight2.shadow.bias = - 0.0005; // reduces self-shadowing on double-sided objects
     scene.add(pointLight2);
 
@@ -159,22 +193,6 @@ function SceneInit(targetCanvas) {
 		render();
 
 		requestAnimationFrame(tick);
-	}
-
-	function SocketOnMessage(event) {
-		try {
-			var geometry = parseGeometry(event.data, true);
-			const material = new THREE.MeshStandardMaterial({ color: 0x0000FF });
-			if (mesh != null) {
-				scene.remove(mesh);
-			}
-			mesh = new THREE.Mesh(geometry, material);
-			mesh.castShadow = true;
-			scene.add(mesh);
-		}
-		catch (e) {
-			console.log("recieve massege : " + event.data);
-		}
 	}
 
 	function GetPresetMesh2(vres, hres, r, x, y, z, color) {
@@ -286,6 +304,20 @@ function SceneInit(targetCanvas) {
 		mouse.y = - (y / window.innerHeight) * 2 + 1;
 
 		checkIntersection();
+	}
+
+	var touchStartTime;
+	var touchEndTime;
+	function onTouchStart(){
+		touchStartTime = new Date().getTime();
+	}
+
+	function onTouchEnd(e){
+		touchEndTime = new Date().getTime();
+		var timeSpan = touchEndTime - touchStartTime;
+		if (timeSpan < 200){
+			onClick(e);
+		}
 	}
 
 	function OnResize() {

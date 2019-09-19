@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Urho.Forms;
 using Gears.Resources;
 using System.IO;
 using Gears.Custom.Controls;
