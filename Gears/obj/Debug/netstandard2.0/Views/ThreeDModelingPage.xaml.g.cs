@@ -20,9 +20,13 @@ namespace Gears.Views {
         private global::Xamarin.Forms.AbsoluteLayout RootLayout;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Gears.Custom.Controls.MyWebView myWebView;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(ThreeDModelingPage));
             RootLayout = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.AbsoluteLayout>(this, "RootLayout");
+            myWebView = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Gears.Custom.Controls.MyWebView>(this, "myWebView");
         }
     }
 }

@@ -3,13 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:urho="clr-namespace:Urho.Forms;assembly=UrhoSharp.Forms"
+             xmlns:cs="clr-namespace:Gears.Custom.Controls"
              xmlns:rs="clr-namespace:Gears.Resources"
              mc:Ignorable="d"
              x:Class="Gears.Views.ThreeDModelingPage">
     <ContentPage.Content>
         <AbsoluteLayout x:Name="RootLayout">
-            
+            <cs:MyWebView x:Name="myWebView" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 0.9"/>
+            <Button Text="Update" Clicked="Button_Clicked" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 1, 1, 0.1"/>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

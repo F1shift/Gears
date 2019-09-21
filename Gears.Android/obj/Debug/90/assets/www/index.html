@@ -14,7 +14,9 @@
     <!-- SceneBuilder.jsを読み込む -->
 	<script src="SceneBuilder.js"></script>
     <script>
-		$(()=> window.ScenController = SceneInit($('#myCanvas')[0]));
+		$(()=> {
+			window.SceneController = SceneInit($('#myCanvas')[0]);
+		});
 	</script>
 	<style type="text/css">
 		#myCanvas{ 
@@ -28,6 +30,6 @@
 </head>
 <body>
 <p>hello</p>
-  <canvas id="myCanvas" style=""></canvas>
+  <canvas id="myCanvas"></canvas>
 </body>
 </html>

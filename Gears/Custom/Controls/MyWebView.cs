@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -18,6 +20,56 @@ namespace Gears.Custom.Controls
         {
             get { return (string)GetValue(UriProperty); }
             set { SetValue(UriProperty, value); }
+        }
+
+        public delegate Task<string> EvaluateJavaScriptDelegate(string script);
+
+        public event EvaluateJavaScriptDelegate EvaluateJavaScriptRequested;
+
+        /// <param name="script">評価するスクリプト。</param>
+        /// <summary>//From Xamarin.Forms.WebView  : JavaScript 評価をサポートするプラットフォームで、<paramref name="script" /> を評価します。</summary>
+        /// <returns>評価の結果を文字列として含むタスク。</returns>
+        public async Task<string> EvaluateJavaScriptAsync(string script)
+        {
+            EvaluateJavaScriptDelegate javaScriptRequested = this.EvaluateJavaScriptRequested;
+            if (script == null)
+                return (string)null;
+            if (Device.RuntimePlatform != "Android")
+            {
+                script = EscapeJsString(script);
+                script = "try{JSON.stringify(eval('" + script + "'))}catch(e){'null'};";
+            }
+            string str = await (javaScriptRequested != null ? javaScriptRequested(script) : (Task<string>)null);
+            if (str == "null")
+                str = (string)null;
+            else if (str != null)
+                str = str.Trim('"');
+            return str;
+        }
+
+        //From Xamarin.Forms.WebView 
+        private static string EscapeJsString(string js)
+        {
+            if (js == null)
+                return (string)null;
+            if (!js.Contains("'"))
+                return js;
+            MatchCollection matchCollection = Regex.Matches(js, "(\\\\*?)'");
+            List<string> stringList = new List<string>();
+            for (int index = 0; index < matchCollection.Count; ++index)
+            {
+                string str = matchCollection[index].Value;
+                if (!stringList.Contains(str))
+                    stringList.Add(str);
+            }
+            stringList.Sort((Comparison<string>)((x, y) => y.Length.CompareTo(x.Length)));
+            for (int index = 0; index < stringList.Count; ++index)
+            {
+                string str = stringList[index];
+                string replacement = "'".PadLeft((str.Length - 1) * 2 + 1 + 1, '\\');
+                js = Regex.Replace(js, "(?<=[^\\\\])" + Regex.Escape(str), replacement);
+            }
+            return js;
         }
     }
 }

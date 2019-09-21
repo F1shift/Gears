@@ -32,6 +32,7 @@ namespace Gears.ViewModels
                 new InputItemViewModel(){ Name = "圧力角", Value = 20.0, Min = 15.0, Max = 35.0,  Step = 0.5  },
                 new InputItemViewModel(){ Name = "歯先係数", Value = 1, Min = 0.5, Max = 1.3, Step = 0.01  },
                 new InputItemViewModel(){ Name = "歯元係数", Value = 1.25, Min = 0.6, Max = 1.5,  Step = 0.01 },
+                new InputItemViewModel(){ Name = "歯元円径係数", Value = 0.35, Min = 0.1, Max = 0.4,  Step = 0.01 },
             };
         }
     }

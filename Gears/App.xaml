@@ -37,6 +37,7 @@
             </Style>
             <!--View Model Instances-->
             <vm:GearDesignViewModel x:Key="GearDesignViewModel"/>
+            <vm:ThreeDModelingViewModel x:Key="ThreeDModelingViewModel"/>
         </ResourceDictionary>
     </Application.Resources>
     

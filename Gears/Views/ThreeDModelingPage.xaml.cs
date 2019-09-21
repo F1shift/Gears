@@ -15,16 +15,9 @@ namespace Gears.Views
     [Xamarin.Forms.Xaml.XamlCompilation(Xamarin.Forms.Xaml.XamlCompilationOptions.Compile)]
     public partial class ThreeDModelingPage : Xamarin.Forms.ContentPage
     {
-        //public UrhoSurface UrhoSurface { get; set; }
-        public MyWebView myWebView { get; set; }
         public ThreeDModelingPage()
         {
             InitializeComponent();
-
-            myWebView = new MyWebView();
-            AbsoluteLayout.SetLayoutFlags(myWebView, AbsoluteLayoutFlags.All);
-            AbsoluteLayout.SetLayoutBounds(myWebView, new Rectangle(0, 0, 1, 1));
-            this.RootLayout.Children.Add(myWebView);
         }
 
         
@@ -45,6 +38,11 @@ namespace Gears.Views
                     break;
             }
             myWebView.Uri = url;
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await myWebView.EvaluateJavaScriptAsync("SceneController.PlotRackTrace([-200, 150, 0, 200, 150, 0]);");
         }
     }
 }

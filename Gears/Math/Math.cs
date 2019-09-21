@@ -7,7 +7,7 @@ using static System.Math;
 
 namespace Gears.Math
 {
-    public class Math
+    public static class Math
     {
         #region 單位轉換
         public static double DegToRad(double tdeg)
@@ -101,6 +101,557 @@ namespace Gears.Math
         {
             double rad = DegToRad(DMSToDeg(dd, mm, ss));
             return rad;
+        }
+        #endregion
+
+        #region Matrix & Vector3D
+        public enum Axis
+        {
+            X,
+            Y,
+            Z
+        }
+        public static double[] Normalize(double[] arr, bool changeArr)
+        {
+            double len = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                len += arr[i] * arr[i];
+            }
+            double[] returnValue = changeArr ? arr : new double[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                returnValue[i] = arr[i] / len;
+            }
+            return returnValue;
+        }
+        public static double Norm(double[] input)
+        {
+            double sum = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                sum = sum + System.Math.Pow(input[i], 2);
+            }
+            double len = Sqrt(sum);
+
+            return len;
+        }
+
+        public static double[,] MatrixDot(params double[][,] arrarys)
+        {
+            for (int i = 0; i < arrarys.Length - 1; i++)
+                if (arrarys[i].GetLength(1) != arrarys[i + 1].GetLength(0))
+                    return null;
+
+            Func<double[,], double[,], double[,]> DotFunc = (double[,] ptr1, double[,] ptr2) =>
+            #region
+            {
+                if (ptr1.GetLength(1) != ptr2.GetLength(0))
+                    return null;
+
+                int r1, c1, c2, i, j, k;
+                r1 = ptr1.GetUpperBound(0);  // UBound
+                c1 = ptr1.GetUpperBound(1);  // UBound
+                c2 = ptr2.GetUpperBound(1);  // UBound
+
+                double[,] outptr = new double[r1 + 1, c2 + 1];
+                //r1 = UBound(ptr1,1);
+                //c1 = UBound(ptr1, 2);
+                //c2 = UBound(ptr2, 2);
+                for (i = 0; r1 >= i; i++)
+                {
+                    for (j = 0; c2 >= j; j++)
+                    {
+                        outptr[i, j] = 0.0;
+                    }
+                }
+                for (i = 0; r1 >= i; i++)
+                {
+                    for (j = 0; c2 >= j; j++)
+                    {
+                        for (k = 0; c1 >= k; k++)
+                        {
+                            outptr[i, j] = outptr[i, j] + ptr1[i, k] * ptr2[k, j];
+                        }
+                    }
+                }
+                return outptr;
+            };
+            #endregion
+            double[,] outputArray = arrarys[0];
+            for (int i = 1; i < arrarys.Length; i++)
+            {
+                outputArray = DotFunc(outputArray, arrarys[i]);
+            }
+            return outputArray;
+        }
+        public static double[] MatrixDot(double[,] tMatrix, double[] arr)
+        {
+            double[] tr2 = new double[3];
+
+            for (int i = 0; i < tMatrix.GetLength(0); i++)
+            {
+                for (int k = 0; k < tMatrix.GetLength(1); k++)
+                {
+                    tr2[i] = tr2[i] + tMatrix[i, k] * arr[k];
+                }
+            }
+
+            return tr2;
+        }
+        public static double[,] MatrixAdd(params double[][,] arrarys)
+        {
+            for (int i = 0; i < arrarys.Length - 1; i++)
+                if (arrarys[i].GetLength(0) != arrarys[i + 1].GetLength(0) && arrarys[i].GetLength(1) != arrarys[i + 1].GetLength(1))
+                    return null;
+
+            Func<double[,], double[,], double[,]> AddFunc = (double[,] ptr1, double[,] ptr2) =>
+            #region
+            {
+                int r1, c1;
+                r1 = ptr1.GetUpperBound(0);  // UBound
+                c1 = ptr1.GetUpperBound(1);  // UBound
+                                             // r1 = UBound(ptr1,1);
+                                             // c1 = UBound(ptr1,2);
+                double[,] outptr = new double[r1 + 1, c1 + 1];
+                for (int i = 0; r1 >= i; i++)
+                {
+                    for (int j = 0; c1 >= j; j++)
+                    {
+                        outptr[i, j] = ptr1[i, j] + ptr2[i, j];
+                    }
+                }
+                return outptr;
+            };
+            #endregion
+            double[,] outputArray = arrarys[0];
+            for (int i = 1; i < arrarys.Length; i++)
+            {
+                outputArray = AddFunc(outputArray, arrarys[i]);
+            }
+            return outputArray;
+        }
+        public static double[] Cross(double[] vector1, double[] vector2)
+        {
+            double[] outptr = new double[3];
+            outptr[0] = vector1[1] * vector2[2] - vector1[2] * vector2[1];
+            outptr[1] = vector1[2] * vector2[0] - vector1[0] * vector2[2];
+            outptr[2] = vector1[0] * vector2[1] - vector1[1] * vector2[0];
+            return outptr;
+        }
+        public static double Dot(double[] vector1, double[] vector2)
+        {
+            double value = 0.0;
+
+            for (int i = 0; i <= vector1.GetUpperBound(0); i++)
+            {
+                value = value + vector1[i] * vector2[i];
+            }
+            return value;
+        }
+
+        
+        public static double[] RotateVector3D(double[,] tMatrix, Vector3D vector)
+        {
+            double[] tr2 = new double[3];
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    tr2[i] = tr2[i] + tMatrix[i, k] * vector[k];
+                }
+            }
+
+            return tr2;
+        }
+        public static double[] RotateAnMoveVector3D(double[,] tMatrix, Vector3D vector)
+        {
+            double[] tr2 = new double[3];
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    tr2[i] = tr2[i] + tMatrix[i, k] * vector[k];
+                }
+            }
+            tr2[0] += tMatrix[0, 3];
+            tr2[1] += tMatrix[1, 3];
+            tr2[2] += tMatrix[2, 3];
+            return tr2;
+        }
+        public static double[,] MatrixScale(double[,] tMatrix, double tscale)
+        {
+            double[,] MatrixNew = new double[tMatrix.GetLength(0), tMatrix.GetLength(1)];
+
+            for (int i = 0; i < tMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < tMatrix.GetLength(1); j++)
+                {
+                    MatrixNew[i, j] = tscale * tMatrix[i, j];
+                }
+            }
+            return MatrixNew;
+        }
+        public static double[,] IdentityMatrix(int size)
+        {
+            double[,] tMatrix = new double[size, size];
+
+            for (int i = 0; i < size; i++)
+            {
+                tMatrix[i, i] = 1.0;
+            }
+            return tMatrix;
+        }
+        public static System.Array InitializedMatrix<T>(T value, params int[] dimensions)
+        {
+            //定義Array每個維度的起始索引值(起始值可以不為0)
+            int[] lowerBounds = new int[dimensions.Length];
+            for (int i = 0; i < lowerBounds.Length; i++)
+                lowerBounds[i] = 0;
+            //建立新多維Array
+            System.Array newArray = System.Array.CreateInstance(typeof(T), dimensions, lowerBounds);
+            //擺入元素
+            int totalNum = 1;
+            foreach (var item in dimensions)
+                totalNum *= item;
+            for (int index = 0; index < totalNum; index++)
+            {
+                int[] indices = new int[dimensions.Length];
+                int residue = index;
+                for (int i = 0; i < dimensions.Length; i++)
+                {
+                    int num = 1;
+                    for (int j = i + 1; j < dimensions.Length; j++)
+                        num *= dimensions[j];
+                    indices[i] = residue / num;
+                    residue -= indices[i] * num;
+                }
+                newArray.SetValue(Activator.CreateInstance(value.GetType()), indices);
+                index++;
+            }
+            return newArray;
+        }
+        public static int[] GetDimensions(this System.Array Array)
+        {
+            int[] dimensions = new int[Array.Rank];
+            for (int i = 0; i < Array.Rank; i++)
+                dimensions[i] = Array.GetLength(i);
+            return dimensions;
+        }
+        public static System.Array GetReshaped(this System.Array Matrix, params int[] dimensions)
+        {
+            System.Type elementType = Matrix.GetType().GetElementType();
+            //定義Array每個維度的起始索引值(起始值可以不為0)
+            int[] lowerBounds = new int[dimensions.Length];
+            for (int i = 0; i < lowerBounds.Length; i++)
+                lowerBounds[i] = 0;
+            //建立新多維Array
+            System.Array newArray = System.Array.CreateInstance(elementType, dimensions, lowerBounds);
+            //擺入元素
+            int index = 0;
+            foreach (var item in Matrix)
+            {
+                int[] indices = new int[dimensions.Length];
+                int residue = index;
+                for (int i = 0; i < dimensions.Length; i++)
+                {
+                    int num = 1;
+                    for (int j = i + 1; j < dimensions.Length; j++)
+                        num *= dimensions[j];
+                    indices[i] = residue / num;
+                    residue -= indices[i] * num;
+                }
+                newArray.SetValue(item, indices);
+                index++;
+            }
+            return newArray;
+        }
+        public static System.Array ArrayTake(System.Array Matrix, int[] startIndex, int[] endIndex)
+        {
+            System.Type elementType = Matrix.GetType().GetElementType();
+            //定義Array每個維度的起始索引值(起始值可以不為0)
+            int[] lowerBounds = new int[Matrix.Rank];
+            for (int i = 0; i < lowerBounds.Length; i++)
+                lowerBounds[i] = 0;
+
+            //建立新多維Array
+            int[] dimensions = new int[Matrix.Rank];
+            for (int i = 0; i < Matrix.Rank; i++)
+                dimensions[i] = endIndex[i] - startIndex[i] + 1;
+            System.Array newArray = System.Array.CreateInstance(elementType, dimensions, lowerBounds);
+
+            //Take
+            int totalNum = 1;
+            for (int i = 0; i < dimensions.Length; i++)
+                totalNum *= dimensions[i];
+            int index = 0;
+            for (int n = 0; n < totalNum; n++)
+            {
+                int[] indices = new int[dimensions.Length];
+                int residue = index;
+                for (int i = 0; i < dimensions.Length; i++)
+                {
+                    int num = 1;
+                    for (int j = i + 1; j < dimensions.Length; j++)
+                        num *= dimensions[j];
+                    indices[i] = residue / num;
+                    residue -= indices[i] * num;
+                }
+
+                int[] orgIndices = new int[dimensions.Length];
+                for (int i = 0; i < dimensions.Length; i++)
+                    orgIndices[i] = startIndex[i] + indices[i];
+                newArray.SetValue(Matrix.GetValue(orgIndices), indices);
+                index++;
+            }
+            return newArray;
+        }
+        public static void CopyTo(this System.Array Matrix, System.Array TargetMatrix, int[] startIndex)
+        {
+            if (Matrix != null && TargetMatrix != null)
+            {
+                System.Type elementType = Matrix.GetType().GetElementType();
+                //定義Array每個維度的起始索引值(起始值可以不為0)
+                int[] lowerBounds = new int[Matrix.Rank];
+                for (int i = 0; i < lowerBounds.Length; i++)
+                    lowerBounds[i] = 0;
+
+                //確認數目
+                int[] dimensions = new int[Matrix.Rank];
+                for (int i = 0; i < Matrix.Rank; i++)
+                    dimensions[i] = Matrix.GetLength(i);
+
+                //Take
+                int totalNum = 1;
+                for (int i = 0; i < dimensions.Length; i++)
+                    totalNum *= dimensions[i];
+                int index = 0;
+                for (int n = 0; n < totalNum; n++)
+                {
+                    int[] indices = new int[dimensions.Length];
+                    int residue = index;
+                    for (int i = 0; i < dimensions.Length; i++)
+                    {
+                        int num = 1;
+                        for (int j = i + 1; j < dimensions.Length; j++)
+                            num *= dimensions[j];
+                        indices[i] = residue / num;
+                        residue -= indices[i] * num;
+                    }
+
+                    int[] orgIndices = new int[dimensions.Length];
+                    for (int i = 0; i < dimensions.Length; i++)
+                        orgIndices[i] = startIndex[i] + indices[i];
+                    TargetMatrix.SetValue(Matrix.GetValue(indices), orgIndices);
+                    index++;
+                }
+            }
+        }
+        public static double[,] CreateRotateMatrix(Axis axis, double theta)
+        {
+            double[,] Mr = IdentityMatrix(4);
+            switch (axis)
+            {
+                case Axis.X:
+                    Mr[1, 1] = Cos(theta);
+                    Mr[2, 2] = Cos(theta);
+                    Mr[1, 2] = -Sin(theta);
+                    Mr[2, 1] = Sin(theta);
+                    break;
+                case Axis.Y:
+                    Mr[0, 0] = Cos(theta);
+                    Mr[2, 2] = Cos(theta);
+                    Mr[0, 2] = -Sin(theta);
+                    Mr[2, 0] = Sin(theta);
+                    break;
+                case Axis.Z:
+                    Mr[0, 0] = Cos(theta);
+                    Mr[1, 1] = Cos(theta);
+                    Mr[0, 1] = -Sin(theta);
+                    Mr[1, 0] = Sin(theta);
+                    break;
+            }
+            return Mr;
+        }
+        public static double[,] CreateRotateMatrix(double thetax, double thetay, double thetaz)
+        {
+            double[,] MRx = CreateRotateMatrix(Axis.X, thetax);
+            double[,] MRy = CreateRotateMatrix(Axis.Y, thetay);
+            double[,] MRz = CreateRotateMatrix(Axis.Z, thetaz);
+
+            double[,] Mr = MatrixDot(MRx, MRy, MRz);
+
+            return Mr;
+        }
+        public static double[,] CreateRotateMatrix(Vector3D tRotateAxis, double theta)
+        {
+            double angleZ = Atan2(tRotateAxis.Y, tRotateAxis.X);
+            double angleY = Atan2(tRotateAxis.Z, tRotateAxis.X * tRotateAxis.X + tRotateAxis.Y * tRotateAxis.Y);
+            double[,] A21 = CreateRotateMatrix(Axis.Z, -angleZ);
+            double[,] A32 = CreateRotateMatrix(Axis.Y, angleY);
+            double[,] ARotate = CreateRotateMatrix(Axis.X, theta);
+            double[,] A23 = MatrixTranspose(A32);
+            double[,] A12 = MatrixTranspose(A21);
+
+            return MatrixDot(A12, A23, ARotate, A32, A21);
+        }
+        public static double[,] TranslateMatrix(Vector3D p1)
+        {
+            double[,] tMatrix = new double[4, 4];
+
+            tMatrix = IdentityMatrix(4);
+            tMatrix[0, 3] = p1.X;
+            tMatrix[1, 3] = p1.Y;
+            tMatrix[2, 3] = p1.Z;
+
+            return tMatrix;
+        }
+
+
+        /// <summary>
+        /// 反矩陣
+        /// </summary>
+        /// <param name="dMatrix">矩陣</param>
+        /// <param name="Level">矩陣的維度</param>
+        /// <returns></returns>
+        public static double[,] MatrixInverse(double[,] dMatrix)
+        {
+            int Level = dMatrix.GetLength(0);
+            double dMatrixValue = MatrixDeterminant(dMatrix);
+            // 判斷行列式是否為0 ( < allowError )
+            double allowError = 0.000000000001;
+            if (dMatrixValue > -allowError && dMatrixValue < allowError)
+                return null;
+
+            double[,] dReverseMatrix = new double[Level, 2 * Level];
+            double x, c;
+            // Init Reverse matrix
+            for (int i = 0; i < Level; i++)
+            {
+                for (int j = 0; j < 2 * Level; j++)
+                {
+                    if (j < Level)
+                        dReverseMatrix[i, j] = dMatrix[i, j];
+                    else
+                        dReverseMatrix[i, j] = 0;
+                }
+
+                dReverseMatrix[i, Level + i] = 1;
+            }
+
+            for (int i = 0, j = 0; i < Level && j < Level; i++, j++)
+            {
+                if (dReverseMatrix[i, j] == 0)
+                {
+                    int m = i + 1;
+                    for (; m <= Level - 1 && dReverseMatrix[m, j] == 0; m++) ;/////////////////////////////////////////錯誤修正20150205
+                    if (m == Level)
+                        throw new ArithmeticException();
+                    else
+                        // Add i-row with m-row
+                        for (int n = j; n < 2 * Level; n++)
+                            dReverseMatrix[i, n] += dReverseMatrix[m, n];
+                }
+
+                // Format the i-row with "1" start
+                x = dReverseMatrix[i, j];
+                if (x != 1)
+                {
+                    for (int n = j; n < 2 * Level; n++)
+                        if (dReverseMatrix[i, n] != 0)
+                            dReverseMatrix[i, n] /= x;
+                }
+
+                // Set 0 to the current column in the rows after current row
+                for (int s = Level - 1; s > i; s--)
+                {
+                    x = dReverseMatrix[s, j];
+                    for (int t = j; t < 2 * Level; t++)
+                        dReverseMatrix[s, t] -= (dReverseMatrix[i, t] * x);
+                }
+            }
+
+            // Format the first matrix into unit-matrix
+            for (int i = Level - 2; i >= 0; i--)
+            {
+                for (int j = i + 1; j < Level; j++)
+                    if (dReverseMatrix[i, j] != 0)
+                    {
+                        c = dReverseMatrix[i, j];
+                        for (int n = j; n < 2 * Level; n++)
+                            dReverseMatrix[i, n] -= (c * dReverseMatrix[j, n]);
+                    }
+            }
+
+            double[,] dReturn = new double[Level, Level];
+            for (int i = 0; i < Level; i++)
+                for (int j = 0; j < Level; j++)
+                    dReturn[i, j] = dReverseMatrix[i, j + Level];
+            return dReturn;
+        }
+        public static double MatrixDeterminant(double[,] MatrixList)
+        {
+            int Level = MatrixList.GetLength(0);
+            double[,] dMatrix = new double[Level, Level];
+            for (int i = 0; i < Level; i++)
+                for (int j = 0; j < Level; j++)
+                    dMatrix[i, j] = MatrixList[i, j];
+            double c, x;
+            int k = 1;
+            for (int i = 0, j = 0; i < Level && j < Level; i++, j++)
+            {
+                if (dMatrix[i, j] == 0)
+                {
+                    int m = i;
+                    for (; m < Level && dMatrix[m, j] == 0; m++) ;//////////////////////////////錯誤修正20150122
+                    if (m == Level)
+                        return 0;
+                    else
+                    {
+                        // Row change between i-row and m-row
+                        for (int n = j; n < Level; n++)
+                        {
+                            c = dMatrix[i, n];
+                            dMatrix[i, n] = dMatrix[m, n];
+                            dMatrix[m, n] = c;
+                        }
+
+                        // Change value pre-value
+                        k *= (-1);
+                    }
+                }
+
+                // Set 0 to the current column in the rows after current row
+                for (int s = Level - 1; s > i; s--)
+                {
+                    x = dMatrix[s, j];
+                    for (int t = j; t < Level; t++)
+                        dMatrix[s, t] -= dMatrix[i, t] * (x / dMatrix[i, j]);
+                }
+            }
+
+            double sn = 1;
+            for (int i = 0; i < Level; i++)
+            {
+                if (dMatrix[i, i] != 0)
+                    sn *= dMatrix[i, i];
+                else
+                    return 0;
+            }
+            return k * sn;
+        }
+        public static T[,] MatrixTranspose<T>(T[,] Matrix)
+        {
+            int r1, c1;
+            r1 = Matrix.GetUpperBound(0) + 1;  //UBound
+            c1 = Matrix.GetUpperBound(1) + 1;  // UBound
+            T[,] Trans = new T[c1, r1];
+            for (int ii = 0; ii < r1; ii++)
+                for (int jj = 0; jj < c1; jj++)
+                    Trans[jj, ii] = Matrix[ii, jj];
+            return Trans;
         }
         #endregion
 

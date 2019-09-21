@@ -21,6 +21,7 @@ namespace Gears.Models
         public double β { get; set; }
         public int[] z { get; set; } = new int[2];
         public double[] xn { get; set; } = new double[2];
+        public double mt { get; set; }//端面モジュール
         public double αt { get; set; }
         public double αwt { get; set; }
         public double y { get; set; }
@@ -29,8 +30,16 @@ namespace Gears.Models
         public double[] db { get; set; } = new double[2];
         public double[] dw { get; set; } = new double[2];
         public double[] ha { get; set; } = new double[2];
-        public double[] hf { get; set; } = new double[2];
+        public double[] hf { get; set; } = new double[2];//歯元高さ
         public double[] h { get; set; } = new double[2];
+        /// <summary>
+        /// 歯元円径(カッターの歯先円径)
+        /// </summary>
+        public double[] ρ { get; set; } = new double[2];
+        /// <summary>
+        /// 歯元円径係数(カッターの歯先円径係数)
+        /// </summary>
+        public double[] ρ_c { get; set; } = new double[2];
         public double[] da { get; set; } = new double[2];
         public double[] df { get; set; } = new double[2];
         public double[] b { get; set; } = new double[2];
@@ -52,6 +61,7 @@ namespace Gears.Models
 
         public void SolveFromXn() {
             歯車1が左ねじである = β < 0;
+            mt = mn / Cos(β);
             αt = Atan(Tan(αn) / Cos(β));
             double invαwt = 2 * Tan(αn) * (xn.Sum() / z.Sum()) + Inv(αt);
             αwt = NonlinearFindRoot.FindRoot((α) => Inv(α) - invαwt, αt).Item1;
@@ -62,6 +72,7 @@ namespace Gears.Models
                 d[i] = z[i] * mn / Cos(β);
                 db[i] = d[i] * Cos(αt);
                 dw[i] = db[i] / Cos(αwt);
+                ρ[i] = ρ_c[i] * mn;
             }
             ha[0] = (ha_c + y - xn[1]) * mn;
             ha[1] = (ha_c + y - xn[0]) * mn;

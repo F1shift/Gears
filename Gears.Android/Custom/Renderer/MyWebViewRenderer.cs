@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -35,6 +36,7 @@ namespace Gears.Droid.Custom.Renderer
 
             if (e.OldElement != null)
             {
+                e.NewElement.EvaluateJavaScriptRequested -= JavascriptRequestedHandler;
                 e.OldElement.PropertyChanged -= UpdateURI;
             }
             if (e.NewElement != null)
@@ -47,18 +49,53 @@ namespace Gears.Droid.Custom.Renderer
                     webView.SetLayerType(LayerType.Hardware, null);
                     SetNativeControl(webView);
                 }
+                e.NewElement.EvaluateJavaScriptRequested += JavascriptRequestedHandler;
                 e.NewElement.PropertyChanged += UpdateURI;
+                this.Control.LoadUrl(this.Element.Uri);
             }
         }
 
+        private async Task<string> JavascriptRequestedHandler(string script)
+        {
+            JavascriptResult javascriptResult = new JavascriptResult();
+            this.Control.EvaluateJavascript(script, javascriptResult);
+            return await javascriptResult.JsResult.ConfigureAwait(false);
+        }
+
         protected void UpdateURI(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
-            try
+            if (e.PropertyName == nameof(this.Element.Uri))
             {
-                this.Control.LoadUrl(this.Element.Uri);
+                try
+                {
+                    this.Control.LoadUrl(this.Element.Uri);
+                }
+                catch (Exception msg)
+                {
+                    Console.WriteLine(msg.Message);
+                }
             }
-            catch(Exception msg)
+        }
+
+        private class JavascriptResult : Java.Lang.Object, IValueCallback, IJavaObject, IDisposable
+        {
+            private TaskCompletionSource<string> source;
+
+            public Task<string> JsResult
             {
-                Console.WriteLine(msg.Message);
+                get
+                {
+                    return this.source.Task;
+                }
+            }
+
+            public JavascriptResult()
+            {
+                this.source = new TaskCompletionSource<string>();
+            }
+
+            public void OnReceiveValue(Java.Lang.Object result)
+            {
+                this.source.SetResult(((Java.Lang.String)result).ToString());
             }
         }
     }
