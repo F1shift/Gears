@@ -31,14 +31,15 @@ namespace Gears.ViewModels
             Model.mn = RackParameterViewModel.Module.Value;
             Model.αn = DegToRad(GetValueFromList(RackParameterViewModel.InputItems, "圧力角"));
             Model.ha_c = GetValueFromList(RackParameterViewModel.InputItems, "歯先係数");
-            Model.hf_c = GetValueFromList(RackParameterViewModel.InputItems, "歯先係数"); 
+            Model.hf_c = GetValueFromList(RackParameterViewModel.InputItems, "歯先係数");
+            Model.ρ_c[0] = Model.ρ_c[1] = GetValueFromList(RackParameterViewModel.InputItems, "歯元円径係数");
+
             Model.z[0] = Convert.ToInt32(GetValueFromList(GearParameterViewModel.InputItems, "歯数１"));
             Model.z[1] = Convert.ToInt32(GetValueFromList(GearParameterViewModel.InputItems, "歯数２"));
             Model.β = DegToRad(GetValueFromList(GearParameterViewModel.InputItems, "ねじれ角")); 
             Model.a = GetValueFromList(GearParameterViewModel.InputItems, "中心距離");
             Model.xn[0] = GetValueFromList(GearParameterViewModel.InputItems, "歯車1転位係数"); 
             Model.b_c[0] = Model.b_c[1] = GetValueFromList(GearParameterViewModel.InputItems, "歯幅率"); 
-            Model.ρ_c[0] = Model.ρ_c[1] = GetValueFromList(GearParameterViewModel.InputItems, "歯元円径係数"); 
 
             Model.SolveFromCenterDistance();
             Result = Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented);

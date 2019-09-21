@@ -36,7 +36,7 @@ namespace Gears.Droid.Custom.Renderer
 
             if (e.OldElement != null)
             {
-                e.NewElement.EvaluateJavaScriptRequested -= JavascriptRequestedHandler;
+                e.OldElement.EvaluateJavaScriptRequested -= JavascriptRequestedHandler;
                 e.OldElement.PropertyChanged -= UpdateURI;
             }
             if (e.NewElement != null)
@@ -51,6 +51,7 @@ namespace Gears.Droid.Custom.Renderer
                 }
                 e.NewElement.EvaluateJavaScriptRequested += JavascriptRequestedHandler;
                 e.NewElement.PropertyChanged += UpdateURI;
+                if(this.Element.Uri != null)
                 this.Control.LoadUrl(this.Element.Uri);
             }
         }

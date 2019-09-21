@@ -653,6 +653,33 @@ namespace Gears.Math
                     Trans[jj, ii] = Matrix[ii, jj];
             return Trans;
         }
+        /// <summary>
+        /// 指定されたListを作る。
+        /// </summary>
+        /// <typeparam name="inputType">ElementCreaterファンクションの入力タイプ</typeparam>
+        /// <typeparam name="outputType">ElementCreaterファンクションの出力タイプ</typeparam>
+        /// <param name="length">Listの長さ</param>
+        /// <param name="ElementCreater">Listのエレメントの作成関数</param>
+        /// <param name="inputMapping">エレメントインデクス対作成関数入力値のマッピング関数</param>
+        /// <returns></returns>
+        public static List<ElementType> CreateList<ElementType>(int length, Func<int, ElementType> ElementCreater)
+        {
+            List<ElementType> outputList = new List<ElementType>();
+            for (int i = 0; i < length; i++)
+            {
+                outputList.Add(ElementCreater(i));
+            }
+            return outputList;
+        }
+        public static List<type> MergeToSingleList<listType, type>(IEnumerable<listType> lists) where listType: IEnumerable<type>
+        {
+            var newList = new List<type>();
+            foreach (var list in lists)
+            {
+                newList.AddRange(list);
+            }
+            return newList;
+        }
         #endregion
 
         public static double Inv(double alpha)

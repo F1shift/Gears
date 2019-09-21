@@ -140,7 +140,7 @@ function SceneInit(targetCanvas) {
 	mesh.receiveShadow = true;
 	mesh2.castShadow = true;
 	mesh2.receiveShadow = true;
-	scene.add(mesh);
+	//scene.add(mesh);
 	scene.add(mesh2);
 	//#endregion
 
@@ -190,7 +190,7 @@ function SceneInit(targetCanvas) {
 		geometry.addAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
 
 		var mesh;
-		const material = new THREE.MeshStandardMaterial({ color: color, roughness: 0 });
+		var material = new THREE.MeshStandardMaterial({ color: color, roughness: 0 });
 		mesh = new THREE.Mesh(geometry, material);
 
 		return mesh;
@@ -306,12 +306,29 @@ function SceneInit(targetCanvas) {
 	
 	//#region
 	var SceneController = {
-		PlotRackTrace:function(vertices){
+		PlotRackTrace:function(vertices, indices, color){
 			var geometry = new THREE.BufferGeometry();
 			geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-
-			var material = new THREE.LineBasicMaterial({ color:0xFF0000 });
-			var linemesh = new THREE.Line(geometry, material);
+			if(indices != null)
+				geometry.setIndex(indices);
+			
+			var material;
+			if(color != null)
+			{
+				if(Array.isArray(color))
+				{
+					geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
+					material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors });
+				}
+				else
+				{
+					material = new THREE.LineBasicMaterial({ color:color });
+				}
+			}
+			else{
+				material = new THREE.LineBasicMaterial({ color:0xFF0000 });
+			}
+			var linemesh = new THREE.LineSegments(geometry, material);
 			scene.add(linemesh);
 		}
 	};

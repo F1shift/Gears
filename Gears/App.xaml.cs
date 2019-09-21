@@ -16,9 +16,6 @@ namespace Gears
         {
             InitializeComponent();
 
-            //Check ww folder exist
-            Gears.Resources.FileResourceExtention.CopyToLocal();
-
             DependencyService.Register<MockDataStore>();
             MainPage = new MainPage();
         }

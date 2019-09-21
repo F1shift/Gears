@@ -29,7 +29,7 @@ namespace Gears.UWP.Custom.Renderer
             base.OnElementChanged(e);
             if (e.OldElement != null)
             {
-                e.NewElement.EvaluateJavaScriptRequested -= OnEvaluateJavaScriptRequested;
+                e.OldElement.EvaluateJavaScriptRequested -= OnEvaluateJavaScriptRequested;
                 e.OldElement.PropertyChanged -= UpdateURI;
             }
             if (e.NewElement != null)
@@ -40,6 +40,8 @@ namespace Gears.UWP.Custom.Renderer
                 }
                 e.NewElement.EvaluateJavaScriptRequested += OnEvaluateJavaScriptRequested;
                 e.NewElement.PropertyChanged += UpdateURI;
+                if (Element.Uri != null)
+                    Control.Source = new Uri(Element.Uri);
             }
         }
 

@@ -18,9 +18,10 @@ namespace Gears.Views
         public ThreeDModelingPage()
         {
             InitializeComponent();
+            var vm = (Gears.ViewModels.ThreeDModelingViewModel)Application.Current.Resources[nameof(Gears.ViewModels.ThreeDModelingViewModel)];
+            vm.EvalAsync = myWebView.EvaluateJavaScriptAsync;
+            this.BindingContext = vm;
         }
-
-        
 
         protected override void OnAppearing()
         {
@@ -38,11 +39,6 @@ namespace Gears.Views
                     break;
             }
             myWebView.Uri = url;
-        }
-
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            await myWebView.EvaluateJavaScriptAsync("SceneController.PlotRackTrace([-200, 150, 0, 200, 150, 0]);");
         }
     }
 }
