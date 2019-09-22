@@ -31,7 +31,7 @@ namespace Gears.ViewModels
             Model.mn = RackParameterViewModel.Module.Value;
             Model.αn = DegToRad(GetValueFromList(RackParameterViewModel.InputItems, "圧力角"));
             Model.ha_c = GetValueFromList(RackParameterViewModel.InputItems, "歯先係数");
-            Model.hf_c = GetValueFromList(RackParameterViewModel.InputItems, "歯先係数");
+            Model.hf_c = GetValueFromList(RackParameterViewModel.InputItems, "歯元係数");
             Model.ρ_c[0] = Model.ρ_c[1] = GetValueFromList(RackParameterViewModel.InputItems, "歯元円径係数");
 
             Model.z[0] = Convert.ToInt32(GetValueFromList(GearParameterViewModel.InputItems, "歯数１"));

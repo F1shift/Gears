@@ -111,19 +111,34 @@ namespace Gears.Math
             Y,
             Z
         }
-        public static double[] Normalize(double[] arr, bool changeArr)
+        public static double[] GetNormalized(double[] arr)
         {
             double len = 0;
             for (int i = 0; i < arr.Length; i++)
             {
                 len += arr[i] * arr[i];
             }
-            double[] returnValue = changeArr ? arr : new double[arr.Length];
+            len = Sqrt(len);
+            double[] returnValue = new double[arr.Length];
             for (int i = 0; i < arr.Length; i++)
             {
                 returnValue[i] = arr[i] / len;
             }
             return returnValue;
+        }
+        public static double[] Normalize(double[] arr)
+        {
+            double len = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                len += arr[i] * arr[i];
+            }
+            len = Sqrt(len);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = arr[i] / len;
+            }
+            return arr;
         }
         public static double Norm(double[] input)
         {
@@ -135,6 +150,18 @@ namespace Gears.Math
             double len = Sqrt(sum);
 
             return len;
+        }
+        public static Vector3D GetNormalized(this Vector3D v)
+        {
+            return GetNormalized(v.buffer);
+        }
+        public static Vector3D Normalize(this Vector3D v)
+        {
+            return Normalize(v.buffer);
+        }
+        public static double GetNorm(this Vector3D v)
+        {
+            return Norm(v.buffer);
         }
 
         public static double[,] MatrixDot(params double[][,] arrarys)
@@ -251,7 +278,7 @@ namespace Gears.Math
         }
 
         
-        public static double[] RotateVector3D(double[,] tMatrix, Vector3D vector)
+        public static double[] RotateVector(double[,] tMatrix, Vector3D vector)
         {
             double[] tr2 = new double[3];
 
@@ -265,7 +292,7 @@ namespace Gears.Math
 
             return tr2;
         }
-        public static double[] RotateAnMoveVector3D(double[,] tMatrix, Vector3D vector)
+        public static double[] RotateAnMoveVector(double[,] tMatrix, Vector3D vector)
         {
             double[] tr2 = new double[3];
 
@@ -497,7 +524,7 @@ namespace Gears.Math
 
             return MatrixDot(A12, A23, ARotate, A32, A21);
         }
-        public static double[,] TranslateMatrix(Vector3D p1)
+        public static double[,] CreateTranslateMatrix(Vector3D p1)
         {
             double[,] tMatrix = new double[4, 4];
 
@@ -671,6 +698,33 @@ namespace Gears.Math
             }
             return outputList;
         }
+        public static List<ElementType> CreateList<ElementType>(int length1, int length2, Func<int, int, ElementType> ElementCreater)
+        {
+            List<ElementType> outputList = new List<ElementType>();
+            for (int i = 0; i < length1; i++)
+            {
+                for (int j = 0; j < length2; j++)
+                {
+                    outputList.Add(ElementCreater(i, j));
+                }
+            }
+            return outputList;
+        }
+        public static List<ElementType> CreateList<ElementType>(int length1, int length2, int length3, Func<int, int, int, ElementType> ElementCreater)
+        {
+            List<ElementType> outputList = new List<ElementType>();
+            for (int i = 0; i < length1; i++)
+            {
+                for (int j = 0; j < length2; j++)
+                {
+                    for (int k = 0; k < length3; k++)
+                    {
+                        outputList.Add(ElementCreater(i, j, k));
+                    }
+                }
+            }
+            return outputList;
+        }
         public static List<type> MergeToSingleList<listType, type>(IEnumerable<listType> lists) where listType: IEnumerable<type>
         {
             var newList = new List<type>();
@@ -720,8 +774,10 @@ namespace Gears.Math
                 EquationSet aEquationSet = (double[] xx, double[] yy) => 
                     {
                         double[] current = Equation(xx);
-                        yy[0] = current[0];
-                        yy[1] = current[1];
+                        for (int i = 0; i < current.Length; i++)
+                        {
+                            yy[i] = current[i];
+                        }
                     };
                 Boolean[] Result = FindRoot(x, aEquationSet);
                 return new Tuple<double[],bool[]> (x, Result);
