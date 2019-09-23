@@ -44,8 +44,6 @@ function SceneInit(targetCanvas) {
 	camera.position.set(0, 0, 1000);
 	//#endregion
 
-	
-
 	//#region 光源
 	var ambientLight = new THREE.AmbientLight(0xffffff);
 	ambientLight.intensity = 0.5;
@@ -114,13 +112,28 @@ function SceneInit(targetCanvas) {
 	plane2.receiveShadow = true;
 	scene.add(plane2);
 
-	var helper = new THREE.GridHelper(2000, 100);
-	helper.position.y = - 199;
-	helper.material.opacity = 0.25;
-	helper.material.transparent = true;
-	helper.castShadow = false;
-	helper.receiveShadow = false;
-	scene.add(helper);
+	// var helper = new THREE.GridHelper(2000, 100);
+	// helper.position.y = - 199;
+	// helper.material.opacity = 0.25;
+	// helper.material.transparent = true;
+	// helper.castShadow = false;
+	// helper.receiveShadow = false;
+	//scene.add(helper);
+
+	var helperXY = new THREE.GridHelper(2000, 100);
+	helperXY.rotation.x = Math.PI / 2;
+	helperXY.material.opacity = 0.25;
+	helperXY.material.transparent = true;
+	helperXY.castShadow = false;
+	helperXY.receiveShadow = false;
+	scene.add(helperXY);
+
+	var helperXZ = new THREE.GridHelper(2000, 100);
+	helperXZ.material.opacity = 0.25;
+	helperXZ.material.transparent = true;
+	helperXZ.castShadow = false;
+	helperXZ.receiveShadow = false;
+	scene.add(helperXZ);
 	//#endregion
 
 	//#region show FPS
@@ -204,12 +217,7 @@ function SceneInit(targetCanvas) {
 	var mouseOverMaterial = new THREE.MeshPhongMaterial({ color: 0x000000, specular: 0x666666, emissive: 0x00ff00, shininess: 10, opacity: 0.9, transparent: true });
 	var selectedObjects = [];
 	var selectedObjAndMaterials = [];
-	//#endregion
-	var controls = new THREE.OrbitControls(camera, renderer.domElement);
-	controls.minDistance = 20;
-	controls.maxDistance = 2000;
-	controls.enablePan = false;
-
+	
 	function addSelectedObject(object) {
 		selectedObjAndMaterials.push([object, object.material]);
 		object.material = mouseOverMaterial;
@@ -303,33 +311,77 @@ function SceneInit(targetCanvas) {
 	$(window).on('touchstart mousedown', onTouchStart);
 	$(window).on('touchend mouseup', onTouchEnd);
 	//#endregion
+	// var controls = new THREE.OrbitControls(camera, renderer.domElement);
+	// controls.minDistance = 20;
+	// controls.maxDistance = 2000;
+	// controls.enablePan = false;
+	var controls = new THREE.TrackballControls(camera, renderer.domElement);
+	controls.rotateSpeed = 3.0;
+	controls.zoomSpeed = 1.2;
+	controls.panSpeed = 0.8;
+	controls.noZoom = false;
+	controls.noPan = false;
+	controls.staticMoving = true;
+	controls.dynamicDampingFactor = 0.3;
+	controls.keys = [ 65, 83, 68 ];
+	//#endregion
 	
 	//#region
 	var SceneController = {
-		PlotRackTrace:function(vertices, indices, color){
+		AddBufferGeometryMesh:function(vertices, indices, color, type, normal = null){
 			var geometry = new THREE.BufferGeometry();
 			geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 			if(indices != null)
 				geometry.setIndex(indices);
+			if(normal == null)
+				geometry.computeVertexNormals();
 			
+			
+
 			var material;
-			if(color != null)
-			{
-				if(Array.isArray(color))
-				{
-					geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
-					material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors });
-				}
-				else
-				{
-					material = new THREE.LineBasicMaterial({ color:color });
-				}
+			switch(type){
+				case "line":
+					if(color != null)
+					{
+						if(Array.isArray(color))
+						{
+							geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
+							material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors });
+						}
+						else
+						{
+							material = new THREE.LineBasicMaterial({ color:color });
+						}
+					}
+					else{
+						material = new THREE.LineBasicMaterial({ color:0xFF0000 });
+					}
+					var linemesh = new THREE.LineSegments(geometry, material);
+					scene.add(linemesh);
+					break;
+				case "mesh":
+					if(color != null)
+					{
+						if(Array.isArray(color))
+						{
+							geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
+							material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
+						}
+						else
+						{
+							material = new THREE.MeshStandardMaterial({ color:color });
+						}
+					}
+					else{
+						material = new THREE.MeshStandardMaterial({ color:0xFF0000 });
+					}
+					var mesh = new THREE.Mesh(geometry, material);
+					scene.add(mesh);
+					break;
+				default:
+					break;
 			}
-			else{
-				material = new THREE.LineBasicMaterial({ color:0xFF0000 });
-			}
-			var linemesh = new THREE.LineSegments(geometry, material);
-			scene.add(linemesh);
+			
 		}
 	};
 
@@ -343,7 +395,7 @@ function SceneInit(targetCanvas) {
 	}
 
 	function tick() {
-		//箱を回転させる
+		//回転させる
 		if (mesh != null) {
 			mesh.rotation.x += 0.01;
 			mesh.rotation.y += 0.01;
@@ -352,6 +404,7 @@ function SceneInit(targetCanvas) {
 
 		// レンダリング
 		render();
+		controls.update();
 
 		requestAnimationFrame(tick);
 	}
@@ -363,9 +416,12 @@ function SceneInit(targetCanvas) {
 
 		renderer.setSize(width, height);
 
+		controls.handleResize();
+
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
 	}
+	controls.addEventListener( 'change', render );
 	$(window).on('resize', OnResize);
 	requestAnimationFrame(tick);
 	//#endregion

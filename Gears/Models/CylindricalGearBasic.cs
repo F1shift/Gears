@@ -19,6 +19,7 @@ namespace Gears.Models
         public double αn { get; set; }
         public bool 歯車1が左ねじである { get; set; }
         public double β { get; set; }
+        public double[] L { get; set; } = new double[2];//リード
         public int[] z { get; set; } = new int[2];
         public double[] xn { get; set; } = new double[2];
         public double mt { get; set; }//端面モジュール
@@ -74,6 +75,17 @@ namespace Gears.Models
                 dw[i] = db[i] / Cos(αwt);
                 ρ[i] = ρ_c[i] * mn;
             }
+            L[0] = d[0] * PI / Tan(β);
+            L[1] = d[1] * PI / Tan(β);
+            if (歯車1が左ねじである)
+            {
+                L[0] *= -1;
+            }
+            else
+            {
+                L[1] *= -1;
+            }
+
             ha[0] = (ha_c + y - xn[1]) * mn;
             ha[1] = (ha_c + y - xn[0]) * mn;
             h[0] = h[1] = ((ha_c + hf_c) + y - xn.Sum()) * mn;

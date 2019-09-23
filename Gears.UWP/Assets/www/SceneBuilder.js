@@ -328,30 +328,60 @@ function SceneInit(targetCanvas) {
 	
 	//#region
 	var SceneController = {
-		PlotRackTrace:function(vertices, indices, color){
+		AddBufferGeometryMesh:function(vertices, indices, color, type, normal = null){
 			var geometry = new THREE.BufferGeometry();
 			geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 			if(indices != null)
 				geometry.setIndex(indices);
+			if(normal == null)
+				geometry.computeVertexNormals();
 			
+			
+
 			var material;
-			if(color != null)
-			{
-				if(Array.isArray(color))
-				{
-					geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
-					material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors });
-				}
-				else
-				{
-					material = new THREE.LineBasicMaterial({ color:color });
-				}
+			switch(type){
+				case "line":
+					if(color != null)
+					{
+						if(Array.isArray(color))
+						{
+							geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
+							material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors });
+						}
+						else
+						{
+							material = new THREE.LineBasicMaterial({ color:color });
+						}
+					}
+					else{
+						material = new THREE.LineBasicMaterial({ color:0xFF0000 });
+					}
+					var linemesh = new THREE.LineSegments(geometry, material);
+					scene.add(linemesh);
+					break;
+				case "mesh":
+					if(color != null)
+					{
+						if(Array.isArray(color))
+						{
+							geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
+							material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
+						}
+						else
+						{
+							material = new THREE.MeshStandardMaterial({ color:color });
+						}
+					}
+					else{
+						material = new THREE.MeshStandardMaterial({ color:0xFF0000 });
+					}
+					var mesh = new THREE.Mesh(geometry, material);
+					scene.add(mesh);
+					break;
+				default:
+					break;
 			}
-			else{
-				material = new THREE.LineBasicMaterial({ color:0xFF0000 });
-			}
-			var linemesh = new THREE.LineSegments(geometry, material);
-			scene.add(linemesh);
+			
 		}
 	};
 

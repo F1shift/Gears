@@ -117,11 +117,11 @@ namespace Gears.ViewModels
                     Root_index });
                 var TotalPositionBufferString = Newtonsoft.Json.JsonConvert.SerializeObject(TotalPositionBuffer);
                 var TotalIndexBufferString = Newtonsoft.Json.JsonConvert.SerializeObject(TotalIndexBuffer);
-                await EvalAsync($"SceneController.PlotRackTrace({TotalPositionBufferString}, {TotalIndexBufferString}, {TotalPositionBufferString})");
+                await EvalAsync($"SceneController.AddBufferGeometryMesh({TotalPositionBufferString}, {TotalIndexBufferString}, {TotalPositionBufferString}, 'line')");
             }
         }
 
-        public async void AddRackTrace(double v, int i)
+        public void AddRackTrace(double v, int i)
         {
             int su = 10;
             Action<
@@ -145,10 +145,10 @@ namespace Gears.ViewModels
                     var speedLineIndex = MergeToSingleList<int[], int>(CreateList(segment,
                         (ii) => new int[] { ii, segment * 2 + ii }));
                     var index = MergeToSingleList<List<int>, int>(new[] { curveLineIndex, normalLineIndex, speedLineIndex });
-                    await EvalAsync($"SceneController.PlotRackTrace(" +
+                    await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
                     $"{Newtonsoft.Json.JsonConvert.SerializeObject(buffer)}," +
                     $" {Newtonsoft.Json.JsonConvert.SerializeObject(index)}, " +
-                    $" {color})");
+                    $" {color}, 'line')");
                 };
             plotCurveAndNormal(
                 RackTraces[i].Flank_Left,
@@ -190,130 +190,140 @@ namespace Gears.ViewModels
         public async void AddGear() {
             for (int i = 0; i < 2; i++)
             {
-                #region Test
-                int sg = 100;
+                int sg = 10;
                 var gearProifile = GearProfiles[i];
-                var flankPoint = MergeToSingleList<double[], double>(CreateList(sg, (iu) => gearProifile.Flank_Left((double)iu / (sg - 1)).buffer));
-                var flankIndex = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
-                await EvalAsync($"SceneController.PlotRackTrace(" +
-                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankPoint)}," +
-                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankIndex)}, " +
-                    $" 0xFF0000)");
-                var filletPoint = MergeToSingleList<double[], double>(CreateList(sg, (iu) => gearProifile.Fillet_Left((double)iu / (sg - 1)).buffer));
-                var filletIndex = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
-                await EvalAsync($"SceneController.PlotRackTrace(" +
-                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(filletPoint)}," +
-                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(filletIndex)}, " +
-                    $" 0x0000FF)");
+
+                #region 断面プロファイル作成
+                var FlankAndFilletIntersectPointPara = NonlinearFindRoot.FindRoot((double[] paras) =>
+                {
+                    double u1 = paras[0];
+                    double u2 = paras[1];
+                    var p1 = gearProifile.Flank_Left(u1);
+                    var p2 = gearProifile.Fillet_Left(u2);
+                    var re1 = p1.X - p2.X;
+                    var re2 = p1.Y - p2.Y;
+                    return new double[] { re1, re2 };
+                }, new double[] { 0, 1,});
+                var u_of_flank_at_intersectionPoint = FlankAndFilletIntersectPointPara.Item1[0];
+                var u_of_fillet_at_intersectionPoint = FlankAndFilletIntersectPointPara.Item1[1];
+
+#if DEBUG//intersect point answer check
+                var pp1 = gearProifile.Flank_Left(u_of_flank_at_intersectionPoint);
+                var pp2 = gearProifile.Fillet_Left(u_of_fillet_at_intersectionPoint);
+                var diff = Norm(pp1 - pp2);
+                if (diff > 1e-7)
+                {
+                    throw new Exception("intersect point answer not converging.");
+                }
+#endif
+
+                var TipIntersectPointPara = NonlinearFindRoot.FindRoot(
+                    (double u) =>
+                    {
+                        var p = gearProifile.Flank_Left(u);
+                        var re = Norm(p) - da[i] / 2;
+                        return re;
+                    }, 1 );
+                var u_of_flank_at_tooth_tip = TipIntersectPointPara.Item1;
+#if DEBUG//intersect point answer check
+                if (Abs(gearProifile.Flank_Left(u_of_flank_at_tooth_tip).GetNorm() - da[i] / 2) > 1e-7)
+                {
+                    throw new Exception("Tip point answer not converging.");
+                }
+#endif
+                var flankPoints_Left = CreateList<double[]>(sg, (index) => gearProifile.Flank_Left(
+                    u_of_flank_at_intersectionPoint + (double)index / (sg - 1) * (u_of_flank_at_tooth_tip - u_of_flank_at_intersectionPoint)
+                    ));
+#if DEBUG
+                var flankPoints_buffer_Left = MergeToSingleList<double[], double>(flankPoints_Left);
+                var flankPoints_index_Left = MergeToSingleList<int[], int>(CreateList<int[]>(sg - 1, (index) => new[] { index, index + 1 }));
+                await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankPoints_buffer_Left)}," +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankPoints_index_Left)}, " +
+                    $" 0xFF0000, 'line')");
+#endif
+
+                var filletPoints_Left = CreateList<double[]>(sg, (index) => gearProifile.Fillet_Left(
+                     (double)index / (sg - 1) * u_of_fillet_at_intersectionPoint
+                    ));
+#if DEBUG
+                var filletPoints_buffer_Left = MergeToSingleList<double[], double>(filletPoints_Left);
+                var filletPoints_index_Left = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
+                await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(filletPoints_buffer_Left)}," +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(filletPoints_index_Left)}, " +
+                    $" 0x0000FF, 'line')");
+#endif
+
+                var flankPoints_Right = CreateList<double[]>(sg, (index) => gearProifile.Flank_Right(
+                    u_of_flank_at_intersectionPoint + (double)index / (sg - 1) * (u_of_flank_at_tooth_tip - u_of_flank_at_intersectionPoint)
+                    ));
+#if DEBUG
+                var flankPoints_buffer_Right = MergeToSingleList<double[], double>(flankPoints_Right);
+                var flankPoints_index_Right = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
+                await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankPoints_buffer_Right)}," +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankPoints_index_Right)}, " +
+                    $" 0xFF0000, 'line')");
+#endif
+                var filletPoints_Right = CreateList<double[]>(sg, (index) => gearProifile.Fillet_Right(
+                     (double)index / (sg - 1) * u_of_fillet_at_intersectionPoint
+                    ));
+#if DEBUG
+                var filletPoints_buffer_Right = MergeToSingleList<double[], double>(filletPoints_Right);
+                var filletPoints_index_Right = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
+                await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(filletPoints_buffer_Right)}," +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(filletPoints_index_Right)}, " +
+                    $" 0x0000FF, 'line')");
+#endif
+
+                var rootPoints = CreateList<double[]>(sg, (index) => gearProifile.Root(
+                     (double)index / (sg - 1)
+                    ));
+#if DEBUG
+                var rootPoints_buffer = MergeToSingleList<double[], double>(rootPoints);
+                var rootPoints_index = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
+                await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(rootPoints_buffer)}," +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(rootPoints_index)}, " +
+                    $" 0xFF9900, 'line')");
+#endif
                 #endregion
 
-                //                var intersectPointPara = NonlinearFindRoot.FindRoot((double[] paras) =>
-                //                {
-                //                    double u1 = paras[0];
-                //                    double v1 = paras[1];
-                //                    double u2 = paras[2];
-                //                    double v2 = paras[3];
-                //                    var p1 = RackTraces[i].Flank_Left(u1, v1);
-                //                    var p2 = RackTraces[i].Fillet_Left(u2, v2);
-                //                    var n1 = RackTraces[i].Flank_Left_Normal(u1, v1);
-                //                    var n2 = RackTraces[i].Fillet_Left_Normal(u2, v2);
-                //                    var t1 = (Vector3D)Cross(n1, new Vector3D(0, 0, 1));
-                //                    var t2 = (Vector3D)Cross(n2, new Vector3D(0, 0, 1));
-                //                    var speed1 = RackTraces[i].GetSpeed(v1, p1);
-                //                    var speed2 = RackTraces[i].GetSpeed(v2, p2);
-                //                    var re1 = p1.X - p2.X;
-                //                    var re2 = p1.Y - p2.Y;
-                //                    var re3 = speed1.X / t1.X  - speed1.Y / t1.Y;
-                //                    var re4 = speed2.X / t2.X - speed2.Y / t2.Y;
-                //                    return new double[] { re1, re2, re3, re4};
-                //                }, new double[] { 0, -1, 0.5, -1 });
-                //                var u_of_flank_at_intersectionPoint = intersectPointPara.Item1[0];
-                //                var v_of_flank_at_intersectionPoint = intersectPointPara.Item1[1];
-                //                var u_of_fillet_at_intersectionPoint = intersectPointPara.Item1[2];
-                //                var v_of_fillet_at_intersectionPoint = intersectPointPara.Item1[3];
-
-                //#if DEBUG//intersect point answer check
-                //                var pp1 = RackTraces[i].Flank_Left(u_of_flank_at_intersectionPoint, v_of_flank_at_intersectionPoint);
-                //                var pp2 = RackTraces[i].Fillet_Left(u_of_fillet_at_intersectionPoint, v_of_fillet_at_intersectionPoint);
-                //                var diff = Norm(pp1 - pp2);
-                //                if (diff > 1e-7)
-                //                {
-                //                    throw new Exception("intersect point answer not converging.");
-                //                }
-                //#endif
-
-                //                var Flank_V_upper_bound = NonlinearFindRoot.FindRoot(
-                //                    (double[] paras) =>
-                //                    {
-                //                        var u = paras[0];
-                //                        var v = paras[1];
-                //                        var p = RackTraces[i].Flank_Left(u, v);
-                //                        var n = RackTraces[i].Flank_Left_Normal(u, v);
-                //                        var t = (Vector3D)Cross(n, new Vector3D(0, 0, 1));
-                //                        var speed = RackTraces[i].GetSpeed(v, p);
-                //                        var re1 = speed.X / t.X - speed.Y / t.Y;
-                //                        var re2 = Norm(p) - da[i] / 2;
-                //                        return new double[] { re1, re2 };
-                //                    }, new double[] { 0.5, 5 });
-                //                var u_of_flank_at_tooth_tip = Flank_V_upper_bound.Item1[0];
-                //                var v_of_flank_at_tooth_tip = Flank_V_upper_bound.Item1[1];
-                //#if DEBUG//intersect point answer check
-                //                if (Abs(RackTraces[i].Flank_Left(u_of_flank_at_tooth_tip, v_of_flank_at_tooth_tip).GetNorm() - da[i] / 2) > 1e-7)
-                //                {
-                //                    throw new Exception("Tip point answer not converging.");
-                //                }
-                //#endif
-                //                int sg = 100;
-                //                var flankPoints_Left = CreateList<double[]>(sg, (index) =>
-                //                {
-                //                    //var v = v_of_flank_at_intersectionPoint + (double)index / (sg - 1) * (v_of_flank_at_tooth_tip - v_of_flank_at_intersectionPoint);
-                //                    //var u = NonlinearFindRoot.FindRoot((uu) => {
-                //                    //    var p = RackTraces[i].Flank_Left(uu, v);
-                //                    //    var n = RackTraces[i].Flank_Left_Normal(uu, v);
-                //                    //    var t = (Vector3D)Cross(new Vector3D(0, 0, 1), n);
-                //                    //    var speed = RackTraces[i].GetSpeed(v, p);
-                //                    //    var re = speed.X / t.X  - speed.Y / t.Y;
-                //                    //    return re;
-                //                    //}, 0.5).Item1;
-                //                    var u = u_of_flank_at_intersectionPoint + (double)index / (sg - 1) * (u_of_flank_at_tooth_tip - u_of_flank_at_intersectionPoint);
-                //                    var v = NonlinearFindRoot.FindRoot((vv) => {
-                //                        var p = RackTraces[i].Flank_Left(u, vv);
-                //                        var n = RackTraces[i].Flank_Left_Normal(u, vv);
-                //                        var t = (Vector3D)Cross(new Vector3D(0, 0, 1), n);
-                //                        var speed = RackTraces[i].GetSpeed(vv, p);
-                //                        var re = speed.X / t.X - speed.Y / t.Y;
-                //                        return re;
-                //                    }, 10).Item1;
-                //                    var position = RackTraces[i].Flank_Left(u, v);
-                //                    return position;
-                //                });
-                //                var flankPoints_buffer_Left = MergeToSingleList<double[], double>(flankPoints_Left);
-                //                var flankPoints_index_Left = MergeToSingleList<int[], int>(CreateList<int[]>(sg - 1, (index) => new[] { index, index + 1 }));
-                //                await EvalAsync($"SceneController.PlotRackTrace(" +
-                //                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankPoints_buffer_Left)}," +
-                //                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankPoints_index_Left)}, " +
-                //                    $" 0xFF0000)");
-
-                //                var filletPoints_Left = CreateList<double[]>(sg, (index) =>
-                //                {
-                //                    var u = (double)index / (sg - 1);
-                //                    var v = NonlinearFindRoot.FindRoot((vv) => {
-                //                        var p = RackTraces[i].Fillet_Left(u, vv);
-                //                        var n = RackTraces[i].Fillet_Left_Normal(u, vv);
-                //                        var t = (Vector3D)Cross(new Vector3D(0, 0, 1), n);
-                //                        var speed = RackTraces[i].GetSpeed(vv, p);
-                //                        var re = speed.X / t.X - speed.Y / t.Y;
-                //                        return re;
-                //                    }, v_of_fillet_at_intersectionPoint).Item1;
-                //                    var position = RackTraces[i].Fillet_Left(u, v);
-                //                    return position;
-                //                });
-                //                var filletPoints_buffer_Left = MergeToSingleList<double[], double>(filletPoints_Left);
-                //                var filletPoints_index_Left = MergeToSingleList<int[], int>(CreateList<int[]>(sg - 1, (index) => new[] { index, index + 1 }));
-                //                await EvalAsync($"SceneController.PlotRackTrace(" +
-                //                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(filletPoints_buffer_Left)}," +
-                //                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(filletPoints_index_Left)}, " +
-                //                    $" 0x0000FF)");
+                #region 歯面を作成
+                int sb = 10;
+                var LeftTopo = CreateList(sb, (index) =>
+                {
+                    var bz =  - b[i] * index / (sb - 1);
+                    var theta = 2 * PI * (bz / L[i]);
+                    var M = CreateRotateMatrix(Axis.Z, theta);
+                    M[2, 3] = bz;
+                    var SectionTopo = flankPoints_Left.ConvertAll<double[]>(
+                        new Converter<double[], double[]>(
+                            (vector) =>
+                            {
+                                return RotateAnMoveVector(M, vector);
+                            }));
+                    return SectionTopo;
+                });
+                var LeftTopo_buffer = MergeToSingleList<double[], double>(
+                    MergeToSingleList<List<double[]>, double[]>(
+                        LeftTopo
+                        )
+                    );
+                var LeftTopo_index = MergeToSingleList<int[], int>( CreateList(sb - 1, sg - 1, (ii, jj) => {
+                    var index_11 = ii * sg + jj;
+                    var index_12 = index_11 + 1;
+                    var index_21 = index_11 + sg;
+                    var index_22 = index_12 + sg;
+                    return new[] { index_11, index_21, index_12, index_12, index_21, index_22 };
+                }));
+                await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(LeftTopo_buffer)}," +
+                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(LeftTopo_index)}, " +
+                    $" 0xFF9900, 'mesh')");
+                #endregion
             }
         }
 
