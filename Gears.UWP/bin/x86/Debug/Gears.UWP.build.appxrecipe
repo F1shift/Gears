@@ -94,6 +94,9 @@
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.js">
       <PackagePath>Assets\www\three.js</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\TrackballControls.js">
+      <PackagePath>Assets\www\TrackballControls.js</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>

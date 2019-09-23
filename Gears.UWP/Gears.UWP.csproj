@@ -113,6 +113,7 @@
     <Content Include="Assets\www\OrbitControls.js" />
     <Content Include="Assets\www\stats.min.js" />
     <Content Include="Assets\www\three.js" />
+    <Content Include="Assets\www\TrackballControls.js" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />

@@ -32,6 +32,7 @@ Assets\www\OrbitControls.js
 Assets\www\SceneBuilder.js
 Assets\www\stats.min.js
 Assets\www\three.js
+Assets\www\TrackballControls.js
 App.xbf
 Gears.UWP.xr.xml
 MainPage.xbf
