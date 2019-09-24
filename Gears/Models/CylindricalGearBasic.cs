@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using static System.Math;
-using static Gears.Math.Math;
-using static Gears.Math.ArrayExtentions;
+using static Gears.ThreeDUtility.ThreeDUtility;
+using static Gears.ThreeDUtility.ArrayExtentions;
 
 namespace Gears.Models
 {

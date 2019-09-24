@@ -5,9 +5,9 @@ using System.Text;
 using System.Diagnostics;
 using static System.Math;
 
-namespace Gears.Math
+namespace Gears.ThreeDUtility
 {
-    public static class Math
+    public static class ThreeDUtility
     {
         #region 單位轉換
         public static double DegToRad(double tdeg)
@@ -144,6 +144,17 @@ namespace Gears.Math
         {
             double sum = 0;
             for (int i = 0; i < input.Length; i++)
+            {
+                sum = sum + System.Math.Pow(input[i], 2);
+            }
+            double len = Sqrt(sum);
+
+            return len;
+        }
+        public static double FirstNNorm(double[] input, int firstN)
+        {
+            double sum = 0;
+            for (int i = 0; i < firstN; i++)
             {
                 sum = sum + System.Math.Pow(input[i], 2);
             }
@@ -535,7 +546,7 @@ namespace Gears.Math
 
             return tMatrix;
         }
-
+        
 
         /// <summary>
         /// 反矩陣
@@ -733,6 +744,15 @@ namespace Gears.Math
                 newList.AddRange(list);
             }
             return newList;
+        }
+        public static void MergeBuffer(List<double> mainBuffer, List<int> mainIndices, IEnumerable<double> buffer2Add, IEnumerable<int> indices2Add)
+        {
+            int orgPointsCount = mainBuffer.Count / 3;
+            mainBuffer.AddRange(mainBuffer);
+            foreach (var index in indices2Add)
+            {
+                mainIndices.Add(index + orgPointsCount);
+            }
         }
         #endregion
 

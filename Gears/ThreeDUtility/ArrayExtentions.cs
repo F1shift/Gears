@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Gears.Math
+namespace Gears.ThreeDUtility
 {
     internal static class ArrayExtentions
     {

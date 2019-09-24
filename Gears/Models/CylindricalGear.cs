@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Gears.Math;
+using Gears.ThreeDUtility;
 using static System.Math;
-using static Gears.Math.Math;
-using static Gears.Math.ArrayExtentions;
+using static Gears.ThreeDUtility.ThreeDUtility;
+using static Gears.ThreeDUtility.ArrayExtentions;
 
 namespace Gears.Models
 {
@@ -256,6 +256,45 @@ namespace Gears.Models
                     var v = -p1.X / d[i] / 2;
                     var p = rackTrace.Root(u, v);
                     return p;
+                    ;
+                };
+                //Normal
+                gearProfile.Flank_Left_Normal = (u) =>
+                {
+                    var baseP = basicRack.Flank_Left(u);
+                    var h = baseP.Y + xn[i] * mn;
+                    var L = baseP.X - h / Tan(αt);
+                    var v = -L / (d[i] / 2) / PI * 180;
+                    var n = rackTrace.Flank_Left_Normal(u, v);
+                    return n;
+                };
+                gearProfile.Flank_Right_Normal = (u) =>
+                {
+                    var n = gearProfile.Flank_Left_Normal(u);
+                    n.X *= -1;
+                    return n;
+                };
+                gearProfile.Fillet_Left_Normal = (u) =>
+                {
+                    var baseP = basicRack.Fillet_Left(u);
+                    var baseN = basicRack.Fillet_Left_Normal(u);
+                    var L = (-baseP.Y - xn[i] * mn) / baseN.Y * baseN.X + baseP.X;
+                    var v = -L / (d[i] / 2) / PI * 180;
+                    var n = rackTrace.Fillet_Left_Normal(u, v);
+                    return n;
+                };
+                gearProfile.Fillet_Right_Normal = (u) =>
+                {
+                    var n = gearProfile.Fillet_Left_Normal(u);
+                    n.X *= -1;
+                    return n;
+                };
+                gearProfile.Root_Normal = (u) =>
+                {
+                    var baseP = basicRack.Root(u);
+                    var v = -p1.X / d[i] / 2;
+                    var n = rackTrace.Root_Normal(u, v);
+                    return n;
                     ;
                 };
             }

@@ -328,18 +328,24 @@ function SceneInit(targetCanvas) {
 	
 	//#region
 	var SceneController = {
-		AddBufferGeometryMesh:function(vertices, indices, color, type, normal = null){
+		AddBufferGeometryMesh:function(vertices, indices, color, meshtype, normal = null){
 			var geometry = new THREE.BufferGeometry();
 			geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+			
 			if(indices != null)
 				geometry.setIndex(indices);
+			else
+				throw "THREE.BufferGeometry has no index information";
+
 			if(normal == null)
 				geometry.computeVertexNormals();
+			else
+				geometry.addAttribute('normal', new THREE.Float32BufferAttribute(normal, 3));
 			
 			
 
 			var material;
-			switch(type){
+			switch(meshtype){
 				case "line":
 					if(color != null)
 					{

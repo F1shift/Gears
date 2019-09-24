@@ -6,9 +6,9 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using static System.Math;
-using Gears.Math;
-using static Gears.Math.Math;
-using static Gears.Math.ArrayExtentions;
+using Gears.ThreeDUtility;
+using static Gears.ThreeDUtility.ThreeDUtility;
+using static Gears.ThreeDUtility.ArrayExtentions;
 
 namespace Gears.ViewModels
 {
@@ -231,9 +231,22 @@ namespace Gears.ViewModels
                     throw new Exception("Tip point answer not converging.");
                 }
 #endif
-                var flankPoints_Left = CreateList<double[]>(sg, (index) => gearProifile.Flank_Left(
+                var uArray_Flank = CreateList<double>(sg, (index) => 
                     u_of_flank_at_intersectionPoint + (double)index / (sg - 1) * (u_of_flank_at_tooth_tip - u_of_flank_at_intersectionPoint)
-                    ));
+                    );
+                var flankPoints_Left = CreateList<double[]>(sg, (index) => gearProifile.Flank_Left(uArray_Flank[index]));
+                var flankNormal_Left = CreateList<double[]>(sg, (index) => {
+                    var p = flankPoints_Left[index];
+                    var sectionNormal = gearProifile.Flank_Left_Normal(uArray_Flank[index]);
+                    var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
+                    var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
+                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                        βp *= -1;
+                    var M = CreateRotateMatrix(p, βp);
+                    var t2 = RotateVector(M, new Vector3D(0, 0, -1));
+                    var N = Cross(t1, t2);
+                    return N;
+                    });
 #if DEBUG
                 var flankPoints_buffer_Left = MergeToSingleList<double[], double>(flankPoints_Left);
                 var flankPoints_index_Left = MergeToSingleList<int[], int>(CreateList<int[]>(sg - 1, (index) => new[] { index, index + 1 }));
@@ -242,10 +255,22 @@ namespace Gears.ViewModels
                     $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankPoints_index_Left)}, " +
                     $" 0xFF0000, 'line')");
 #endif
-
-                var filletPoints_Left = CreateList<double[]>(sg, (index) => gearProifile.Fillet_Left(
+                var uArray_Fillet = CreateList<double>(sg, (index) =>
                      (double)index / (sg - 1) * u_of_fillet_at_intersectionPoint
-                    ));
+                    );
+                var filletPoints_Left = CreateList<double[]>(sg, (index) => gearProifile.Fillet_Left(uArray_Fillet[index]));
+                var filletNormal_Left = CreateList<double[]>(sg, (index) => {
+                    var p = filletPoints_Left[index];
+                    var sectionNormal = gearProifile.Fillet_Left_Normal(uArray_Fillet[index]);
+                    var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
+                    var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
+                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                        βp *= -1;
+                    var M = CreateRotateMatrix(p, βp);
+                    var t2 = RotateVector(M, new Vector3D(0, 0, -1));
+                    var N = Cross(t1, t2);
+                    return N;
+                });
 #if DEBUG
                 var filletPoints_buffer_Left = MergeToSingleList<double[], double>(filletPoints_Left);
                 var filletPoints_index_Left = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
@@ -255,9 +280,19 @@ namespace Gears.ViewModels
                     $" 0x0000FF, 'line')");
 #endif
 
-                var flankPoints_Right = CreateList<double[]>(sg, (index) => gearProifile.Flank_Right(
-                    u_of_flank_at_intersectionPoint + (double)index / (sg - 1) * (u_of_flank_at_tooth_tip - u_of_flank_at_intersectionPoint)
-                    ));
+                var flankPoints_Right = CreateList<double[]>(sg, (index) => gearProifile.Flank_Right(uArray_Flank[index]));
+                var flankNormal_Right = CreateList<double[]>(sg, (index) => {
+                    var p = flankPoints_Right[index];
+                    var sectionNormal = gearProifile.Flank_Right_Normal(uArray_Flank[index]);
+                    var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
+                    var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
+                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                        βp *= -1;
+                    var M = CreateRotateMatrix(p, βp);
+                    var t2 = RotateVector(M, new Vector3D(0, 0, -1));
+                    var N = Cross(t1, t2);
+                    return N;
+                });
 #if DEBUG
                 var flankPoints_buffer_Right = MergeToSingleList<double[], double>(flankPoints_Right);
                 var flankPoints_index_Right = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
@@ -266,9 +301,19 @@ namespace Gears.ViewModels
                     $" {Newtonsoft.Json.JsonConvert.SerializeObject(flankPoints_index_Right)}, " +
                     $" 0xFF0000, 'line')");
 #endif
-                var filletPoints_Right = CreateList<double[]>(sg, (index) => gearProifile.Fillet_Right(
-                     (double)index / (sg - 1) * u_of_fillet_at_intersectionPoint
-                    ));
+                var filletPoints_Right = CreateList<double[]>(sg, (index) => gearProifile.Fillet_Right(uArray_Fillet[index]));
+                var filletNormal_Right = CreateList<double[]>(sg, (index) => {
+                    var p = filletPoints_Right[index];
+                    var sectionNormal = gearProifile.Fillet_Right_Normal(uArray_Fillet[index]);
+                    var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
+                    var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
+                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                        βp *= -1;
+                    var M = CreateRotateMatrix(p, βp);
+                    var t2 = RotateVector(M, new Vector3D(0, 0, -1));
+                    var N = Cross(t1, t2);
+                    return N;
+                });
 #if DEBUG
                 var filletPoints_buffer_Right = MergeToSingleList<double[], double>(filletPoints_Right);
                 var filletPoints_index_Right = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
@@ -278,9 +323,19 @@ namespace Gears.ViewModels
                     $" 0x0000FF, 'line')");
 #endif
 
-                var rootPoints = CreateList<double[]>(sg, (index) => gearProifile.Root(
-                     (double)index / (sg - 1)
-                    ));
+                var rootPoints = CreateList<double[]>(4, (index) => gearProifile.Root((double)index / (4 - 1)));
+                var rootNormal = CreateList<double[]>(4, (index) => {
+                    var p = rootPoints[index];
+                    var sectionNormal = gearProifile.Root_Normal((double)index / (4 - 1));
+                    var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
+                    var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
+                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                        βp *= -1;
+                    var M = CreateRotateMatrix(p, βp);
+                    var t2 = RotateVector(M, new Vector3D(0, 0, -1));
+                    var N = Cross(t1, t2);
+                    return N;
+                });
 #if DEBUG
                 var rootPoints_buffer = MergeToSingleList<double[], double>(rootPoints);
                 var rootPoints_index = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
@@ -292,37 +347,63 @@ namespace Gears.ViewModels
                 #endregion
 
                 #region 歯面を作成
-                int sb = 10;
-                var LeftTopo = CreateList(sb, (index) =>
+                Action<List<double[]>, List<double[]>, int, bool> CreateScrewFace = async (sectionVectors, vectorNormals, sectionNumber, renderAnotherSide) =>
                 {
-                    var bz =  - b[i] * index / (sb - 1);
-                    var theta = 2 * PI * (bz / L[i]);
-                    var M = CreateRotateMatrix(Axis.Z, theta);
-                    M[2, 3] = bz;
-                    var SectionTopo = flankPoints_Left.ConvertAll<double[]>(
-                        new Converter<double[], double[]>(
-                            (vector) =>
-                            {
-                                return RotateAnMoveVector(M, vector);
-                            }));
-                    return SectionTopo;
-                });
-                var LeftTopo_buffer = MergeToSingleList<double[], double>(
-                    MergeToSingleList<List<double[]>, double[]>(
-                        LeftTopo
-                        )
-                    );
-                var LeftTopo_index = MergeToSingleList<int[], int>( CreateList(sb - 1, sg - 1, (ii, jj) => {
-                    var index_11 = ii * sg + jj;
-                    var index_12 = index_11 + 1;
-                    var index_21 = index_11 + sg;
-                    var index_22 = index_12 + sg;
-                    return new[] { index_11, index_21, index_12, index_12, index_21, index_22 };
-                }));
-                await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
-                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(LeftTopo_buffer)}," +
-                    $" {Newtonsoft.Json.JsonConvert.SerializeObject(LeftTopo_index)}, " +
-                    $" 0xFF9900, 'mesh')");
+                    List<List<double[]>> FaceTopo = new List<List<double[]>>();
+                    List<List<double[]>> FaceNormal = new List<List<double[]>>();
+                    for (int index = 0; index < sectionNumber; index++)
+                    {
+                        var bz = -b[i] * index / (sectionNumber - 1);
+                        var theta = 2 * PI * (bz / L[i]);
+                        var M = CreateRotateMatrix(Axis.Z, theta);
+                        M[2, 3] = bz;
+                        var sectionTopo = sectionVectors.ConvertAll<double[]>(
+                            new Converter<double[], double[]>(
+                                (vector) =>
+                                {
+                                    return RotateAnMoveVector(M, vector);
+                                }));
+                        var sectionNormal = vectorNormals.ConvertAll<double[]>(
+                            new Converter<double[], double[]>(
+                                (vector) =>
+                                {
+                                    return RotateVector(M, vector);
+                                }));
+                        FaceTopo.Add(sectionTopo);
+                        FaceNormal.Add(sectionNormal);
+                    }
+                    var FaceTopo_buffer = MergeToSingleList<double[], double>(
+                        MergeToSingleList<List<double[]>, double[]>(
+                            FaceTopo
+                            )
+                        );
+                    var FaceNormal_buffer = MergeToSingleList<double[], double>(
+                        MergeToSingleList<List<double[]>, double[]>(
+                            FaceNormal
+                            )
+                        );
+                    var FaceTopo_index = MergeToSingleList<int[], int>(CreateList(sectionNumber - 1, sectionVectors.Count - 1, (ii, jj) => {
+                        var index_11 = ii * sectionVectors.Count + jj;
+                        var index_12 = index_11 + 1;
+                        var index_21 = index_11 + sectionVectors.Count;
+                        var index_22 = index_12 + sectionVectors.Count;
+                        if (renderAnotherSide)
+                            return new[] { index_11, index_12, index_21,  index_12, index_22, index_21 };
+                        else
+                            return new[] { index_11, index_21, index_12, index_12, index_21, index_22 };
+                    }));
+                    await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
+                        $" {Newtonsoft.Json.JsonConvert.SerializeObject(FaceTopo_buffer)}," +
+                        $" {Newtonsoft.Json.JsonConvert.SerializeObject(FaceTopo_index)}, " +
+                        $" 0xFFFFFF, 'mesh'," +
+                        $" {Newtonsoft.Json.JsonConvert.SerializeObject(FaceNormal_buffer)});");
+                };
+                int sb = 10;
+                CreateScrewFace(flankPoints_Left, flankNormal_Left, sb, false);
+                CreateScrewFace(flankPoints_Right, flankNormal_Right, sb, true);
+                CreateScrewFace(filletPoints_Left, filletNormal_Left, sb, false);
+                CreateScrewFace(filletPoints_Right, filletNormal_Right, sb, true);
+                CreateScrewFace(rootPoints, rootNormal, sb, true);
                 #endregion
             }
         }

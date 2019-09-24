@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
-using static Gears.Math.Math;
+using static Gears.ThreeDUtility.ThreeDUtility;
 
-namespace Gears.Math
+namespace Gears.ThreeDUtility
 {
     public class Vector3D
     {
