@@ -328,7 +328,14 @@ function SceneInit(targetCanvas) {
 	
 	//#region
 	var SceneController = {
-		AddBufferGeometryMesh:function(vertices, indices, color, meshtype, normal = null){
+		Meshs: [],
+		Clear:function(){
+			SceneController.Meshs.forEach((value, index, array) => {
+				scene.remove(value);
+			});
+			SceneController.Meshs = [];
+		},
+		AddBufferGeometryMesh:function(vertices, indices, color, meshtype, normal = null, name = null){
 			var geometry = new THREE.BufferGeometry();
 			geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 			
@@ -382,12 +389,37 @@ function SceneInit(targetCanvas) {
 						material = new THREE.MeshStandardMaterial({ color:0xFF0000 });
 					}
 					var mesh = new THREE.Mesh(geometry, material);
+					mesh.name = name;
+					SceneController.Meshs.push(mesh);
 					scene.add(mesh);
 					break;
 				default:
+					Console.log("Unsupported mesh type of '" + meshtype + "'");
 					break;
 			}
 			
+		},
+		CopyMesh : function(name, newMatrix){
+			var orgMesh = SceneController.Meshs.find((value) => value.name == name);
+			if(orgMesh == null)
+			{
+				console.log("Mesh called '" + name + "' is not found when copy mesh");
+				return;
+			}
+			var newMesh;
+			switch(orgMesh.type){
+				case "Line":
+					newMesh = new THREE.LineSegments(orgMesh.geometry, orgMesh.material);
+					break;
+				case "Mesh":
+					newMesh = new THREE.Mesh(orgMesh.geometry, orgMesh.material);
+			}
+			if(newMatrix != null)
+				newMesh.applyMatrix(newMatrix);
+			if(newMesh != null){
+				SceneController.Meshs.push(newMesh);
+				scene.add(newMesh);
+			}
 		}
 	};
 

@@ -26,9 +26,10 @@ namespace Gears.ViewModels
 
         public ThreeDModelingViewModel()
         {
-            UpdateCommand = new SimpleCommand((a) =>
+            UpdateCommand = new SimpleCommand(async (a) =>
                 {
                     Initial();
+                    await EvalAsync($"SceneController.Clear();");
                     AddRackTrace();
                     //double v = 10;
                     //AddRackTrace(v, 0);
@@ -344,10 +345,16 @@ namespace Gears.ViewModels
                     $" {Newtonsoft.Json.JsonConvert.SerializeObject(rootPoints_index)}, " +
                     $" 0xFF9900, 'line')");
 #endif
+                var tipPoints = new List<double[]>() { flankPoints_Left[flankPoints_Left.Count - 1],
+                    RotateVector(CreateRotateMatrix(Axis.Z, 2 * PI / z[i]), flankPoints_Right[flankPoints_Right.Count - 1]) };
+                var tipNormal = CreateList<double[]>(tipPoints.Count, (index) => {
+                    var N = GetNormalized(tipPoints[index]);
+                    return N;
+                });
                 #endregion
 
                 #region 歯面を作成
-                Action<List<double[]>, List<double[]>, int, bool> CreateScrewFace = async (sectionVectors, vectorNormals, sectionNumber, renderAnotherSide) =>
+                Action<List<double[]>, List<double[]>, int, bool, string> CreateScrewFace = async (sectionVectors, vectorNormals, sectionNumber, renderAnotherSide, name) =>
                 {
                     List<List<double[]>> FaceTopo = new List<List<double[]>>();
                     List<List<double[]>> FaceNormal = new List<List<double[]>>();
@@ -396,15 +403,35 @@ namespace Gears.ViewModels
                         $" {Newtonsoft.Json.JsonConvert.SerializeObject(FaceTopo_buffer)}," +
                         $" {Newtonsoft.Json.JsonConvert.SerializeObject(FaceTopo_index)}, " +
                         $" 0xFFFFFF, 'mesh'," +
-                        $" {Newtonsoft.Json.JsonConvert.SerializeObject(FaceNormal_buffer)});");
+                        $" {Newtonsoft.Json.JsonConvert.SerializeObject(FaceNormal_buffer)}," +
+                        $" '{name}');");
                 };
                 int sb = 10;
-                CreateScrewFace(flankPoints_Left, flankNormal_Left, sb, false);
-                CreateScrewFace(flankPoints_Right, flankNormal_Right, sb, true);
-                CreateScrewFace(filletPoints_Left, filletNormal_Left, sb, false);
-                CreateScrewFace(filletPoints_Right, filletNormal_Right, sb, true);
-                CreateScrewFace(rootPoints, rootNormal, sb, true);
+                
+                CreateScrewFace(flankPoints_Right, flankNormal_Right, sb, true, nameof(flankPoints_Right) + i);
+                CreateScrewFace(filletPoints_Left, filletNormal_Left, sb, false, nameof(filletPoints_Left) + i);
+                CreateScrewFace(rootPoints, rootNormal, sb, true, nameof(rootPoints) + i);
+                CreateScrewFace(filletPoints_Right, filletNormal_Right, sb, true, nameof(filletPoints_Right) + i);
+                CreateScrewFace(flankPoints_Left, flankNormal_Left, sb, false, nameof(flankPoints_Left) + i);
+                CreateScrewFace(tipPoints, tipNormal, sb, false, nameof(tipPoints) + i);
                 #endregion
+
+                for (int j = 1; j < z[i]; j++)
+                {
+                    var theta = 2 * PI / z[i] * j;
+                    await EvalAsync($"SceneController.CopyMesh(" +
+                        $"'{nameof(flankPoints_Right) + i}', new THREE.Matrix4().makeRotationZ({theta}));");
+                    await EvalAsync($"SceneController.CopyMesh(" +
+                        $"'{nameof(filletPoints_Right) + i}', new THREE.Matrix4().makeRotationZ({theta}));");
+                    await EvalAsync($"SceneController.CopyMesh(" +
+                        $"'{nameof(rootPoints) + i}', new THREE.Matrix4().makeRotationZ({theta}));");
+                    await EvalAsync($"SceneController.CopyMesh(" +
+                        $"'{nameof(filletPoints_Left) + i}', new THREE.Matrix4().makeRotationZ({theta}));");
+                    await EvalAsync($"SceneController.CopyMesh(" +
+                        $"'{nameof(flankPoints_Left) + i}', new THREE.Matrix4().makeRotationZ({theta}));");
+                    await EvalAsync($"SceneController.CopyMesh(" +
+                        $"'{nameof(tipPoints) + i}', new THREE.Matrix4().makeRotationZ({theta}));");
+                }
             }
         }
 
