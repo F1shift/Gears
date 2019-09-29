@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Gears.ThreeDUtility;
+using Gears.Utility;
 using static System.Math;
-using static Gears.ThreeDUtility.ThreeDUtility;
-using static Gears.ThreeDUtility.ArrayExtentions;
+using static Gears.Utility.ThreeDUtility;
+using static Gears.Utility.EnumerableExtentions;
 
 namespace Gears.Models
 {

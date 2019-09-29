@@ -335,16 +335,22 @@ function SceneInit(targetCanvas) {
 			});
 			SceneController.Meshs = [];
 		},
-		AddBufferGeometryMesh:function(vertices, indices, color, meshtype, normal = null, name = null){
+		AddBufferGeometryMesh:function(data){
+			var position = data.position;
+			var index = data.index;
+			var color = data.color;
+			var meshtype = data.type;
+			var normal = data.normal;
+			var name = data.name;
 			var geometry = new THREE.BufferGeometry();
-			geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+			geometry.addAttribute('position', new THREE.Float32BufferAttribute(position, 3));
 			
-			if(indices != null)
-				geometry.setIndex(indices);
+			if(index != null && index !== void(0))
+				geometry.setIndex(index);
 			else
 				throw "THREE.BufferGeometry has no index information";
 
-			if(normal == null)
+			if(normal == null && normal !== void(0))
 				geometry.computeVertexNormals();
 			else
 				geometry.addAttribute('normal', new THREE.Float32BufferAttribute(normal, 3));
@@ -354,7 +360,7 @@ function SceneInit(targetCanvas) {
 			var material;
 			switch(meshtype){
 				case "line":
-					if(color != null)
+					if(color != null && color !== void(0))
 					{
 						if(Array.isArray(color))
 						{
@@ -399,7 +405,7 @@ function SceneInit(targetCanvas) {
 			}
 			
 		},
-		CopyMesh : function(name, newMatrix){
+		CopyMesh : function(name, newMatrix, copyedObjectName = null){
 			var orgMesh = SceneController.Meshs.find((value) => value.name == name);
 			if(orgMesh == null)
 			{
@@ -416,6 +422,7 @@ function SceneInit(targetCanvas) {
 			}
 			if(newMatrix != null)
 				newMesh.applyMatrix(newMatrix);
+			newMesh.name = copyedObjectName;
 			if(newMesh != null){
 				SceneController.Meshs.push(newMesh);
 				scene.add(newMesh);

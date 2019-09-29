@@ -4,7 +4,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Linq;
 using Gears.Models;
-using static Gears.ThreeDUtility.ThreeDUtility;
+using static Gears.Utility.ThreeDUtility;
 
 namespace Gears.ViewModels
 {

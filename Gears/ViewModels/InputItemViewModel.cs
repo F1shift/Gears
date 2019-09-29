@@ -42,7 +42,7 @@ namespace Gears.ViewModels
                         }
                         catch(Exception ex)
                         {
-                            ((Page)Utility.FindPerant<Page>(_EntryView)).DisplayAlert("Error !", ex.Message, "OK");
+                            ((Page)Views.Utility.FindPerant<Page>(_EntryView)).DisplayAlert("Error !", ex.Message, "OK");
                         }
                     };
                     _EntryView.CancelButton.Clicked += (o, e) => _popupController.ClosePopup();
