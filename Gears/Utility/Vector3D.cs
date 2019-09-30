@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
-using static Gears.Utility.ThreeDUtility;
+using static Gears.Utility.Math;
 
 namespace Gears.Utility
 {

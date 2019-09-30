@@ -7,7 +7,7 @@ using static System.Math;
 
 namespace Gears.Utility
 {
-    public static class ThreeDUtility
+    public static class Math
     {
         #region 單位轉換
         public static double DegToRad(double tdeg)
@@ -546,7 +546,27 @@ namespace Gears.Utility
 
             return tMatrix;
         }
-        
+        public static double[,] CreateMirrorMatrix(Axis axis)
+        {
+            var tMatrix = IdentityMatrix(4);
+            switch (axis)
+            {
+                case Axis.X:
+                    tMatrix[0, 0] = -1;
+                    break;
+                case Axis.Y:
+                    tMatrix[1, 1] = -1;
+                    break;
+                case Axis.Z:
+                    tMatrix[2, 2] = -1;
+                    break;
+                default:
+                    break;
+            }
+
+            return tMatrix;
+        }
+
 
         /// <summary>
         /// 反矩陣

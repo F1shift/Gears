@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using static System.Math;
 using Gears.Utility;
-using static Gears.Utility.ThreeDUtility;
+using static Gears.Utility.Math;
 using static Gears.Utility.EnumerableExtentions;
 
 namespace Gears.ViewModels
@@ -549,14 +549,23 @@ namespace Gears.ViewModels
                 GapMeshBufferData.position = MergeToSingleList<double[], double>(GapMeshVectors);
                 GapMeshBufferData.normal = MergeToSingleList<double[], double>(GapMeshNormal);
                 GapMeshBufferData.index = GapMeshIndex;
+                frontFaceBufferData.Merge(GapMeshBufferData);
+
+                var backFaceBufferData = frontFaceBufferData.Clone().ApplyMatrix(MatrixDot(
+                        CreateTranslateMatrix(new Vector3D(0, 0, -b[i])),
+                        CreateRotateMatrix(Axis.Z, (-b[i] / L[i]) * 2 * PI),
+                        CreateMirrorMatrix(Axis.Z)
+                        )).FlipSide();
                 #endregion
 
                 #region メッシュ統合
                 var firstToothBufferData = new BufferGeometryData(BufferGeometryData.Types.mesh);
-                firstToothBufferData.Merge(rightFlankData, rightFilletData, rooData, leftFilletData, leftFlankData, tipData, frontFaceBufferData, GapMeshBufferData);
+                firstToothBufferData.Merge(rightFlankData, rightFilletData, rooData, leftFilletData, leftFlankData, tipData, frontFaceBufferData, backFaceBufferData);
                 firstToothBufferData.name = i == 0 ? "pinionTooth" : "gearTooth";
                 firstToothBufferData.SetType(BufferGeometryData.Types.mesh);
                 firstToothBufferData.color = 0xFFFFFF;
+                firstToothBufferData.castShadow = true;
+                firstToothBufferData.receiveShadow = true;
                 AddBufferGeometry(firstToothBufferData);
                 #endregion
 

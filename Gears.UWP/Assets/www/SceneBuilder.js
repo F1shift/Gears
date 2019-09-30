@@ -73,7 +73,7 @@ function SceneInit(targetCanvas) {
 	pointLight.add(new THREE.Mesh(pLightGeometry, pLightMaterial));
 
 	var pointLight2 = new THREE.PointLight(0xffeebb, 1, 100000);
-	pointLight2.position.set(0, -100, 800);
+	pointLight2.position.set(-100, -100, -800);
 	pointLight2.castShadow = true; // default false
 
 	pointLight2.shadow.mapSize.width = performanceSetting.shadowMapSize; // default 1024
@@ -112,14 +112,6 @@ function SceneInit(targetCanvas) {
 	plane2.receiveShadow = true;
 	scene.add(plane2);
 
-	// var helper = new THREE.GridHelper(2000, 100);
-	// helper.position.y = - 199;
-	// helper.material.opacity = 0.25;
-	// helper.material.transparent = true;
-	// helper.castShadow = false;
-	// helper.receiveShadow = false;
-	//scene.add(helper);
-
 	var helperXY = new THREE.GridHelper(2000, 100);
 	helperXY.rotation.x = Math.PI / 2;
 	helperXY.material.opacity = 0.25;
@@ -127,13 +119,6 @@ function SceneInit(targetCanvas) {
 	helperXY.castShadow = false;
 	helperXY.receiveShadow = false;
 	scene.add(helperXY);
-
-	var helperXZ = new THREE.GridHelper(2000, 100);
-	helperXZ.material.opacity = 0.25;
-	helperXZ.material.transparent = true;
-	helperXZ.castShadow = false;
-	helperXZ.receiveShadow = false;
-	scene.add(helperXZ);
 	//#endregion
 
 	//#region show FPS
@@ -142,72 +127,6 @@ function SceneInit(targetCanvas) {
 	document.body.appendChild(stats.dom);
 	//#endregion
 
-	//#region デフォルト球体を加入する
-	var mesh = GetPresetMesh2(100, 200, 150, 0, 0, 0, 0xffffff);
-	var mesh2 = GetPresetMesh2(100, 200, 50, -400, -100, 0, 0xFFFFFF);
-	mesh.material.overdraw = 0.5;
-	mesh2.material.overdraw = 0.5;
-	mesh.material.needsUpdate = true;
-	mesh2.material.needsUpdate = true;
-	mesh.castShadow = true;
-	mesh.receiveShadow = true;
-	mesh2.castShadow = true;
-	mesh2.receiveShadow = true;
-	//scene.add(mesh);
-	scene.add(mesh2);
-	//#endregion
-
-	function GetPresetMesh2(vres, hres, r, x, y, z, color) {
-		var position = [];
-		var normal = [];
-		var uv = [];
-		for (var i = 0; i < vres; i++) {
-			for (var j = 0; j < hres; j++) {
-				var theta_z = Math.PI / 2 - Math.PI / (vres - 1) * i;
-				var theta_h = 2 * Math.PI / (hres - 1) * j;
-				var r_h = r * Math.cos(theta_z);
-				position.push(
-					r_h * Math.cos(theta_h) + x,
-					r_h * Math.sin(theta_h) + y,
-					r * Math.sin(theta_z) + z);
-				normal.push(
-					Math.cos(theta_z) * Math.cos(theta_h),
-					Math.cos(theta_z) * Math.sin(theta_h),
-					Math.sin(theta_z));
-
-				var u = i / (vres - 1.0);
-				var v = j / (hres - 1.0);
-				uv.push(u, v);
-			}
-		}
-
-		// Add cell faces (2 traingles per cell) to geometry
-		var indices = [];
-		var n = vres;
-		var m = hres;
-		for (var i = 0; i < n - 1; i++) {
-			for (var j = 0; j < m - 1; j++) {
-				var n0 = i * m + j;
-				var n1 = n0 + 1;
-				var n2 = (i + 1) * m + j + 1;
-				var n3 = n2 - 1;
-				indices.push(n2, n1, n0);
-				indices.push(n0, n3, n2);
-			}
-		}
-		// Initialise threejs geometry
-		var geometry = new THREE.BufferGeometry();
-		geometry.setIndex(indices);
-		geometry.addAttribute('position', new THREE.Float32BufferAttribute(position, 3));
-		geometry.addAttribute('normal', new THREE.Float32BufferAttribute(normal, 3));
-		geometry.addAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
-
-		var mesh;
-		var material = new THREE.MeshStandardMaterial({ color: color, roughness: 0 });
-		mesh = new THREE.Mesh(geometry, material);
-
-		return mesh;
-	}
 
 	//#region コントロール
 	//#region マウスの指しているものを判別する
@@ -341,7 +260,6 @@ function SceneInit(targetCanvas) {
 			var color = data.color;
 			var meshtype = data.type;
 			var normal = data.normal;
-			var name = data.name;
 			var geometry = new THREE.BufferGeometry();
 			geometry.addAttribute('position', new THREE.Float32BufferAttribute(position, 3));
 			
@@ -395,7 +313,9 @@ function SceneInit(targetCanvas) {
 						material = new THREE.MeshStandardMaterial({ color:0xFF0000 });
 					}
 					var mesh = new THREE.Mesh(geometry, material);
-					mesh.name = name;
+					mesh.name = data.name;
+					mesh.castShadow = data.castShadow;
+					mesh.receiveShadow = data.receiveShadow;
 					SceneController.Meshs.push(mesh);
 					scene.add(mesh);
 					break;
@@ -423,6 +343,8 @@ function SceneInit(targetCanvas) {
 			if(newMatrix != null)
 				newMesh.applyMatrix(newMatrix);
 			newMesh.name = copyedObjectName;
+			newMesh.castShadow = orgMesh.castShadow;
+			newMesh.receiveShadow = orgMesh.receiveShadow;
 			if(newMesh != null){
 				SceneController.Meshs.push(newMesh);
 				scene.add(newMesh);
@@ -441,10 +363,10 @@ function SceneInit(targetCanvas) {
 
 	function tick() {
 		//回転させる
-		if (mesh != null) {
-			mesh.rotation.x += 0.01;
-			mesh.rotation.y += 0.01;
-			mesh2.rotation.y += 0.02;
+		if (pointLight2 != null) {
+			var time = performance.now() * 0.001;
+			pointLight2.position.x = 900 * Math.sin( time * 0.6 );
+			pointLight2.position.z = 900 * Math.cos( time * 0.6 );
 		}
 
 		// レンダリング

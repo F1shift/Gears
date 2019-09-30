@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using static System.Math;
-using static Gears.Utility.ThreeDUtility;
+using static Gears.Utility.Math;
 using static Gears.Utility.EnumerableExtentions;
 
 namespace Gears.Models
