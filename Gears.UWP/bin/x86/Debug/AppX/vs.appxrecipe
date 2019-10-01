@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-09-30T13:21:11.995</Modified>
+      <Modified>2019-10-01T14:14:44.444</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.exe">
       <PackagePath>entrypoint\Gears.UWP.exe</PackagePath>
-      <Modified>2019-09-30T13:17:54.523</Modified>
+      <Modified>2019-10-01T14:00:05.689</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\newtonsoft.json\12.0.2\lib\netstandard2.0\Newtonsoft.Json.dll">
       <PackagePath>Newtonsoft.Json.dll</PackagePath>
@@ -96,7 +96,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.dll">
       <PackagePath>Gears.dll</PackagePath>
-      <Modified>2019-09-30T13:17:49.023</Modified>
+      <Modified>2019-10-01T14:00:00.920</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Microsoft\Xamarin\NuGet\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -106,9 +106,33 @@
       <PackagePath>Assets\www\index.html</PackagePath>
       <Modified>2019-09-23T08:13:47.467</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\nx.jpg">
+      <PackagePath>Assets\www\cube\nx.jpg</PackagePath>
+      <Modified>2019-10-01T13:13:01.265</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\ny.jpg">
+      <PackagePath>Assets\www\cube\ny.jpg</PackagePath>
+      <Modified>2019-10-01T13:13:01.345</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\nz.jpg">
+      <PackagePath>Assets\www\cube\nz.jpg</PackagePath>
+      <Modified>2019-10-01T13:13:01.394</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\px.jpg">
+      <PackagePath>Assets\www\cube\px.jpg</PackagePath>
+      <Modified>2019-10-01T13:13:01.439</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\py.jpg">
+      <PackagePath>Assets\www\cube\py.jpg</PackagePath>
+      <Modified>2019-10-01T13:13:01.491</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\pz.jpg">
+      <PackagePath>Assets\www\cube\pz.jpg</PackagePath>
+      <Modified>2019-10-01T13:13:01.528</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\SceneBuilder.js">
       <PackagePath>Assets\www\SceneBuilder.js</PackagePath>
-      <Modified>2019-09-30T13:21:00.192</Modified>
+      <Modified>2019-10-01T14:14:34.635</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery.js">
       <PackagePath>Assets\www\jquery.js</PackagePath>
@@ -291,11 +315,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-09-30T13:21:11.526</Modified>
+      <Modified>2019-10-01T14:14:43.961</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-09-30T13:21:11.526</Modified>
+      <Modified>2019-10-01T14:14:43.962</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -307,11 +331,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2019-09-23T08:14:10.013</Modified>
+      <Modified>2019-10-01T13:14:53.903</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\Gears.UWP.exe">
       <PackagePath>Gears.UWP.exe</PackagePath>
-      <Modified>2019-09-30T13:21:11.991</Modified>
+      <Modified>2019-10-01T14:14:44.441</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

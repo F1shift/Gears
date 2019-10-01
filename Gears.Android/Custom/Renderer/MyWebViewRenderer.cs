@@ -46,6 +46,7 @@ namespace Gears.Droid.Custom.Renderer
                     var webView = new Android.Webkit.WebView(_context);
                     webView.Settings.JavaScriptEnabled = true;
                     webView.Settings.SetRenderPriority(WebSettings.RenderPriority.High);
+                    webView.Settings.AllowFileAccessFromFileURLs = true;
                     webView.SetLayerType(LayerType.Hardware, null);
                     SetNativeControl(webView);
                 }

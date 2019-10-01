@@ -563,7 +563,7 @@ namespace Gears.ViewModels
                 firstToothBufferData.Merge(rightFlankData, rightFilletData, rooData, leftFilletData, leftFlankData, tipData, frontFaceBufferData, backFaceBufferData);
                 firstToothBufferData.name = i == 0 ? "pinionTooth" : "gearTooth";
                 firstToothBufferData.SetType(BufferGeometryData.Types.mesh);
-                firstToothBufferData.color = 0xFFFFFF;
+                firstToothBufferData.color = 0x555555;
                 firstToothBufferData.castShadow = true;
                 firstToothBufferData.receiveShadow = true;
                 AddBufferGeometry(firstToothBufferData);

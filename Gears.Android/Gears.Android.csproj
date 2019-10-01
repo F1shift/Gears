@@ -126,5 +126,13 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\www\TrackballControls.js" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\www\cube\nx.jpg" />
+    <AndroidAsset Include="Assets\www\cube\ny.jpg" />
+    <AndroidAsset Include="Assets\www\cube\nz.jpg" />
+    <AndroidAsset Include="Assets\www\cube\px.jpg" />
+    <AndroidAsset Include="Assets\www\cube\py.jpg" />
+    <AndroidAsset Include="Assets\www\cube\pz.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

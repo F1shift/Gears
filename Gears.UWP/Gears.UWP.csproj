@@ -108,6 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\www\index.html" />
+    <Content Include="Assets\www\cube\nx.jpg" />
+    <Content Include="Assets\www\cube\ny.jpg" />
+    <Content Include="Assets\www\cube\nz.jpg" />
+    <Content Include="Assets\www\cube\px.jpg" />
+    <Content Include="Assets\www\cube\py.jpg" />
+    <Content Include="Assets\www\cube\pz.jpg" />
     <Content Include="Assets\www\SceneBuilder.js" />
     <Content Include="Assets\www\jquery.js" />
     <Content Include="Assets\www\OrbitControls.js" />

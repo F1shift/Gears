@@ -79,6 +79,24 @@
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index.html">
       <PackagePath>Assets\www\index.html</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\nx.jpg">
+      <PackagePath>Assets\www\cube\nx.jpg</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\ny.jpg">
+      <PackagePath>Assets\www\cube\ny.jpg</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\nz.jpg">
+      <PackagePath>Assets\www\cube\nz.jpg</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\px.jpg">
+      <PackagePath>Assets\www\cube\px.jpg</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\py.jpg">
+      <PackagePath>Assets\www\cube\py.jpg</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\pz.jpg">
+      <PackagePath>Assets\www\cube\pz.jpg</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\SceneBuilder.js">
       <PackagePath>Assets\www\SceneBuilder.js</PackagePath>
     </AppxPackagedFile>

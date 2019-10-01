@@ -36,7 +36,10 @@ function SceneInit(targetCanvas) {
 
 	//#region シーンを作成
 	var scene = new THREE.Scene();
-	scene.background = new THREE.Color(0x000000);
+	//scene.background = new THREE.Color(0x000000);
+	scene.background = new THREE.CubeTextureLoader()
+					.setPath( 'cube/' )
+					.load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
 	//#endregion
 
 	//#region カメラを作成
@@ -45,32 +48,50 @@ function SceneInit(targetCanvas) {
 	//#endregion
 
 	//#region 光源
-	var ambientLight = new THREE.AmbientLight(0xffffff);
-	ambientLight.intensity = 0.5;
+	var ambientLight = new THREE.AmbientLight(0xbbeeff);
+	ambientLight.intensity = 0.1;
 	scene.add(ambientLight);
 
-	var pointLight = new THREE.PointLight(0xFFFFFF, 1, 100000);
-	pointLight.position.set(-300, 0, 300);
-	pointLight.castShadow = true; // default false
+	// var pointLight = new THREE.PointLight(0xffeebb, 1, 100000);
+	// pointLight.position.set(-300, 0, 300);
+	// pointLight.castShadow = true; // default false
+
+	// //Set up shadow properties for the light;
+	// pointLight.shadow.mapSize.width = performanceSetting.shadowMapSize; // default 1024
+	// pointLight.shadow.mapSize.height = performanceSetting.shadowMapSize; // default 1024
+	// pointLight.shadow.camera.near = 1; // default
+	// pointLight.distance = 3000;
+	// pointLight.shadow.camera.far = 3000;
+	// pointLight.decay = 2;
+	// pointLight.power = Math.PI * 4;
+	// pointLight.shadow.bias = - 0.0005; // reduces self-shadowing on double-sided objects
+	// scene.add(pointLight);
+
+	var directionalLight = new THREE.DirectionalLight(0xeeddbb, 8);
+	directionalLight.position.set(-1000, 500, 1000);
+	directionalLight.castShadow = true; // default false
 
 	//Set up shadow properties for the light;
-	pointLight.shadow.mapSize.width = performanceSetting.shadowMapSize; // default 1024
-	pointLight.shadow.mapSize.height = performanceSetting.shadowMapSize; // default 1024
-	pointLight.shadow.camera.near = 1; // default
-	pointLight.distance = 3000;
-	pointLight.shadow.camera.far = 3000;
-	pointLight.decay = 2;
-	pointLight.power = Math.PI * 4;
-	pointLight.shadow.bias = - 0.0005; // reduces self-shadowing on double-sided objects
-	scene.add(pointLight);
+	directionalLight.shadow.mapSize.width = performanceSetting.shadowMapSize; // default 1024
+	directionalLight.shadow.mapSize.height = performanceSetting.shadowMapSize; // default 1024
+	directionalLight.shadow.camera.right = 1000;
+	directionalLight.shadow.camera.left = -1000;
+	directionalLight.shadow.camera.top = -1000;
+	directionalLight.shadow.camera.bottom = 1000;
+	directionalLight.shadow.camera.near = 1; // default
+	directionalLight.distance = 3000;
+	directionalLight.shadow.camera.far = 3000;
+	directionalLight.power = Math.PI * 4;
+	directionalLight.shadow.bias = - 0.0005; // reduces self-shadowing on double-sided objects
+	scene.add(directionalLight);
 
 	var pLightGeometry = new THREE.SphereBufferGeometry(10, 16, 8);
-	var pLightMaterial = new THREE.MeshStandardMaterial({
-		emissive: 0xffffee,
-		emissiveIntensity: 1,
-		color: 0x000000
-	});
-	pointLight.add(new THREE.Mesh(pLightGeometry, pLightMaterial));
+	// var pLightMaterial = new THREE.MeshStandardMaterial({
+	// 	emissive: 0xffffee,
+	// 	emissiveIntensity: 1,
+	// 	color: 0x000000
+	// });
+	//pointLight.add(new THREE.Mesh(pLightGeometry, pLightMaterial));
 
 	var pointLight2 = new THREE.PointLight(0xffeebb, 1, 100000);
 	pointLight2.position.set(-100, -100, -800);
@@ -96,21 +117,21 @@ function SceneInit(targetCanvas) {
 	//#endregion
 
 	//#region グラウンド
-	var planeGeometry = new THREE.PlaneGeometry(2000, 2000);
-	planeGeometry.rotateX(- Math.PI / 2);
-	var planeMaterial = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.2 });
-	var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-	plane.position.y = -200;
-	plane.receiveShadow = true;
-	scene.add(plane);
+	// var planeGeometry = new THREE.PlaneGeometry(2000, 2000);
+	// planeGeometry.rotateX(- Math.PI / 2);
+	// var planeMaterial = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.2 });
+	// var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+	// plane.position.y = -200;
+	// plane.receiveShadow = true;
+	// scene.add(plane);
 
-	var planeGeometry2 = new THREE.PlaneGeometry(2000, 1000);
-	var planeMaterial2 = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 1 });
-	var plane2 = new THREE.Mesh(planeGeometry2, planeMaterial2);
-	plane2.position.z = -1000;
-	plane2.position.y = 300;
-	plane2.receiveShadow = true;
-	scene.add(plane2);
+	// var planeGeometry2 = new THREE.PlaneGeometry(2000, 1000);
+	// var planeMaterial2 = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 1 });
+	// var plane2 = new THREE.Mesh(planeGeometry2, planeMaterial2);
+	// plane2.position.z = -1000;
+	// plane2.position.y = 300;
+	// plane2.receiveShadow = true;
+	// scene.add(plane2);
 
 	var helperXY = new THREE.GridHelper(2000, 100);
 	helperXY.rotation.x = Math.PI / 2;
@@ -287,7 +308,7 @@ function SceneInit(targetCanvas) {
 						}
 						else
 						{
-							material = new THREE.LineBasicMaterial({ color:color });
+							material = new THREE.MeshStandardMaterial({ color:color });
 						}
 					}
 					else{
@@ -306,7 +327,13 @@ function SceneInit(targetCanvas) {
 						}
 						else
 						{
-							material = new THREE.MeshStandardMaterial({ color:color });
+							material = new THREE.MeshStandardMaterial( {
+								color:color,
+								metalness: 1,
+								roughness: 0.3,
+								envMapIntensity: 1,
+								envMap: scene.background
+							} );
 						}
 					}
 					else{
