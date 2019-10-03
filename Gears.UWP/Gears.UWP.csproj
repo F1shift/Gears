@@ -107,18 +107,18 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\www\EquirectangularToCubeGenerator.js" />
+    <Content Include="Assets\www\EXRLoader.js" />
+    <Content Include="Assets\www\PMREMCubeUVPacker.js" />
+    <Content Include="Assets\www\PMREMGenerator.js" />
+    <Content Include="Assets\www\RGBELoader.js" />
+    <Content Include="Assets\www\stats.min.js" />
+    <Content Include="Assets\www\stats.module.js" />
+    <Content Include="Assets\www\three.js" />
+    <Content Include="Assets\www\three.module.js" />
     <Content Include="Assets\www\index.html" />
-    <Content Include="Assets\www\cube\nx.jpg" />
-    <Content Include="Assets\www\cube\ny.jpg" />
-    <Content Include="Assets\www\cube\nz.jpg" />
-    <Content Include="Assets\www\cube\px.jpg" />
-    <Content Include="Assets\www\cube\py.jpg" />
-    <Content Include="Assets\www\cube\pz.jpg" />
     <Content Include="Assets\www\SceneBuilder.js" />
     <Content Include="Assets\www\jquery.js" />
-    <Content Include="Assets\www\OrbitControls.js" />
-    <Content Include="Assets\www\stats.min.js" />
-    <Content Include="Assets\www\three.js" />
     <Content Include="Assets\www\TrackballControls.js" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -179,6 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\www\textures\autoshop_01_1k.hdr" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

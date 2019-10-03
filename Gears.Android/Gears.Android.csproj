@@ -80,6 +80,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\www\piz_compressed.exr" />
+    <AndroidAsset Include="Assets\www\stats.module.js" />
+    <AndroidAsset Include="Assets\www\three.module.js" />
+    <AndroidAsset Include="Assets\www\textures\autoshop_01_1k.hdr" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
@@ -117,22 +121,35 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\www\index.html" />
-    <AndroidAsset Include="Assets\www\OrbitControls.js" />
-    <AndroidAsset Include="Assets\www\stats.min.js" />
-    <AndroidAsset Include="Assets\www\three.js" />
     <AndroidAsset Include="Assets\www\jquery.js" />
+    <AndroidAsset Include="Assets\www\equirectangular.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\www\three.js" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidAsset Include="Assets\www\SceneBuilder.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\www\stats.min.js" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\www\TrackballControls.js" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\www\cube\nx.jpg" />
-    <AndroidAsset Include="Assets\www\cube\ny.jpg" />
-    <AndroidAsset Include="Assets\www\cube\nz.jpg" />
-    <AndroidAsset Include="Assets\www\cube\px.jpg" />
-    <AndroidAsset Include="Assets\www\cube\py.jpg" />
-    <AndroidAsset Include="Assets\www\cube\pz.jpg" />
+    <AndroidAsset Include="Assets\www\EquirectangularToCubeGenerator.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\www\EXRLoader.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\www\RGBELoader.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\www\PMREMCubeUVPacker.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\www\PMREMGenerator.js" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

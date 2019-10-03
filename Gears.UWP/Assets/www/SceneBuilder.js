@@ -37,9 +37,37 @@ function SceneInit(targetCanvas) {
 	//#region シーンを作成
 	var scene = new THREE.Scene();
 	//scene.background = new THREE.Color(0x000000);
-	scene.background = new THREE.CubeTextureLoader()
-					.setPath( 'cube/' )
-					.load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
+	// scene.background = new THREE.CubeTextureLoader()
+	// 				.setPath( 'cube/' )
+	// 				.load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
+	
+    new THREE.RGBELoader()
+        .setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
+        .load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
+
+		texture.minFilter = THREE.NearestFilter;
+		// texture.magFilter = THREE.NearestFilter;
+		texture.encoding = THREE.LinearEncoding;
+
+        var cubemapGenerator = new THREE.EquirectangularToCubeGenerator( texture, { resolution: 512, type: THREE.HalfFloatType } );
+		var exrBackground = cubemapGenerator.renderTarget;
+		var cubeMapTexture = cubemapGenerator.update( renderer );
+
+        var pmremGenerator = new THREE.PMREMGenerator( cubeMapTexture );
+		pmremGenerator.update( renderer );
+
+        var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker( pmremGenerator.cubeLods );
+		pmremCubeUVPacker.update( renderer );
+
+		var exrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
+
+		texture.dispose();
+		pmremGenerator.dispose();
+		pmremCubeUVPacker.dispose();
+
+		scene.background = exrBackground;
+	} );
+
 	//#endregion
 
 	//#region カメラを作成
@@ -67,13 +95,13 @@ function SceneInit(targetCanvas) {
 	// pointLight.shadow.bias = - 0.0005; // reduces self-shadowing on double-sided objects
 	// scene.add(pointLight);
 
-	var directionalLight = new THREE.DirectionalLight(0xeeddbb, 8);
+	var directionalLight = new THREE.DirectionalLight(0xddddbb, 4);
 	directionalLight.position.set(-1000, 500, 1000);
 	directionalLight.castShadow = true; // default false
 
 	//Set up shadow properties for the light;
-	directionalLight.shadow.mapSize.width = performanceSetting.shadowMapSize; // default 1024
-	directionalLight.shadow.mapSize.height = performanceSetting.shadowMapSize; // default 1024
+	directionalLight.shadow.mapSize.width = 4096; // default 1024
+    directionalLight.shadow.mapSize.height = 4096; // default 1024
 	directionalLight.shadow.camera.right = 1000;
 	directionalLight.shadow.camera.left = -1000;
 	directionalLight.shadow.camera.top = -1000;
@@ -84,6 +112,24 @@ function SceneInit(targetCanvas) {
 	directionalLight.power = Math.PI * 4;
 	directionalLight.shadow.bias = - 0.0005; // reduces self-shadowing on double-sided objects
 	scene.add(directionalLight);
+
+    var directionalLight2 = new THREE.DirectionalLight(0xddddbb, 4);
+    directionalLight2.position.set(1000, 500, -1000);
+    directionalLight2.castShadow = true; // default false
+
+    //Set up shadow properties for the light;
+    directionalLight2.shadow.mapSize.width = 4096; // default 1024
+    directionalLight2.shadow.mapSize.height = 4096; // default 1024
+    directionalLight2.shadow.camera.right = 1000;
+    directionalLight2.shadow.camera.left = -1000;
+    directionalLight2.shadow.camera.top = -1000;
+    directionalLight2.shadow.camera.bottom = 1000;
+    directionalLight2.shadow.camera.near = 1; // default
+    directionalLight2.distance = 3000;
+    directionalLight2.shadow.camera.far = 3000;
+    directionalLight2.power = Math.PI * 4;
+    directionalLight2.shadow.bias = - 0.0005; // reduces self-shadowing on double-sided objects
+    scene.add(directionalLight2);
 
 	var pLightGeometry = new THREE.SphereBufferGeometry(10, 16, 8);
 	// var pLightMaterial = new THREE.MeshStandardMaterial({
@@ -97,8 +143,8 @@ function SceneInit(targetCanvas) {
 	pointLight2.position.set(-100, -100, -800);
 	pointLight2.castShadow = true; // default false
 
-	pointLight2.shadow.mapSize.width = 4096; // default 1024
-	pointLight2.shadow.mapSize.height = 4096; // default 1024
+	pointLight2.shadow.mapSize.width = performanceSetting.shadowMapSize; // default 1024
+	pointLight2.shadow.mapSize.height = performanceSetting.shadowMapSize; // default 1024
 	pointLight2.shadow.camera.near = 1; // default
 	pointLight2.distance = 3000;
 	pointLight2.shadow.camera.far = 3000;
@@ -330,7 +376,7 @@ function SceneInit(targetCanvas) {
 							material = new THREE.MeshStandardMaterial( {
 								color:color,
 								metalness: 1,
-								roughness: 0.3,
+								roughness: 0.5,
 								envMapIntensity: 1,
 								envMap: scene.background
 							} );
