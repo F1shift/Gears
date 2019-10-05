@@ -31,7 +31,8 @@ function SceneInit(targetCanvas) {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	//renderer.shadowMap.enabled = navigator.appVersion.includes("Windows")? true : false;
 	renderer.shadowMap.enabled = performanceSetting.shadowEnabled;
-	renderer.shadowMap.type = performanceSetting.shadowMapType;
+    renderer.shadowMap.type = performanceSetting.shadowMapType;
+    renderer.toneMapping = THREE.CineonToneMapping;
 	//#endregion
 
 	//#region シーンを作成
@@ -41,9 +42,12 @@ function SceneInit(targetCanvas) {
 	// 				.setPath( 'cube/' )
 	// 				.load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
 	
-    new THREE.RGBELoader()
-        .setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
-        .load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
+    //new THREE.RGBELoader()
+    //    .setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
+    //    .load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
+    new EXRLoader()
+        .setDataType(THREE.FloatType)
+        .load('textures/086_hdrmaps_com_free.exr', function (texture) {
 
 		texture.minFilter = THREE.NearestFilter;
 		// texture.magFilter = THREE.NearestFilter;

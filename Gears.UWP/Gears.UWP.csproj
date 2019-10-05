@@ -183,6 +183,15 @@
   <ItemGroup>
     <Content Include="Assets\www\textures\autoshop_01_1k.hdr" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\www\textures\machine_shop_01_1k.hdr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\www\textures\abandoned_hall_01_1k.hdr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\www\textures\086_hdrmaps_com_free.exr" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

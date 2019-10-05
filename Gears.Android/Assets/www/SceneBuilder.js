@@ -31,7 +31,8 @@ function SceneInit(targetCanvas) {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	//renderer.shadowMap.enabled = navigator.appVersion.includes("Windows")? true : false;
 	renderer.shadowMap.enabled = performanceSetting.shadowEnabled;
-	renderer.shadowMap.type = performanceSetting.shadowMapType;
+    renderer.shadowMap.type = performanceSetting.shadowMapType;
+    renderer.toneMapping = THREE.CineonToneMapping;
 	//#endregion
 
 	//#region シーンを作成
@@ -40,10 +41,14 @@ function SceneInit(targetCanvas) {
 	// scene.background = new THREE.CubeTextureLoader()
 	// 				.setPath( 'cube/' )
 	// 				.load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
-	
+
+    var evnTexture;
     new THREE.RGBELoader()
         .setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
         .load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
+    //new THREE.EXRLoader()
+    //    .setDataType(THREE.HalfFloatType)
+    //    .load('textures/086_hdrmaps_com_free_1k.exr', function (texture) {
 
 		texture.minFilter = THREE.NearestFilter;
 		// texture.magFilter = THREE.NearestFilter;
@@ -65,7 +70,8 @@ function SceneInit(targetCanvas) {
 		pmremGenerator.dispose();
 		pmremCubeUVPacker.dispose();
 
-		scene.background = exrBackground;
+        evnTexture = exrBackground;
+		//scene.background = exrBackground;
 	} );
 
 	//#endregion
@@ -378,7 +384,7 @@ function SceneInit(targetCanvas) {
 								metalness: 1,
 								roughness: 0.5,
 								envMapIntensity: 1,
-								envMap: scene.background
+                                envMap: evnTexture
 							} );
 						}
 					}

@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-10-03T14:10:03.219</Modified>
+      <Modified>2019-10-04T16:43:45.427</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.exe">
       <PackagePath>entrypoint\Gears.UWP.exe</PackagePath>
-      <Modified>2019-10-03T14:01:57.033</Modified>
+      <Modified>2019-10-04T16:43:44.724</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\newtonsoft.json\12.0.2\lib\netstandard2.0\Newtonsoft.Json.dll">
       <PackagePath>Newtonsoft.Json.dll</PackagePath>
@@ -102,9 +102,61 @@
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
       <Modified>2016-11-29T18:58:38.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\equirectangular.png">
-      <PackagePath>Assets\www\textures\equirectangular.png</PackagePath>
-      <Modified>2019-10-03T13:11:27.529</Modified>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\EquirectangularToCubeGenerator.js">
+      <PackagePath>Assets\www\EquirectangularToCubeGenerator.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.532</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\EXRLoader.js">
+      <PackagePath>Assets\www\EXRLoader.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.550</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMCubeUVPacker.js">
+      <PackagePath>Assets\www\PMREMCubeUVPacker.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.594</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMGenerator.js">
+      <PackagePath>Assets\www\PMREMGenerator.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.598</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\RGBELoader.js">
+      <PackagePath>Assets\www\RGBELoader.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.602</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.min.js">
+      <PackagePath>Assets\www\stats.min.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.611</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.module.js">
+      <PackagePath>Assets\www\stats.module.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.614</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.js">
+      <PackagePath>Assets\www\three.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.618</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.module.js">
+      <PackagePath>Assets\www\three.module.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.621</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\SceneBuilder.js">
+      <PackagePath>Assets\www\SceneBuilder.js</PackagePath>
+      <Modified>2019-10-04T16:42:53.768</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery.js">
+      <PackagePath>Assets\www\jquery.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.582</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\TrackballControls.js">
+      <PackagePath>Assets\www\TrackballControls.js</PackagePath>
+      <Modified>2019-10-03T13:11:27.626</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index.html">
+      <PackagePath>Assets\www\index.html</PackagePath>
+      <Modified>2019-10-03T13:11:27.579</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
+      <Modified>2019-08-25T01:30:04.035</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\LargeTile.scale-100.png">
       <PackagePath>Assets\LargeTile.scale-100.png</PackagePath>
@@ -257,97 +309,21 @@
       <PackagePath>cancel.png</PackagePath>
       <Modified>2019-08-25T01:30:04.328</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\EquirectangularToCubeGenerator.js">
-      <PackagePath>Assets\www\EquirectangularToCubeGenerator.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.532</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\EXRLoader.js">
-      <PackagePath>Assets\www\EXRLoader.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.550</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMCubeUVPacker.js">
-      <PackagePath>Assets\www\PMREMCubeUVPacker.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.594</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMGenerator.js">
-      <PackagePath>Assets\www\PMREMGenerator.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.598</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\RGBELoader.js">
-      <PackagePath>Assets\www\RGBELoader.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.602</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.min.js">
-      <PackagePath>Assets\www\stats.min.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.611</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.module.js">
-      <PackagePath>Assets\www\stats.module.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.614</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.js">
-      <PackagePath>Assets\www\three.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.618</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.module.js">
-      <PackagePath>Assets\www\three.module.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.621</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\SceneBuilder.js">
-      <PackagePath>Assets\www\SceneBuilder.js</PackagePath>
-      <Modified>2019-10-03T14:09:56.153</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery.js">
-      <PackagePath>Assets\www\jquery.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.582</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\TrackballControls.js">
-      <PackagePath>Assets\www\TrackballControls.js</PackagePath>
-      <Modified>2019-10-03T13:11:27.626</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index.html">
-      <PackagePath>Assets\www\index.html</PackagePath>
-      <Modified>2019-10-03T13:11:27.579</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\nx.jpg">
-      <PackagePath>Assets\www\cube\nx.jpg</PackagePath>
-      <Modified>2019-10-03T13:11:27.498</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\ny.jpg">
-      <PackagePath>Assets\www\cube\ny.jpg</PackagePath>
-      <Modified>2019-10-03T13:11:27.507</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\nz.jpg">
-      <PackagePath>Assets\www\cube\nz.jpg</PackagePath>
-      <Modified>2019-10-03T13:11:27.511</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\px.jpg">
-      <PackagePath>Assets\www\cube\px.jpg</PackagePath>
-      <Modified>2019-10-03T13:11:27.516</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\py.jpg">
-      <PackagePath>Assets\www\cube\py.jpg</PackagePath>
-      <Modified>2019-10-03T13:11:27.521</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\cube\pz.jpg">
-      <PackagePath>Assets\www\cube\pz.jpg</PackagePath>
-      <Modified>2019-10-03T13:11:27.525</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Properties\Default.rd.xml">
-      <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2019-08-25T01:30:04.035</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\piz_compressed.exr">
-      <PackagePath>Assets\www\textures\piz_compressed.exr</PackagePath>
-      <Modified>2019-10-03T13:11:27.591</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\memorial.hdr">
-      <PackagePath>Assets\www\textures\memorial.hdr</PackagePath>
-      <Modified>2019-10-03T13:46:12.241</Modified>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\autoshop_01_1k.hdr">
       <PackagePath>Assets\www\textures\autoshop_01_1k.hdr</PackagePath>
       <Modified>2019-10-03T13:50:37.994</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\machine_shop_01_1k.hdr">
+      <PackagePath>Assets\www\textures\machine_shop_01_1k.hdr</PackagePath>
+      <Modified>2019-10-04T15:53:50.235</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\abandoned_hall_01_1k.hdr">
+      <PackagePath>Assets\www\textures\abandoned_hall_01_1k.hdr</PackagePath>
+      <Modified>2019-10-04T16:02:36.803</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\086_hdrmaps_com_free.exr">
+      <PackagePath>Assets\www\textures\086_hdrmaps_com_free.exr</PackagePath>
+      <Modified>2019-10-04T16:42:35.728</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.xr.xml">
       <PackagePath>Gears.UWP.xr.xml</PackagePath>
@@ -355,11 +331,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-10-03T14:10:02.748</Modified>
+      <Modified>2019-10-04T16:43:44.424</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-10-03T14:10:02.748</Modified>
+      <Modified>2019-10-04T16:43:44.424</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -371,11 +347,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2019-10-03T14:01:57.309</Modified>
+      <Modified>2019-10-04T16:43:45.015</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\Gears.UWP.exe">
       <PackagePath>Gears.UWP.exe</PackagePath>
-      <Modified>2019-10-03T14:10:03.216</Modified>
+      <Modified>2019-10-04T16:43:45.424</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

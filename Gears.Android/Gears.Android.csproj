@@ -84,6 +84,8 @@
     <AndroidAsset Include="Assets\www\stats.module.js" />
     <AndroidAsset Include="Assets\www\three.module.js" />
     <AndroidAsset Include="Assets\www\textures\autoshop_01_1k.hdr" />
+    <AndroidAsset Include="Assets\www\textures\abandoned_hall_01_1k.hdr" />
+    <AndroidAsset Include="Assets\www\textures\machine_shop_01_1k.hdr" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
