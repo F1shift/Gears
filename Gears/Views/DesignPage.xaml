@@ -10,8 +10,8 @@
             Title="Design"
             android:TabbedPage.IsSwipePagingEnabled="False"
              x:Class="Gears.Views.DesignPage" Padding="0"
-            x:DataType="vm:GearDesignViewModel"
-            BindingContext="{StaticResource GearDesignViewModel}">
+            x:DataType="vm:DesignViewModel"
+            BindingContext="{StaticResource DesignViewModel}">
   <!--Pages can be added as references or inline-->
     <v:RackParameterPage Title="Base Rack" BindingContext="{Binding RackParameterViewModel}"/>
     <v:GearParameterPage Title="Gear" BindingContext="{Binding GearParameterViewModel}"/>

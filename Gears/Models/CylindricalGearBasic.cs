@@ -15,16 +15,30 @@ namespace Gears.Models
     /// </summary>
     class CylindricalGearBasic
     {
+        [IsInput]
         public double mn { get; set; }
+        [IsInput]
         public double αn { get; set; }
+        [IsInput]
         public bool 歯車1が左ねじである { get; set; }
+        [IsInput]
         public double β { get; set; }
-        public double[] L { get; set; } = new double[2];//リード
+        [IsInput]
         public int[] z { get; set; } = new int[2];
+        [IsInput]
         public double[] xn { get; set; } = new double[2];
+        [IsInput]
+        public double[] ρ_c { get; set; } = new double[2];
+        [IsInput]
+        public double[] b_c { get; set; } = new double[2];
+        [IsInput]
+        public double ha_c { get; set; }
+        [IsInput]
+        public double hf_c { get; set; }
         public double mt { get; set; }//端面モジュール
         public double αt { get; set; }
         public double αwt { get; set; }
+        public double[] L { get; set; } = new double[2];//リード
         public double y { get; set; }
         public double a { get; set; }
         public double[] d { get; set; } = new double[2];
@@ -40,13 +54,10 @@ namespace Gears.Models
         /// <summary>
         /// 歯元円径係数(カッターの歯先円径係数)
         /// </summary>
-        public double[] ρ_c { get; set; } = new double[2];
         public double[] da { get; set; } = new double[2];
         public double[] df { get; set; } = new double[2];
         public double[] b { get; set; } = new double[2];
-        public double[] b_c { get; set; } = new double[2];
-        public double ha_c { get; set; }
-        public double hf_c { get; set; }
+        
 
         public void SolveFromCenterDistance() {
             αt = Atan(Tan(αn) / Cos(β));
@@ -96,6 +107,66 @@ namespace Gears.Models
                 df[i] = da[i] - 2 * h[i];
                 b[i] = mn * b_c[i];
             }
+        }
+
+        public void CopyInputFrom(CylindricalGearBasic target) {
+            var type = typeof(CylindricalGearBasic);
+            foreach (var property in type.GetProperties())
+            {
+                if (Attribute.GetCustomAttribute(property, typeof(IsInputAttribute)) != null)
+                {
+                    var thisValue = property.GetValue(this);
+                    var targetValue = property.GetValue(target);
+                    if (thisValue != targetValue)
+                    {
+                        property.SetValue(this, targetValue);
+                    }
+                }
+            }
+        }
+        public void CopyInputTo(CylindricalGearBasic target)
+        {
+            var type = typeof(CylindricalGearBasic);
+            foreach (var property in type.GetProperties())
+            {
+                if (Attribute.GetCustomAttribute(property, typeof(IsInputAttribute)) != null)
+                {
+                    var thisValue = property.GetValue(this);
+                    var targetValue = property.GetValue(target);
+                    if (thisValue != targetValue)
+                    {
+                        property.SetValue(target, thisValue);
+                    }
+                }
+            }
+        }
+
+        public bool HasSameInputWith(CylindricalGearBasic  target)
+        {
+            if (target == null)
+            {
+                return false;
+            }
+            if (this.mn != target.mn) return false;
+            if (this.αn != target.αn) return false;
+            if (this.歯車1が左ねじである != target.歯車1が左ねじである) return false;
+            if (this.β != target.β) return false;
+            if (this.z[0] != target.z[0]) return false;
+            if (this.z[1] != target.z[1]) return false;
+            if (this.xn[0] != target.xn[0]) return false;
+            if (this.xn[1] != target.xn[1]) return false;
+            if (this.ρ_c[0] != target.ρ_c[0]) return false;
+            if (this.ρ_c[1] != target.ρ_c[1]) return false;
+            if (this.b_c[0] != target.b_c[0]) return false;
+            if (this.b_c[1] != target.b_c[1]) return false;
+            if (this.ha_c != target.ha_c) return false;
+            if (this.hf_c != target.hf_c) return false;
+            return true;
+        }
+
+        [AttributeUsage(AttributeTargets.Property)]
+        class IsInputAttribute : Attribute
+        {
         }
     }
 }

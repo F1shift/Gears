@@ -36,8 +36,9 @@
                 <Setter Property="MaximumTrackColor" Value="{StaticResource SliderColorMax}"/>
             </Style>
             <!--View Model Instances-->
-            <vm:GearDesignViewModel x:Key="GearDesignViewModel"/>
+            <vm:DesignViewModel x:Key="DesignViewModel"/>
             <vm:ThreeDModelingViewModel x:Key="ThreeDModelingViewModel"/>
+            <vm:DesignViewModel2 x:Key="DesignViewModel2"/>
         </ResourceDictionary>
     </Application.Resources>
     

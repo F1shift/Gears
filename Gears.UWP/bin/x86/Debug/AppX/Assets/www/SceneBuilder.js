@@ -1,7 +1,32 @@
+var platform;
+if (navigator.appVersion.includes("Windows")) {
+    platform = "UWP";
+}
+else if (navigator.appVersion.includes("Linux")) {
+    platform = "Android";
+}
+else if (navigator.appVersion.includes("iOS")) {
+    platform = "iOS";
+}
+
+function InvokeCS(data) {
+    switch (platform) {
+        case "UWP":
+            window.external.notify(data);
+            break;
+        case "Android":
+            jsBridge.Notify(data);
+            break;
+        default:
+            console.log("Platform of " + platform + " is not implement InvokeCS method!");
+            break;
+    }
+}
+
 function SceneInit(targetCanvas) {
-	var platform = navigator.appVersion.includes("Windows") ? "PC" : "mobile";
+	
 	var performanceSetting;
-	if (platform == "PC") //On computer
+    if (platform == "UWP") //On computer
 	{
 		performanceSetting = {
 			antialias: window.devicePixelRatio > 1.5 ? false : true,
@@ -41,36 +66,38 @@ function SceneInit(targetCanvas) {
 	// scene.background = new THREE.CubeTextureLoader()
 	// 				.setPath( 'cube/' )
 	// 				.load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
-	
-    //new THREE.RGBELoader()
-    //    .setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
-    //    .load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
-    new EXRLoader()
-        .setDataType(THREE.FloatType)
-        .load('textures/086_hdrmaps_com_free.exr', function (texture) {
 
-		texture.minFilter = THREE.NearestFilter;
-		// texture.magFilter = THREE.NearestFilter;
-		texture.encoding = THREE.LinearEncoding;
+    var evnTexture;
+    new THREE.RGBELoader()
+        .setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
+        .load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
+    //new THREE.EXRLoader()
+    //    .setDataType(THREE.HalfFloatType)
+    //    .load('textures/086_hdrmaps_com_free_1k.exr', function (texture) {
 
-        var cubemapGenerator = new THREE.EquirectangularToCubeGenerator( texture, { resolution: 512, type: THREE.HalfFloatType } );
-		var exrBackground = cubemapGenerator.renderTarget;
-		var cubeMapTexture = cubemapGenerator.update( renderer );
+		    texture.minFilter = THREE.NearestFilter;
+		    // texture.magFilter = THREE.NearestFilter;
+		    texture.encoding = THREE.LinearEncoding;
 
-        var pmremGenerator = new THREE.PMREMGenerator( cubeMapTexture );
-		pmremGenerator.update( renderer );
+            var cubemapGenerator = new THREE.EquirectangularToCubeGenerator(texture, { resolution: 512, type: THREE.HalfFloatType });
+            var exrBackground = cubemapGenerator.renderTarget.texture;
+		    var cubeMapTexture = cubemapGenerator.update( renderer );
 
-        var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker( pmremGenerator.cubeLods );
-		pmremCubeUVPacker.update( renderer );
+            var pmremGenerator = new THREE.PMREMGenerator( cubeMapTexture );
+		    pmremGenerator.update( renderer );
 
-		var exrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
+            var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker( pmremGenerator.cubeLods );
+		    pmremCubeUVPacker.update( renderer );
 
-		texture.dispose();
-		pmremGenerator.dispose();
-		pmremCubeUVPacker.dispose();
+		    var exrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
 
-		scene.background = exrBackground;
-	} );
+		    texture.dispose();
+		    pmremGenerator.dispose();
+		    pmremCubeUVPacker.dispose();
+
+            evnTexture = exrBackground;
+		    //scene.background = exrBackground;
+	    } );
 
 	//#endregion
 
@@ -320,8 +347,14 @@ function SceneInit(targetCanvas) {
 	var SceneController = {
 		Meshs: [],
 		Clear:function(){
-			SceneController.Meshs.forEach((value, index, array) => {
-				scene.remove(value);
+            SceneController.Meshs.forEach((value, index, array) => {
+                scene.remove(value);
+                if (value.geometry != null) {
+                    value.geometry.dispose();
+                }
+                if (value.material != null) {
+                    value.material.dispose();
+                }
 			});
 			SceneController.Meshs = [];
 		},
@@ -364,7 +397,8 @@ function SceneInit(targetCanvas) {
 					else{
 						material = new THREE.LineBasicMaterial({ color:0xFF0000 });
 					}
-					var linemesh = new THREE.LineSegments(geometry, material);
+                    var linemesh = new THREE.LineSegments(geometry, material);
+                    SceneController.Meshs.push(linemesh);
 					scene.add(linemesh);
 					break;
 				case "mesh":
@@ -382,7 +416,7 @@ function SceneInit(targetCanvas) {
 								metalness: 1,
 								roughness: 0.5,
 								envMapIntensity: 1,
-								envMap: scene.background
+                                envMap: evnTexture
 							} );
 						}
 					}
@@ -470,5 +504,6 @@ function SceneInit(targetCanvas) {
 	requestAnimationFrame(tick);
 	//#endregion
 
+    InvokeCS("Update");
 	return SceneController;
 }

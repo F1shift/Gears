@@ -22,27 +22,43 @@ namespace Gears.ViewModels
 
         public GearDetailViewModel()
         {
-            UpdateCommand = new SimpleCommand(Update);
+            UpdateCommand = new SimpleCommand((obj)=>CheckUpdate());
         }
 
-        public void Update(object para = null) {
-            Model = new CylindricalGearBasic();
+        public bool CheckUpdate(object para = null) {
+            var newModel = new CylindricalGearBasic();
 
-            Model.mn = RackParameterViewModel.Module.Value;
-            Model.αn = DegToRad(GetValueFromList(RackParameterViewModel.InputItems, "圧力角"));
-            Model.ha_c = GetValueFromList(RackParameterViewModel.InputItems, "歯先係数");
-            Model.hf_c = GetValueFromList(RackParameterViewModel.InputItems, "歯元係数");
-            Model.ρ_c[0] = Model.ρ_c[1] = GetValueFromList(RackParameterViewModel.InputItems, "歯元円径係数");
+            newModel.mn = RackParameterViewModel.Module.Value;
+            newModel.αn = DegToRad(GetValueFromList(RackParameterViewModel.InputItems, "圧力角"));
+            newModel.ha_c = GetValueFromList(RackParameterViewModel.InputItems, "歯先係数");
+            newModel.hf_c = GetValueFromList(RackParameterViewModel.InputItems, "歯元係数");
+            newModel.ρ_c[0] = newModel.ρ_c[1] = GetValueFromList(RackParameterViewModel.InputItems, "歯元円径係数");
 
-            Model.z[0] = Convert.ToInt32(GetValueFromList(GearParameterViewModel.InputItems, "歯数１"));
-            Model.z[1] = Convert.ToInt32(GetValueFromList(GearParameterViewModel.InputItems, "歯数２"));
-            Model.β = DegToRad(GetValueFromList(GearParameterViewModel.InputItems, "ねじれ角")); 
-            Model.a = GetValueFromList(GearParameterViewModel.InputItems, "中心距離");
-            Model.xn[0] = GetValueFromList(GearParameterViewModel.InputItems, "歯車1転位係数"); 
-            Model.b_c[0] = Model.b_c[1] = GetValueFromList(GearParameterViewModel.InputItems, "歯幅率"); 
+            newModel.z[0] = Convert.ToInt32(GetValueFromList(GearParameterViewModel.InputItems, "歯数１"));
+            newModel.z[1] = Convert.ToInt32(GetValueFromList(GearParameterViewModel.InputItems, "歯数２"));
+            newModel.β = DegToRad(GetValueFromList(GearParameterViewModel.InputItems, "ねじれ角"));
+            newModel.xn[0] = GetValueFromList(GearParameterViewModel.InputItems, "歯車1転位係数");
+            newModel.xn[1] = GetValueFromList(GearParameterViewModel.InputItems, "歯車2転位係数");
+            newModel.b_c[0] = newModel.b_c[1] = GetValueFromList(GearParameterViewModel.InputItems, "歯幅率");
 
-            Model.SolveFromCenterDistance();
-            Result = Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented);
+            if (Model == null)
+            {
+                Model = newModel;
+                Model.SolveFromXn();
+                Result = Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented);
+                return true;
+            }
+            else if(!Model.HasSameInputWith(newModel))
+            {
+                Model.CopyInputFrom(newModel);
+                Model.SolveFromXn();
+                Result = Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public double GetValueFromList(IEnumerable<InputItemViewModel> list, string name)

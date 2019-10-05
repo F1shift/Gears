@@ -1044,3 +1044,4 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\flata\1681bc9d3a06a9e4b4aeb015a6
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\flata\974b8deedef4981140138f90a51fa6f6daeb0973.flata
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\flata\8d96011e88ee8b86138fb04eb4e66c528f0bd531.flata
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\src\md5a6214798b54a77ffaae91ebf993268bc\MyWebViewRenderer_JavascriptResult.java
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\src\md5a6214798b54a77ffaae91ebf993268bc\JSBridge.java

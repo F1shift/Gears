@@ -41,9 +41,9 @@ namespace Gears.ViewModels
 
         public void Initial() {
             //GearDesignViewModelから数値をコピーする
-            GearDesignViewModel gearDesignViewModel = (GearDesignViewModel)Application.Current.Resources[nameof(GearDesignViewModel)];
+            DesignViewModel gearDesignViewModel = (DesignViewModel)Application.Current.Resources[nameof(DesignViewModel)];
             if (gearDesignViewModel.GearDetailViewModel.Model == null)
-                gearDesignViewModel.GearDetailViewModel.Update();
+                gearDesignViewModel.GearDetailViewModel.CheckUpdate();
             var baseModel = gearDesignViewModel.GearDetailViewModel.Model;
             var baseType = baseModel.GetType();
             foreach (var property in baseType.GetProperties())

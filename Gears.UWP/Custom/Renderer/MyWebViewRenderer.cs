@@ -40,6 +40,7 @@ namespace Gears.UWP.Custom.Renderer
                 }
                 e.NewElement.EvaluateJavaScriptRequested += OnEvaluateJavaScriptRequested;
                 e.NewElement.PropertyChanged += UpdateURI;
+                Control.ScriptNotify += OnWebViewScriptNotify;
                 if (Element.Uri != null)
                     Control.Source = new Uri(Element.Uri);
             }
@@ -62,6 +63,11 @@ namespace Gears.UWP.Custom.Renderer
         private async Task<string> OnEvaluateJavaScriptRequested(string script)
         {
             return await this.Control.InvokeScriptAsync("eval", new string[] { script });
+        }
+
+        void OnWebViewScriptNotify(object sender, NotifyEventArgs e)
+        {
+            Element.OnWebViewScriptNotify(e.Value);
         }
     }
 }

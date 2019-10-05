@@ -26,10 +26,12 @@ Assets\StoreLogo.scale-400.png
 Assets\Wide310x150Logo.scale-100.png
 Assets\Wide310x150Logo.scale-200.png
 Assets\Wide310x150Logo.scale-400.png
+Assets\www\equirectangular.png
 Assets\www\EquirectangularToCubeGenerator.js
 Assets\www\EXRLoader.js
 Assets\www\index.html
 Assets\www\jquery.js
+Assets\www\piz_compressed.exr
 Assets\www\PMREMCubeUVPacker.js
 Assets\www\PMREMGenerator.js
 Assets\www\RGBELoader.js

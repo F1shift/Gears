@@ -86,6 +86,7 @@
     <AndroidAsset Include="Assets\www\textures\autoshop_01_1k.hdr" />
     <AndroidAsset Include="Assets\www\textures\abandoned_hall_01_1k.hdr" />
     <AndroidAsset Include="Assets\www\textures\machine_shop_01_1k.hdr" />
+    <AndroidAsset Include="Assets\www\textures\086_hdrmaps_com_free.exr" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>

@@ -76,47 +76,8 @@
     <AppxPackagedFile Include="C:\Microsoft\Xamarin\NuGet\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\EquirectangularToCubeGenerator.js">
-      <PackagePath>Assets\www\EquirectangularToCubeGenerator.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\EXRLoader.js">
-      <PackagePath>Assets\www\EXRLoader.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMCubeUVPacker.js">
-      <PackagePath>Assets\www\PMREMCubeUVPacker.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMGenerator.js">
-      <PackagePath>Assets\www\PMREMGenerator.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\RGBELoader.js">
-      <PackagePath>Assets\www\RGBELoader.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.min.js">
-      <PackagePath>Assets\www\stats.min.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.module.js">
-      <PackagePath>Assets\www\stats.module.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.js">
-      <PackagePath>Assets\www\three.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.module.js">
-      <PackagePath>Assets\www\three.module.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\SceneBuilder.js">
-      <PackagePath>Assets\www\SceneBuilder.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery.js">
-      <PackagePath>Assets\www\jquery.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\TrackballControls.js">
-      <PackagePath>Assets\www\TrackballControls.js</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index.html">
-      <PackagePath>Assets\www\index.html</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Properties\Default.rd.xml">
-      <PackagePath>Properties\Default.rd.xml</PackagePath>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\equirectangular.png">
+      <PackagePath>Assets\www\equirectangular.png</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\LargeTile.scale-100.png">
       <PackagePath>Assets\LargeTile.scale-100.png</PackagePath>
@@ -238,6 +199,48 @@
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\cancel.png">
       <PackagePath>cancel.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\EquirectangularToCubeGenerator.js">
+      <PackagePath>Assets\www\EquirectangularToCubeGenerator.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\EXRLoader.js">
+      <PackagePath>Assets\www\EXRLoader.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMCubeUVPacker.js">
+      <PackagePath>Assets\www\PMREMCubeUVPacker.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMGenerator.js">
+      <PackagePath>Assets\www\PMREMGenerator.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\RGBELoader.js">
+      <PackagePath>Assets\www\RGBELoader.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.min.js">
+      <PackagePath>Assets\www\stats.min.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.module.js">
+      <PackagePath>Assets\www\stats.module.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.js">
+      <PackagePath>Assets\www\three.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.module.js">
+      <PackagePath>Assets\www\three.module.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\SceneBuilder.js">
+      <PackagePath>Assets\www\SceneBuilder.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery.js">
+      <PackagePath>Assets\www\jquery.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\TrackballControls.js">
+      <PackagePath>Assets\www\TrackballControls.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index.html">
+      <PackagePath>Assets\www\index.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Properties\Default.rd.xml">
+      <PackagePath>Properties\Default.rd.xml</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\autoshop_01_1k.hdr">
       <PackagePath>Assets\www\textures\autoshop_01_1k.hdr</PackagePath>
     </AppxPackagedFile>
@@ -249,6 +252,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\086_hdrmaps_com_free.exr">
       <PackagePath>Assets\www\textures\086_hdrmaps_com_free.exr</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\piz_compressed.exr">
+      <PackagePath>Assets\www\piz_compressed.exr</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.xr.xml">
       <PackagePath>Gears.UWP.xr.xml</PackagePath>

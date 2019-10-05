@@ -15,6 +15,7 @@ using Xamarin.Forms.Platform.Android;
 using Gears.Custom.Controls;
 using Xamarin.Forms;
 using Gears.Droid.Custom.Renderer;
+using Java.Interop;
 
 [assembly:Application(HardwareAccelerated = true)]
 [assembly:ExportRenderer(typeof(MyWebView), typeof(MyWebViewRenderer))]
@@ -52,7 +53,8 @@ namespace Gears.Droid.Custom.Renderer
                 }
                 e.NewElement.EvaluateJavaScriptRequested += JavascriptRequestedHandler;
                 e.NewElement.PropertyChanged += UpdateURI;
-                if(this.Element.Uri != null)
+                Control.AddJavascriptInterface(new JSBridge(this), "jsBridge");
+                if (this.Element.Uri != null)
                 this.Control.LoadUrl(this.Element.Uri);
             }
         }
@@ -98,6 +100,28 @@ namespace Gears.Droid.Custom.Renderer
             public void OnReceiveValue(Java.Lang.Object result)
             {
                 this.source.SetResult(((Java.Lang.String)result).ToString());
+            }
+        }
+    }
+
+    class JSBridge : Java.Lang.Object
+    {
+        readonly WeakReference<MyWebViewRenderer> hybridWebViewRenderer;
+
+        public JSBridge(MyWebViewRenderer hybridRenderer)
+        {
+            hybridWebViewRenderer = new WeakReference<MyWebViewRenderer>(hybridRenderer);
+        }
+
+        [JavascriptInterface]
+        [Export("Notify")]
+        public void Notify(string data)
+        {
+            MyWebViewRenderer hybridRenderer;
+
+            if (hybridWebViewRenderer != null && hybridWebViewRenderer.TryGetTarget(out hybridRenderer))
+            {
+                hybridRenderer.Element.OnWebViewScriptNotify(data);
             }
         }
     }

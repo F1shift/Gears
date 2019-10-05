@@ -23,15 +23,16 @@ namespace Gears.Custom.Controls
         }
 
         public delegate Task<string> EvaluateJavaScriptDelegate(string script);
+        public delegate void WebViewScriptNotifyDelegate(string script);
 
         public event EvaluateJavaScriptDelegate EvaluateJavaScriptRequested;
+        public WebViewScriptNotifyDelegate OnWebViewScriptNotify;
 
         /// <param name="script">評価するスクリプト。</param>
         /// <summary>//From Xamarin.Forms.WebView  : JavaScript 評価をサポートするプラットフォームで、<paramref name="script" /> を評価します。</summary>
         /// <returns>評価の結果を文字列として含むタスク。</returns>
         public async Task<string> EvaluateJavaScriptAsync(string script)
         {
-            EvaluateJavaScriptDelegate javaScriptRequested = this.EvaluateJavaScriptRequested;
             if (script == null)
                 return (string)null;
             if (Device.RuntimePlatform != "Android")
@@ -39,12 +40,16 @@ namespace Gears.Custom.Controls
                 script = EscapeJsString(script);
                 script = "try{JSON.stringify(eval('" + script + "'))}catch(e){'null'};";
             }
-            string str = await (javaScriptRequested != null ? javaScriptRequested(script) : (Task<string>)null);
-            if (str == "null")
-                str = (string)null;
-            else if (str != null)
-                str = str.Trim('"');
-            return str;
+
+            if (EvaluateJavaScriptRequested != null)
+            {
+                string str = await Device.InvokeOnMainThreadAsync<string>(()=>EvaluateJavaScriptRequested(script));
+                if (str != null)
+                    str = str.Trim('"');
+                return str;
+            }
+            else
+                return null;
         }
 
         //From Xamarin.Forms.WebView 

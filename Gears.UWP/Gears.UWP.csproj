@@ -107,6 +107,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\www\equirectangular.png" />
     <Content Include="Assets\www\EquirectangularToCubeGenerator.js" />
     <Content Include="Assets\www\EXRLoader.js" />
     <Content Include="Assets\www\PMREMCubeUVPacker.js" />
@@ -191,6 +192,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\www\textures\086_hdrmaps_com_free.exr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\www\piz_compressed.exr" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
