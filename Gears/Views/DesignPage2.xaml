@@ -23,7 +23,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Grid x:Name="tabBarGrid" ColumnSpacing="0" BackgroundColor="{StaticResource NavigationBarColor}">
+            <Grid x:Name="tabBarGrid" ColumnSpacing="0" BackgroundColor="{StaticResource NavigationBarColor}" MinimumHeightRequest="50">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
@@ -74,7 +74,7 @@
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
                                                         <ColumnDefinition />
-                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="60"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Text="{Binding Name}"/>
                                                     <Label Grid.Column="1" Text="{Binding GuideString}"/>
@@ -116,7 +116,7 @@
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"/>
                                                         <ColumnDefinition />
-                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="60"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Text="{Binding Name}"/>
                                                     <Label Grid.Column="1" Text="{Binding GuideString}"/>

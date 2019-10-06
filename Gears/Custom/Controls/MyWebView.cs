@@ -38,7 +38,7 @@ namespace Gears.Custom.Controls
             if (Device.RuntimePlatform != "Android")
             {
                 script = EscapeJsString(script);
-                script = "try{JSON.stringify(eval('" + script + "'))}catch(e){'null'};";
+                script = "try{JSON.stringify(eval('" + script + "'))}catch(e){console.log(e)};";
             }
 
             if (EvaluateJavaScriptRequested != null)

@@ -30,9 +30,7 @@ namespace Gears.ViewModels
             GearDetailViewModel.GearParameterViewModel = this.GearParameterViewModel;
             GearDetailViewModel.RackParameterViewModel = this.RackParameterViewModel;
 
-            UpdateCommand = new SimpleCommand((obj) => { Update(); }) { MinInterval = 1000 };
-
-            StartAutoUpdate();
+            UpdateCommand = new SimpleCommand((obj) => { Update(); });
         }
 
         public void Update() {
@@ -57,6 +55,9 @@ namespace Gears.ViewModels
             {
                 case "Update":
                     UpdateCommand.Execute(null);
+                    break;
+                case "StartAutoUpdate":
+                    StartAutoUpdate();
                     break;
                 default:
                     break;

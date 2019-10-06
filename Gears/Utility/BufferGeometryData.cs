@@ -67,6 +67,7 @@ namespace Gears.Utility
         public object receiveShadow { get; set; } = false;
         public string type { get; protected set; }
         public string name { get; set; }
+        public double[] matrix { get; set; }
 
         public enum Types
         {

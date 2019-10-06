@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using static System.Math;
 using static Gears.Utility.Math;
 using static Gears.Utility.EnumerableExtentions;
@@ -19,8 +20,6 @@ namespace Gears.Models
         public double mn { get; set; }
         [IsInput]
         public double αn { get; set; }
-        [IsInput]
-        public bool 歯車1が左ねじである { get; set; }
         [IsInput]
         public double β { get; set; }
         [IsInput]
@@ -72,7 +71,6 @@ namespace Gears.Models
         }
 
         public void SolveFromXn() {
-            歯車1が左ねじである = β < 0;
             mt = mn / Cos(β);
             αt = Atan(Tan(αn) / Cos(β));
             double invαwt = 2 * Tan(αn) * (xn.Sum() / z.Sum()) + Inv(αt);
@@ -87,15 +85,7 @@ namespace Gears.Models
                 ρ[i] = ρ_c[i] * mn;
             }
             L[0] = d[0] * PI / Tan(β);
-            L[1] = d[1] * PI / Tan(β);
-            if (歯車1が左ねじである)
-            {
-                L[0] *= -1;
-            }
-            else
-            {
-                L[1] *= -1;
-            }
+            L[1] = d[1] * PI / Tan(-β);
 
             ha[0] = (ha_c + y - xn[1]) * mn;
             ha[1] = (ha_c + y - xn[0]) * mn;
@@ -149,7 +139,6 @@ namespace Gears.Models
             }
             if (this.mn != target.mn) return false;
             if (this.αn != target.αn) return false;
-            if (this.歯車1が左ねじである != target.歯車1が左ねじである) return false;
             if (this.β != target.β) return false;
             if (this.z[0] != target.z[0]) return false;
             if (this.z[1] != target.z[1]) return false;

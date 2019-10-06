@@ -23,9 +23,8 @@ function InvokeCS(data) {
     }
 }
 
+var performanceSetting;
 function SceneInit(targetCanvas) {
-	
-	var performanceSetting;
     if (platform == "UWP") //On computer
 	{
 		performanceSetting = {
@@ -33,15 +32,17 @@ function SceneInit(targetCanvas) {
 			shadowEnabled: true,
 			shadowMapType: THREE.PCFSoftShadowMap,
 			shadowMapSize: 2048,
+			envMapEnabled: true,
 		};
 	}
 	else // On mobile
 	{
 		performanceSetting = {
-			antialias: false,
-			shadowEnabled: true,
+            antialias: false,
+            shadowEnabled: false,
 			shadowMapType: THREE.BasicShadowMap,
-			shadowMapSize: 1024,
+            shadowMapSize: 1024,
+            envMapEnabled: true,
 		};
 	}
 	
@@ -68,42 +69,46 @@ function SceneInit(targetCanvas) {
 	// 				.load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
 
     var evnTexture;
-    new THREE.RGBELoader()
-        .setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
-        .load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
-    //new THREE.EXRLoader()
-    //    .setDataType(THREE.HalfFloatType)
-    //    .load('textures/086_hdrmaps_com_free_1k.exr', function (texture) {
+    if (performanceSetting.envMapEnabled)
+    {
+        new THREE.RGBELoader()
+            .setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
+            .load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
+                //new THREE.EXRLoader()
+                //    .setDataType(THREE.HalfFloatType)
+                //    .load('textures/086_hdrmaps_com_free_1k.exr', function (texture) {
 
-		    texture.minFilter = THREE.NearestFilter;
-		    // texture.magFilter = THREE.NearestFilter;
-		    texture.encoding = THREE.LinearEncoding;
+                texture.minFilter = THREE.NearestFilter;
+                // texture.magFilter = THREE.NearestFilter;
+                texture.encoding = THREE.LinearEncoding;
 
-            var cubemapGenerator = new THREE.EquirectangularToCubeGenerator(texture, { resolution: 512, type: THREE.HalfFloatType });
-            var exrBackground = cubemapGenerator.renderTarget.texture;
-		    var cubeMapTexture = cubemapGenerator.update( renderer );
+                var cubemapGenerator = new THREE.EquirectangularToCubeGenerator(texture, { resolution: 512, type: THREE.HalfFloatType });
+                var exrBackground = cubemapGenerator.renderTarget.texture;
+                var cubeMapTexture = cubemapGenerator.update(renderer);
 
-            var pmremGenerator = new THREE.PMREMGenerator( cubeMapTexture );
-		    pmremGenerator.update( renderer );
+                var pmremGenerator = new THREE.PMREMGenerator(cubeMapTexture);
+                pmremGenerator.update(renderer);
 
-            var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker( pmremGenerator.cubeLods );
-		    pmremCubeUVPacker.update( renderer );
+                var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker(pmremGenerator.cubeLods);
+                pmremCubeUVPacker.update(renderer);
 
-		    var exrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
+                var exrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
 
-		    texture.dispose();
-		    pmremGenerator.dispose();
-		    pmremCubeUVPacker.dispose();
+                texture.dispose();
+                pmremGenerator.dispose();
+                pmremCubeUVPacker.dispose();
 
-            evnTexture = exrBackground;
-		    //scene.background = exrBackground;
-	    } );
+                evnTexture = exrBackground;
+                //scene.background = exrBackground;
+            });
+    }
 
 	//#endregion
 
 	//#region カメラを作成
 	var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-	camera.position.set(0, 0, 1000);
+    camera.position.set(1.0386, 40.733, 161.9);
+    camera.rotation.set(-0.33667,0.02830, 0.00990);
 	//#endregion
 
 	//#region 光源
@@ -345,7 +350,8 @@ function SceneInit(targetCanvas) {
 	
 	//#region
 	var SceneController = {
-		Meshs: [],
+        Meshs: [],
+
 		Clear:function(){
             SceneController.Meshs.forEach((value, index, array) => {
                 scene.remove(value);
@@ -357,7 +363,8 @@ function SceneInit(targetCanvas) {
                 }
 			});
 			SceneController.Meshs = [];
-		},
+        },
+
 		AddBufferGeometryMesh:function(data){
 			var position = data.position;
 			var index = data.index;
@@ -426,7 +433,10 @@ function SceneInit(targetCanvas) {
 					var mesh = new THREE.Mesh(geometry, material);
 					mesh.name = data.name;
 					mesh.castShadow = data.castShadow;
-					mesh.receiveShadow = data.receiveShadow;
+                    mesh.receiveShadow = data.receiveShadow;
+                    if (data.matrix != null) {
+                        mesh.applyMatrix(data.matrix);
+                    }
 					SceneController.Meshs.push(mesh);
 					scene.add(mesh);
 					break;
@@ -435,7 +445,8 @@ function SceneInit(targetCanvas) {
 					break;
 			}
 			
-		},
+        },
+
 		CopyMesh : function(name, newMatrix, copyedObjectName = null){
 			var orgMesh = SceneController.Meshs.find((value) => value.name == name);
 			if(orgMesh == null)
@@ -460,7 +471,155 @@ function SceneInit(targetCanvas) {
 				SceneController.Meshs.push(newMesh);
 				scene.add(newMesh);
 			}
-		}
+        },
+
+        CreateGear: function (data) {
+            var geometry = new THREE.BufferGeometry();
+            geometry.addAttribute('position', new THREE.Float32BufferAttribute(data.position, 3));
+
+            if (data.index != null && data.index !== void (0))
+                geometry.setIndex(data.index);
+            else
+                throw "CreateGear : data has no index information";
+
+            if (data.normal == null && data.normal !== void (0))
+                geometry.computeVertexNormals();
+            else
+                geometry.addAttribute('normal', new THREE.Float32BufferAttribute(data.normal, 3));
+
+            var material;
+            if (data.color != null) {
+                if (Array.isArray(data.color)) {
+                    geometry.addAttribute('color', new THREE.Float32BufferAttribute(data.color, 3));
+                    material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
+                }
+                else {
+                    material = new THREE.MeshStandardMaterial({
+                        color: data.color,
+                        metalness: 1,
+                        roughness: 0.5,
+                        envMapIntensity: 1,
+                        envMap: evnTexture
+                    });
+                }
+            }
+            else {
+                material = new THREE.MeshStandardMaterial({ color: 0xFF0000 });
+            }
+            var mesh = new THREE.Mesh(geometry, material);
+            mesh.name = "tooth";
+            mesh.castShadow = data.castShadow;
+            mesh.receiveShadow = data.receiveShadow;
+
+            var group = new THREE.Group();
+            group.name = data.name;
+            if (data.matrix != null) {
+                group.position.set(0, 0, 0);
+                group.rotation.set(0, 0, 0);
+                group.applyMatrix(new THREE.Matrix4().fromArray(data.matrix));
+            }
+            group.add(mesh);
+
+            for (var i = 1; i < data.z; i++) {
+                var newMesh = new THREE.Mesh(geometry, material);
+                newMesh.applyMatrix(new THREE.Matrix4().makeRotationZ(2 * Math.PI / data.z * i));
+                newMesh.name = mesh.name + i;
+                newMesh.castShadow = mesh.castShadow;
+                newMesh.receiveShadow = mesh.receiveShadow;
+                group.add(newMesh);
+            }
+
+            SceneController.Meshs.push(group);
+            scene.add(group);
+        },
+
+        UpdatreGear: function (data, orgGroup = null) {
+            if (orgGroup == null) {
+                orgGroup = SceneController.Meshs.find((item) => item.name === data.name);
+            }
+            var orgMesh = orgGroup.children.find(item => item.name == "tooth");
+            var geometry = orgMesh.geometry;
+            //Set attribute dynamic
+            if (geometry.attributes.position.usage !== THREE.DynamicDrawUsage) {
+                geometry.attributes.position.usage = THREE.DynamicDrawUsage;
+            }
+            if (geometry.attributes.normal &&
+                geometry.attributes.normal.usage !== THREE.DynamicDrawUsage) {
+                geometry.attributes.normal.usage = THREE.DynamicDrawUsage;
+            }
+
+            //update attributes
+            if (data.position != null
+                && data.position !== void (0)
+                && data.normal != null
+                && data.normal !== void (0)
+            ) {
+                for (var i = 0; i < data.position.length; i++) {
+                    geometry.attributes.position.array[i] = data.position[i];
+                    geometry.attributes.normal.array[i] = data.normal[i];
+                    geometry.attributes.position.needsUpdate = true;
+                    geometry.attributes.normal.needsUpdate = true;
+                }
+            }
+
+            //update index
+            if (data.index != null && data.index !== void (0))
+                geometry.setIndex(data.index);
+
+
+            if (data.color != null && orgMesh.material.color != data.color) {
+                var material;
+                if (Array.isArray(data.color)) {
+                    geometry.addAttribute('color', new THREE.Float32BufferAttribute(data.color, 3));
+                    material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
+                }
+                else {
+                    material = new THREE.MeshStandardMaterial({
+                        color: data.color,
+                        metalness: 1,
+                        roughness: 0.5,
+                        envMapIntensity: 1,
+                        envMap: evnTexture
+                    });
+                }
+                orgMesh.material = material;
+            }
+            orgMesh.castShadow = data.castShadow;
+            orgMesh.receiveShadow = data.receiveShadow;
+
+            if (orgGroup.children.length != data.z) {
+                var orgMeshCopys = orgGroup.children.filter(item => item != orgMesh);
+                orgMeshCopys.forEach((item) => {
+                    orgGroup.remove(item);
+                });
+                
+                for (var i = 1; i < data.z; i++) {
+                    var newMesh = new THREE.Mesh(geometry, material);
+                    newMesh.applyMatrix(new THREE.Matrix4().makeRotationZ(2 * Math.PI / data.z * i));
+                    newMesh.name = orgMesh.name + i;
+                    newMesh.castShadow = orgMesh.castShadow;
+                    newMesh.receiveShadow = orgMesh.receiveShadow;
+                    orgGroup.add(newMesh);
+                }
+            }
+
+            if (data.matrix != null) {
+                orgGroup.position.set(0, 0, 0);
+                orgGroup.rotation.set(0, 0, 0);
+                orgGroup.applyMatrix(new THREE.Matrix4().fromArray(data.matrix));
+            }
+        },
+
+        UpdateOrCreateGear: function (data) {
+            var orgGroup = SceneController.Meshs.find((item) => item.name === data.name);
+            if (orgGroup != null
+                && data.position.length == orgGroup.children[0].geometry.attributes.position.count * 3) {
+                SceneController.UpdatreGear(data, orgGroup);
+            }
+            else {
+                SceneController.CreateGear(data);
+            }
+        },
 	};
 
 	//#region Animation
@@ -486,7 +645,6 @@ function SceneInit(targetCanvas) {
 
 		requestAnimationFrame(tick);
 	}
-
 	
 	function OnResize() {
 		var width = window.innerWidth;
@@ -504,6 +662,6 @@ function SceneInit(targetCanvas) {
 	requestAnimationFrame(tick);
 	//#endregion
 
-    InvokeCS("Update");
+    InvokeCS("StartAutoUpdate");
 	return SceneController;
 }

@@ -41,6 +41,10 @@ namespace Gears.Views
 
         private void Navigate(int index)
         {
+            if (currentTabIndex == index)
+            {
+                return;
+            }
             if (currentTabIndex == null)
             {
                 currentTabIndex = 0;
@@ -48,6 +52,8 @@ namespace Gears.Views
                 DetailPanel.TranslationX = Width;
                 GearParaPanel.Opacity = 0;
                 DetailPanel.Opacity = 0;
+                GearParaPanel.IsVisible = false;
+                DetailPanel.IsVisible = false;
             }
 
             View OldPanel, newPanel;
@@ -68,7 +74,6 @@ namespace Gears.Views
                 default:
                     throw new Exception("Tab index out of range!");
             }
-            
             switch (currentTabIndex)
             {
                 case 0:
@@ -84,20 +89,37 @@ namespace Gears.Views
                     throw new Exception("Tab index out of range!");
             }
 
-            if (currentTabIndex < index)
+            uint animateLength = 250;
+            if (OldPanel != newPanel)
             {
-                OldPanel.TranslateTo(-this.Width, OldPanel.TranslationY);
-                OldPanel.FadeTo(0);
+                if (currentTabIndex < index)
+                {
+                    OldPanel.TranslateTo(-this.Width, OldPanel.TranslationY, length: animateLength);
+                }
+                else
+                {
+                    OldPanel.TranslateTo(this.Width, OldPanel.TranslationY, length: animateLength);
+                }
+                OldPanel.FadeTo(0, length: animateLength);
+                var timer = new System.Timers.Timer();
+                timer.Interval = animateLength;
+                timer.Elapsed += (s, e) =>
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        OldPanel.IsVisible = false;
+                    });
+                    timer.Stop();
+                };
+                timer.Start();
             }
-            else
-            {
-                OldPanel.TranslateTo(this.Width, OldPanel.TranslationY);
-                OldPanel.FadeTo(0);
-            }
-            AbsLayout.Children.Remove(newPanel);
-            AbsLayout.Children.Add(newPanel);
-            newPanel.TranslateTo(0, newPanel.TranslationY);
-            newPanel.FadeTo(1);
+
+            //AbsLayout.Children.Remove(newPanel);
+            //AbsLayout.Children.Add(newPanel);
+            newPanel.IsVisible = true;
+            newPanel.TranslateTo(0, newPanel.TranslationY, length: animateLength);
+            newPanel.FadeTo(1, length: animateLength);
+
             currentTabIndex = index;
         }
 

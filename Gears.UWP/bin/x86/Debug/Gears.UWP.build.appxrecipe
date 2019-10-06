@@ -244,18 +244,6 @@
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\autoshop_01_1k.hdr">
       <PackagePath>Assets\www\textures\autoshop_01_1k.hdr</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\machine_shop_01_1k.hdr">
-      <PackagePath>Assets\www\textures\machine_shop_01_1k.hdr</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\abandoned_hall_01_1k.hdr">
-      <PackagePath>Assets\www\textures\abandoned_hall_01_1k.hdr</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\086_hdrmaps_com_free.exr">
-      <PackagePath>Assets\www\textures\086_hdrmaps_com_free.exr</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\piz_compressed.exr">
-      <PackagePath>Assets\www\piz_compressed.exr</PackagePath>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.xr.xml">
       <PackagePath>Gears.UWP.xr.xml</PackagePath>
     </AppxPackagedFile>

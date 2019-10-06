@@ -31,12 +31,12 @@ namespace Gears.ViewModels
             UpdateCommand = new SimpleCommand(async (a) =>
                 {
                     Initial();
-                    await EvalAsync($"SceneController.Clear();");
-                    AddRackTrace();
+                    //await EvalAsync($"SceneController.Clear();");
+                    //AddRackTrace();
                     //double v = 10;
                     //AddRackTrace(v, 0);
                     //AddRackTrace(v, 1);
-                    AddGear();
+                    UpdateOrAddGear();
                 });
         }
 
@@ -55,6 +55,11 @@ namespace Gears.ViewModels
 
         public async void AddBufferGeometry(BufferGeometryData data) {
             await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
+                $"{Newtonsoft.Json.JsonConvert.SerializeObject(data)});");
+        }
+        public async void UpdateOrCreateGear(GearGeometryData data)
+        {
+            await EvalAsync($"SceneController.UpdateOrCreateGear(" +
                 $"{Newtonsoft.Json.JsonConvert.SerializeObject(data)});");
         }
 
@@ -191,10 +196,12 @@ namespace Gears.ViewModels
                 mn * 0.3);
         }
 
-        public async void AddGear() {
+        int sg = 10;
+        int sb = 10;
+        public void UpdateOrAddGear() {
             for (int i = 0; i < 2; i++)
             {
-                int sg = 10;
+                
                 var gearProifile = GearProfiles[i];
 
                 #region 断面プロファイル作成
@@ -207,7 +214,7 @@ namespace Gears.ViewModels
                     var re1 = p1.X - p2.X;
                     var re2 = p1.Y - p2.Y;
                     return new double[] { re1, re2 };
-                }, new double[] { 0, 1,});
+                }, new double[] { 0, 0.5,});
                 var u_of_flank_at_intersectionPoint = FlankAndFilletIntersectPointPara.Item1[0];
                 var u_of_fillet_at_intersectionPoint = FlankAndFilletIntersectPointPara.Item1[1];
 
@@ -230,10 +237,10 @@ namespace Gears.ViewModels
                     }, 1 );
                 var u_of_flank_at_tooth_tip = TipIntersectPointPara.Item1;
 #if DEBUG//intersect point answer check
-                if (Abs(gearProifile.Flank_Left(u_of_flank_at_tooth_tip).GetNorm() - da[i] / 2) > 1e-7)
-                {
-                    //throw new Exception("Tip point answer not converging.");
-                }
+                //if (Abs(gearProifile.Flank_Left(u_of_flank_at_tooth_tip).GetNorm() - da[i] / 2) > 1e-7)
+                //{
+                //    throw new Exception("Tip point answer not converging.");
+                //}
 #endif
                 var uArray_Flank = CreateList<double>(sg, (index) => 
                     u_of_flank_at_intersectionPoint + (double)index / (sg - 1) * (u_of_flank_at_tooth_tip - u_of_flank_at_intersectionPoint)
@@ -244,7 +251,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Flank_Left_Normal(uArray_Flank[index]);
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
@@ -252,14 +259,14 @@ namespace Gears.ViewModels
                     return N;
                     });
 #if DEBUG
-                var flankPoints_buffer_Left = MergeToSingleList<double[], double>(flankPoints_Left);
-                var flankPoints_index_Left = MergeToSingleList<int[], int>(CreateList<int[]>(sg - 1, (index) => new[] { index, index + 1 }));
-                AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
-                {
-                    position = flankPoints_buffer_Left,
-                    index = flankPoints_index_Left,
-                    color = 0xFF0000
-                });
+                //var flankPoints_buffer_Left = MergeToSingleList<double[], double>(flankPoints_Left);
+                //var flankPoints_index_Left = MergeToSingleList<int[], int>(CreateList<int[]>(sg - 1, (index) => new[] { index, index + 1 }));
+                //AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
+                //{
+                //    position = flankPoints_buffer_Left,
+                //    index = flankPoints_index_Left,
+                //    color = 0xFF0000
+                //});
 #endif
                 var uArray_Fillet = CreateList<double>(sg, (index) =>
                      (double)index / (sg - 1) * u_of_fillet_at_intersectionPoint
@@ -270,7 +277,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Fillet_Left_Normal(uArray_Fillet[index]);
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
@@ -278,14 +285,14 @@ namespace Gears.ViewModels
                     return N;
                 });
 #if DEBUG
-                var filletPoints_buffer_Left = MergeToSingleList<double[], double>(filletPoints_Left);
-                var filletPoints_index_Left = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
-                AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
-                {
-                    position = filletPoints_buffer_Left,
-                    index = filletPoints_index_Left,
-                    color = 0x0000FF,
-                });
+                //var filletPoints_buffer_Left = MergeToSingleList<double[], double>(filletPoints_Left);
+                //var filletPoints_index_Left = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
+                //AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
+                //{
+                //    position = filletPoints_buffer_Left,
+                //    index = filletPoints_index_Left,
+                //    color = 0x0000FF,
+                //});
 #endif
 
                 var flankPoints_Right = CreateList<double[]>(sg, (index) => gearProifile.Flank_Right(uArray_Flank[index]));
@@ -294,7 +301,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Flank_Right_Normal(uArray_Flank[index]);
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
@@ -302,14 +309,14 @@ namespace Gears.ViewModels
                     return N;
                 });
 #if DEBUG
-                var flankPoints_buffer_Right = MergeToSingleList<double[], double>(flankPoints_Right);
-                var flankPoints_index_Right = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
-                AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
-                {
-                    position = flankPoints_buffer_Right,
-                    index = flankPoints_index_Right,
-                    color = 0xFF0000,
-                });
+                //var flankPoints_buffer_Right = MergeToSingleList<double[], double>(flankPoints_Right);
+                //var flankPoints_index_Right = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
+                //AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
+                //{
+                //    position = flankPoints_buffer_Right,
+                //    index = flankPoints_index_Right,
+                //    color = 0xFF0000,
+                //});
 #endif
                 var filletPoints_Right = CreateList<double[]>(sg, (index) => gearProifile.Fillet_Right(uArray_Fillet[index]));
                 var filletNormal_Right = CreateList<double[]>(sg, (index) => {
@@ -317,7 +324,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Fillet_Right_Normal(uArray_Fillet[index]);
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
@@ -325,14 +332,14 @@ namespace Gears.ViewModels
                     return N;
                 });
 #if DEBUG
-                var filletPoints_buffer_Right = MergeToSingleList<double[], double>(filletPoints_Right);
-                var filletPoints_index_Right = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
-                AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
-                {
-                    position = filletPoints_buffer_Right,
-                    index = filletPoints_index_Right,
-                    color = 0x0000FF,
-                });
+                //var filletPoints_buffer_Right = MergeToSingleList<double[], double>(filletPoints_Right);
+                //var filletPoints_index_Right = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
+                //AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
+                //{
+                //    position = filletPoints_buffer_Right,
+                //    index = filletPoints_index_Right,
+                //    color = 0x0000FF,
+                //});
 #endif
 
                 var rootPoints = CreateList<double[]>(4, (index) => gearProifile.Root((double)index / (4 - 1)));
@@ -341,7 +348,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Root_Normal((double)index / (4 - 1));
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
@@ -349,14 +356,14 @@ namespace Gears.ViewModels
                     return N;
                 });
 #if DEBUG
-                var rootPoints_buffer = MergeToSingleList<double[], double>(rootPoints);
-                var rootPoints_index = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
-                AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
-                {
-                    position = rootPoints_buffer,
-                    index = rootPoints_index,
-                    color = 0xFF9900,
-                });
+                //var rootPoints_buffer = MergeToSingleList<double[], double>(rootPoints);
+                //var rootPoints_index = MergeToSingleList<int[], int>(CreateList(sg - 1, (index) => new[] { index, index + 1 }));
+                //AddBufferGeometry(new BufferGeometryData(BufferGeometryData.Types.line)
+                //{
+                //    position = rootPoints_buffer,
+                //    index = rootPoints_index,
+                //    color = 0xFF9900,
+                //});
 #endif
                 var tipPoints = new List<double[]>() { flankPoints_Left[flankPoints_Left.Count - 1],
                     RotateVector(CreateRotateMatrix(Axis.Z, 2 * PI / z[i]), flankPoints_Right[flankPoints_Right.Count - 1]) };
@@ -417,7 +424,7 @@ namespace Gears.ViewModels
                         normal = FaceNormal_buffer,
                         index = FaceTopo_index };
                 };
-                int sb = 10;
+                
                 var rightFlankData = CreateScrewFace(flankPoints_Right, flankNormal_Right, sb, true);
                 var rightFilletData = CreateScrewFace(filletPoints_Right, filletNormal_Right, sb, true);
                 var rooData = CreateScrewFace(rootPoints, rootNormal, sb, true);
@@ -463,7 +470,8 @@ namespace Gears.ViewModels
                         {
                             Vector3D p1 = RotateVector(MMM, sectionProfile[n]);
                             Vector3D p2 = RotateVector(MMM, sectionProfile[n + 1]);
-                            Vector3D normal = ((Vector3D)Cross((p2 - p1), new Vector3D(1, 0, 0))).Normalize();
+                            Vector3D n1 = RotateVector(MMM, new Vector3D(1, 0, 0));
+                            Vector3D normal = ((Vector3D)Cross((p2 - p1), n1)).Normalize();
                             bufferData.position.AddRanges(p1.buffer, p2.buffer);
                             bufferData.normal.AddRanges(normal.buffer, normal.buffer);
                         }
@@ -556,22 +564,32 @@ namespace Gears.ViewModels
                 #endregion
 
                 #region メッシュ統合
-                var firstToothBufferData = new BufferGeometryData(BufferGeometryData.Types.mesh);
+                var firstToothBufferData = new GearGeometryData() { z = z[i]};
                 firstToothBufferData.Merge(rightFlankData, rightFilletData, rooData, leftFilletData, leftFlankData, tipData, frontFaceBufferData, backFaceBufferData);
                 firstToothBufferData.name = i == 0 ? "pinionTooth" : "gearTooth";
                 firstToothBufferData.SetType(BufferGeometryData.Types.mesh);
                 firstToothBufferData.color = 0x555555;
                 firstToothBufferData.castShadow = true;
                 firstToothBufferData.receiveShadow = true;
-                AddBufferGeometry(firstToothBufferData);
+                double[,] gearM;
+                if (i == 0)
+                    gearM = MatrixDot(
+                        CreateTranslateMatrix(new Vector3D(-a * (double)z[i] / z.Sum(), 0, 0)),
+                        CreateRotateMatrix(Axis.Z, -PI / 2));
+                else
+                    gearM = MatrixDot(
+                        CreateTranslateMatrix(new Vector3D(a * (double)z[i] / z.Sum(), 0, 0)),
+                        CreateRotateMatrix(Axis.Z, PI / 2 + PI / z[i]));
+                firstToothBufferData.matrix =  (double[])MatrixTranspose(gearM).GetReshaped(new[] { 4 * 4 });
+                UpdateOrCreateGear(firstToothBufferData);
                 #endregion
 
-                for (int j = 1; j < z[i]; j++)
-                {
-                    var theta = 2 * PI / z[i] * j;
-                    await EvalAsync($"SceneController.CopyMesh(" +
-                        $"'{firstToothBufferData.name}', new THREE.Matrix4().makeRotationZ({theta}));");
-                }
+                //for (int j = 1; j < z[i]; j++)
+                //{
+                //    var theta = 2 * PI / z[i] * j;
+                //    await EvalAsync($"SceneController.CopyMesh(" +
+                //        $"'{firstToothBufferData.name}', new THREE.Matrix4().makeRotationZ({theta}));");
+                //}
             }
         }
 

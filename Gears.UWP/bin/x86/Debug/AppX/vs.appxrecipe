@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-10-05T15:41:10.062</Modified>
+      <Modified>2019-10-06T12:42:49.979</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.exe">
       <PackagePath>entrypoint\Gears.UWP.exe</PackagePath>
-      <Modified>2019-10-05T15:41:09.458</Modified>
+      <Modified>2019-10-06T12:42:48.902</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\newtonsoft.json\12.0.2\lib\netstandard2.0\Newtonsoft.Json.dll">
       <PackagePath>Newtonsoft.Json.dll</PackagePath>
@@ -96,7 +96,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.dll">
       <PackagePath>Gears.dll</PackagePath>
-      <Modified>2019-10-05T15:41:04.704</Modified>
+      <Modified>2019-10-06T12:42:43.527</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Microsoft\Xamarin\NuGet\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -295,7 +295,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\SceneBuilder.js">
       <PackagePath>Assets\www\SceneBuilder.js</PackagePath>
-      <Modified>2019-10-05T15:23:42.116</Modified>
+      <Modified>2019-10-06T12:26:08.933</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery.js">
       <PackagePath>Assets\www\jquery.js</PackagePath>
@@ -317,33 +317,17 @@
       <PackagePath>Assets\www\textures\autoshop_01_1k.hdr</PackagePath>
       <Modified>2019-10-05T08:11:55.106</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\machine_shop_01_1k.hdr">
-      <PackagePath>Assets\www\textures\machine_shop_01_1k.hdr</PackagePath>
-      <Modified>2019-10-05T08:11:55.122</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\abandoned_hall_01_1k.hdr">
-      <PackagePath>Assets\www\textures\abandoned_hall_01_1k.hdr</PackagePath>
-      <Modified>2019-10-05T08:11:55.098</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\textures\086_hdrmaps_com_free.exr">
-      <PackagePath>Assets\www\textures\086_hdrmaps_com_free.exr</PackagePath>
-      <Modified>2019-10-04T16:42:35.728</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\piz_compressed.exr">
-      <PackagePath>Assets\www\piz_compressed.exr</PackagePath>
-      <Modified>2019-10-05T08:11:53.383</Modified>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.xr.xml">
       <PackagePath>Gears.UWP.xr.xml</PackagePath>
       <Modified>2019-08-25T01:33:58.203</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-10-05T15:41:09.220</Modified>
+      <Modified>2019-10-06T12:42:48.651</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-10-05T15:41:09.220</Modified>
+      <Modified>2019-10-06T12:42:48.651</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -355,11 +339,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2019-10-05T08:12:37.859</Modified>
+      <Modified>2019-10-06T12:26:27.508</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\Gears.UWP.exe">
       <PackagePath>Gears.UWP.exe</PackagePath>
-      <Modified>2019-10-05T15:41:10.058</Modified>
+      <Modified>2019-10-06T12:42:49.972</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

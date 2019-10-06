@@ -247,7 +247,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Flank_Left_Normal(uArray_Flank[index]);
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
@@ -273,7 +273,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Fillet_Left_Normal(uArray_Fillet[index]);
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
@@ -297,7 +297,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Flank_Right_Normal(uArray_Flank[index]);
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
@@ -320,7 +320,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Fillet_Right_Normal(uArray_Fillet[index]);
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
@@ -344,7 +344,7 @@ namespace Gears.ViewModels
                     var sectionNormal = gearProifile.Root_Normal((double)index / (4 - 1));
                     var t1 = Cross(new Vector3D(0, 0, 1), sectionNormal);
                     var βp = Atan2(FirstNNorm(p, 2) * 2 * PI, L[i]);
-                    if ((歯車1が左ねじである && i == 1) || (!歯車1が左ねじである && i == 0))
+                    if (i == 1)
                         βp *= -1;
                     var M = CreateRotateMatrix(p, βp);
                     var t2 = RotateVector(M, new Vector3D(0, 0, -1));
