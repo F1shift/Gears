@@ -21,7 +21,7 @@ namespace Gears.Views
             MasterBehavior = MasterBehavior.Popover;
 
             MenuPage.RootPage = this;
-            MenuPage.NavigateTo(2);
+            MenuPage.NavigateTo(1);
         }
     }
 }

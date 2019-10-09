@@ -14,6 +14,10 @@ namespace Gears.Views
         public string BasicFormat { get; set; } = "0.###";
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+            {
+                return null;
+            }
             var model = (CylindricalGearBasic)value;
             List<TableRow> RowCollection = new List<TableRow>();
 

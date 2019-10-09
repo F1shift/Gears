@@ -14,11 +14,43 @@ namespace Gears.Views {
     
     
     [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\DesignPage.xaml")]
-    public partial class DesignPage : global::Xamarin.Forms.TabbedPage {
+    public partial class DesignPage : global::Xamarin.Forms.ContentPage {
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.Grid tabBarGrid;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.BoxView tabActiveBar;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.AbsoluteLayout AbsLayout;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Gears.Custom.Controls.MyWebView myWebView;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Gears.Views.RiseUpStackLayout BasciRackPanel;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Gears.Views.RiseUpStackLayout GearParaPanel;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.ListView listView;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Gears.Views.GearDetailView DetailPanel;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(DesignPage));
+            tabBarGrid = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Grid>(this, "tabBarGrid");
+            tabActiveBar = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.BoxView>(this, "tabActiveBar");
+            AbsLayout = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.AbsoluteLayout>(this, "AbsLayout");
+            myWebView = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Gears.Custom.Controls.MyWebView>(this, "myWebView");
+            BasciRackPanel = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Gears.Views.RiseUpStackLayout>(this, "BasciRackPanel");
+            GearParaPanel = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Gears.Views.RiseUpStackLayout>(this, "GearParaPanel");
+            listView = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ListView>(this, "listView");
+            DetailPanel = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Gears.Views.GearDetailView>(this, "DetailPanel");
         }
     }
 }
