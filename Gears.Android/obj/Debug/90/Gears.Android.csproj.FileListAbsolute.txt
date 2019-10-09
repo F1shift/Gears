@@ -523,7 +523,6 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\flata\bc842e6e4b4c2fb36a4eb06f2a
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\flata\compiled.flata
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\R.txt
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\R.cs.flag
-C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\Gears.Android.csproj.CoreCompileInputs.cache
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\Gears.Android.csproj.Fody.CopyLocal.cache
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\XamlC.stamp
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\Gears.Android.csproj.CopyComplete
@@ -740,7 +739,6 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Xamarin.Forms.Pla
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Xamarin.Forms.Platform.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Xamarin.Forms.Xaml.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Xamarin.Forms.Xaml.pdb
-C:\Data\GitHub\Gears\Gears.Android\bin\Debug\Gears.dll.mdb
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\linksrc\Mono.Android.Export.dll
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\linksrc\Mono.Android.Export.pdb
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\assets\Mono.Android.Export.dll
@@ -1045,3 +1043,12 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\flata\974b8deedef4981140138f90a5
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\flata\8d96011e88ee8b86138fb04eb4e66c528f0bd531.flata
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\src\md5a6214798b54a77ffaae91ebf993268bc\MyWebViewRenderer_JavascriptResult.java
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\src\md5a6214798b54a77ffaae91ebf993268bc\JSBridge.java
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\typemap.jm.arm64-v8a.s
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\typemap.jm.armeabi-v7a.s
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\typemap.jm.x86.s
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\typemap.jm.x86_64.s
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\typemap.mj.arm64-v8a.s
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\typemap.mj.armeabi-v7a.s
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\typemap.mj.x86.s
+C:\Data\GitHub\Gears\Gears.Android\obj\Debug\90\android\typemap.mj.x86_64.s
+C:\Data\GitHub\Gears\Gears.Android\bin\Debug\Gears.dll.mdb

@@ -34,11 +34,11 @@
                 <Button Text="Detail" Grid.Column="2" Style="{x:StaticResource TabTitleStyle}" Clicked="NavigateButton_Clicked"/>
                 <BoxView x:Name="tabActiveBar" Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="End" HeightRequest="5" BackgroundColor="{StaticResource SecondaryColor}"></BoxView>
             </Grid>
-            <AbsoluteLayout x:Name="AbsLayout">
+            <AbsoluteLayout x:Name="AbsLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <cs:MyWebView x:Name="myWebView"
                               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                               AbsoluteLayout.LayoutFlags="All"/>
-                <view:RiseUpStackLayout  x:Name="BasciRackPanel"             
+                <view:RiseUpStackLayout  x:Name="BasciRackPanel"  IsVisible="True"
             BindingContext="{Binding RackParameterViewModel}"
             BackgroundColor="{StaticResource TranslucantColor}" 
                                 AbsoluteLayout.LayoutFlags="All"
@@ -94,7 +94,7 @@
                         </StackLayout>
                     </view:RiseUpStackLayout.Content>
                 </view:RiseUpStackLayout>
-                <view:RiseUpStackLayout x:Name="GearParaPanel"
+                <view:RiseUpStackLayout x:Name="GearParaPanel" IsVisible="true"
                                     BindingContext="{Binding GearParameterViewModel}"
                     Padding="20, 0, 20, 20" 
                         AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.6"
@@ -136,13 +136,9 @@
                         </StackLayout>
                     </view:RiseUpStackLayout.Content>
                 </view:RiseUpStackLayout>
-                <ScrollView x:Name="DetailPanel"
-                        BindingContext="{Binding GearDetailViewModel}"
-                VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                    <StackLayout x:DataType="vm:GearDetailViewModel">
-                        <Label Text="{Binding Result}"/>
-                    </StackLayout>
-                </ScrollView>
+                <view:GearDetailView x:Name="DetailPanel" BindingContext="{Binding GearDetailViewModel}"
+                                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                     AbsoluteLayout.LayoutFlags="All"/>
             </AbsoluteLayout>
         </StackLayout>
     </ContentPage.Content>

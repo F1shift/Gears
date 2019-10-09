@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm ="clr-namespace:Gears.ViewModels"
+             xmlns:view="clr-namespace:Gears.Views"
+             mc:Ignorable="d"
+             x:Class="Gears.Views.GearDetailView"
+             x:DataType="vm:GearDetailViewModel">
+    <ContentView.Resources>
+        <DataTemplate x:Key="title"  x:DataType="view:TitleRow">
+            <ViewCell>
+                <Label HorizontalOptions="Center" Text="{Binding Title}" FontSize="Subtitle" FontAttributes="Bold"/>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="subtitle"  x:DataType="view:TitleRow">
+            <ViewCell>
+                <Label HorizontalOptions="Center" Text="{Binding Title}" FontAttributes="Bold"/>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="dockPanel" x:DataType="view:DockPanelRow">
+            <ViewCell>
+                <StackLayout Orientation="Horizontal">
+                    <Label Grid.Column="0" Text="{Binding Left}" HorizontalOptions="Start"/>
+                    <Label Grid.Column="0" Text="{Binding Center}" HorizontalOptions="CenterAndExpand"/>
+                    <Label Grid.Column="1" Text="{Binding Right}" HorizontalOptions="End"/>
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="singleParam" x:DataType="view:SingleParameterRow">
+            <ViewCell>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="{Binding Name}"/>
+                    <Label Grid.Column="1" Text="{Binding Value}" HorizontalOptions="Center"/>
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="doubleParam" x:DataType="view:DoubleParameterRow">
+            <ViewCell>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="{Binding Name}"/>
+                    <Label Grid.Column="1" Text="{Binding Value1}" HorizontalOptions="Center"/>
+                    <Label Grid.Column="2" Text="{Binding Value2}" HorizontalOptions="Center"/>
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+        <view:GearDetailViewDataTamplateSelector x:Key="gearDetailViewDataTamplateSelector"
+                                                         TitleTemplate="{StaticResource title}"
+                                                         DockPanelRowTemplate="{StaticResource dockPanel}"
+                                                         SingleParamTemplate="{StaticResource singleParam}"
+                                                         DoubleParamTemplate="{StaticResource doubleParam}"/>
+        <view:GearModelConverter x:Key="GearModelConverter"/>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Frame x:Name="DetailPanel"
+                    x:DataType="vm:GearDetailViewModel"
+                                 Margin="20" HorizontalOptions="Fill"
+                            BackgroundColor="#FFFFFFFF"
+                       AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                       AbsoluteLayout.LayoutFlags="All">
+            <ListView ItemsSource="{Binding Model, Converter={StaticResource GearModelConverter}}" ItemTemplate="{StaticResource gearDetailViewDataTamplateSelector}">
+            </ListView>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

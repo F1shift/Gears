@@ -38,7 +38,7 @@ namespace Gears.Views {
         private global::Xamarin.Forms.ListView listView;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::Xamarin.Forms.ScrollView DetailPanel;
+        private global::Gears.Views.GearDetailView DetailPanel;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
@@ -50,7 +50,7 @@ namespace Gears.Views {
             BasciRackPanel = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Gears.Views.RiseUpStackLayout>(this, "BasciRackPanel");
             GearParaPanel = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Gears.Views.RiseUpStackLayout>(this, "GearParaPanel");
             listView = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ListView>(this, "listView");
-            DetailPanel = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ScrollView>(this, "DetailPanel");
+            DetailPanel = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Gears.Views.GearDetailView>(this, "DetailPanel");
         }
     }
 }

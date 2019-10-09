@@ -100,7 +100,6 @@ C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\MainPage.xaml
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\App.xbf
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\MainPage.xbf
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\XamlSaveStateFile.xml
-C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Gears.UWP.csproj.CoreCompileInputs.cache
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Gears.UWP.csproj.Fody.CopyLocal.cache
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\XamlC.stamp
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Gears.UWP.csproj.CopyComplete

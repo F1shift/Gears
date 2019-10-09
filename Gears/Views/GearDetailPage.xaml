@@ -13,7 +13,7 @@
                 
             </Button>
             <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                <Label Text="{Binding Result}"/>
+                <Label Text=""/>
             </ScrollView>
         </StackLayout>
     </ContentPage.Content>

@@ -10,31 +10,31 @@ namespace Gears.Utility
     public static class Math
     {
         #region 單位轉換
-        public static double DegToRad(double tdeg)
+        public static double DegToRad(this double tdeg)
         {
             double trad;
             trad = tdeg / 180.0 * System.Math.PI;
             return trad;
         }
-        public static double RadToDeg(double trad)
+        public static double RadToDeg(this double trad)
         {
             double tdeg;
             tdeg = trad / System.Math.PI * 180.0;
             return tdeg;
         }
-        public static double mmToInch(double tmm)
+        public static double mmToInch(this double tmm)
         {
             double tInch;
             tInch = tmm / 25.4;
             return tInch;
         }
-        public static double InchTomm(double tInch)
+        public static double InchTomm(this double tInch)
         {
             double tmm;
             tmm = tInch * 25.4;
             return tmm;
         }
-        public static string DegToDMS(double x)
+        public static string DegToDMS(this double x)
         {
             int x1 = (int)x;
             int x2 = (int)((x - x1) * 60);
@@ -43,7 +43,7 @@ namespace Gears.Utility
             ss = String.Format("{0}", x1) + "d" + String.Format("{0,3}", x2) + "m" + String.Format("{0,3}", x3) + "s";
             return ss;
         }
-        public static string DegToDMS(double x,short n)
+        public static string DegToDMS(this double x,short n)
         {
             double absx = Abs(x);
             int x1 = (int)absx;
@@ -82,22 +82,22 @@ namespace Gears.Utility
 
             return ss;
         }
-        public static string RadToDMS(double y)
+        public static string RadToDMS(this double y)
         {
             string ss = DegToDMS(RadToDeg(y));
             return ss;
         }
-        public static string RadToDMS(double y,short n)
+        public static string RadToDMS(this double y,short n)
         {
             string ss = DegToDMS(RadToDeg(y),n);
             return ss;
         }
-        public static double DMSToDeg(double dd, double mm, double ss)
+        public static double DMSToDeg(this double dd, double mm, double ss)
         {
             double deg = dd + mm / 60.0 + ss / 3600.0;
             return deg;
         }
-        public static double DMSToRad(double dd, double mm, double ss)
+        public static double DMSToRad(this double dd, double mm, double ss)
         {
             double rad = DegToRad(DMSToDeg(dd, mm, ss));
             return rad;
