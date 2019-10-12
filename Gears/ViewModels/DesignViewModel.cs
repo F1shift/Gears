@@ -19,6 +19,7 @@ namespace Gears.ViewModels
 
         public ThreeDModelingViewModel ThreeDModelingViewModel { get; set; }
 
+        public bool IsDetailViewPined { get; set; }
         public SimpleCommand UpdateCommand { get; set; }
 
         public DesignViewModel()
@@ -30,7 +31,7 @@ namespace Gears.ViewModels
             GearDetailViewModel.GearParameterViewModel = this.GearParameterViewModel;
             GearDetailViewModel.RackParameterViewModel = this.RackParameterViewModel;
 
-            UpdateCommand = new SimpleCommand((obj) => { Update(); });
+            UpdateCommand = new SimpleCommand((obj) => Update());
         }
 
         public void Update() {
@@ -41,6 +42,8 @@ namespace Gears.ViewModels
 
         System.Timers.Timer autoUpdateTimer = new System.Timers.Timer();
         public void StartAutoUpdate(int interval = 100) {
+            autoUpdateTimer.Stop();
+            autoUpdateTimer = new System.Timers.Timer();
             autoUpdateTimer.Interval = interval;
             autoUpdateTimer.Elapsed += (s, e) => Device.BeginInvokeOnMainThread(()=>UpdateCommand.Execute(null));
             autoUpdateTimer.Start();
@@ -55,6 +58,10 @@ namespace Gears.ViewModels
             {
                 case "Update":
                     UpdateCommand.Execute(null);
+                    break;
+                case "UpdateWebSide":
+                    GearDetailViewModel.CheckUpdate();
+                    ThreeDModelingViewModel.UpdateCommand.Execute(null);
                     break;
                 case "StartAutoUpdate":
                     StartAutoUpdate();

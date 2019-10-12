@@ -72,6 +72,8 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.0" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\www\timeMeasurer.js" />
+    <Compile Include="Custom\Effects\BackgroundColorEffect.cs" />
     <Compile Include="Custom\Effects\LongPressEffect.cs" />
     <Compile Include="Custom\Renderer\MySliderRenderer.cs" />
     <Compile Include="Custom\Renderer\MyWebViewRenderer.cs" />

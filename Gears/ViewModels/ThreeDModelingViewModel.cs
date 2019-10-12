@@ -25,18 +25,24 @@ namespace Gears.ViewModels
         public GearDetailViewModel GearDetailViewModel { get; set; }
         public SimpleCommand UpdateCommand { get; set; }
 
+        TimeMeasurer timeMeasurer = new TimeMeasurer();
         public ThreeDModelingViewModel(GearDetailViewModel gearDetailViewModel)
         {
             this.GearDetailViewModel = gearDetailViewModel;
             UpdateCommand = new SimpleCommand(async (a) =>
                 {
+                    timeMeasurer.StartOrReset();
+                    //await StopAnimate();
                     Initial();
+                    timeMeasurer.Report(nameof(Initial));
                     //await EvalAsync($"SceneController.Clear();");
                     //AddRackTrace();
                     //double v = 10;
                     //AddRackTrace(v, 0);
                     //AddRackTrace(v, 1);
-                    UpdateOrAddGear();
+                    await UpdateOrAddGear();
+                    //await StartAnimate();
+                    timeMeasurer.PrintAllRecord();
                 });
         }
 
@@ -53,15 +59,30 @@ namespace Gears.ViewModels
             SolveProfile();
         }
 
-        public async void AddBufferGeometry(BufferGeometryData data) {
-            await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
+        public async Task<string> AddBufferGeometry(BufferGeometryData data) {
+            return await EvalAsync($"SceneController.AddBufferGeometryMesh(" +
                 $"{Newtonsoft.Json.JsonConvert.SerializeObject(data)});");
         }
-        public async void UpdateOrCreateGear(GearGeometryData data)
+        public async Task<string> UpdateOrCreateGear(GearGeometryData data)
         {
-            await EvalAsync($"SceneController.UpdateOrCreateGear(" +
-                $"{Newtonsoft.Json.JsonConvert.SerializeObject(data)});");
+            var datastr = Newtonsoft.Json.JsonConvert.SerializeObject(data) ;
+            timeMeasurer.Report("JsonConvert");
+            var re = await EvalAsync($"SceneController.UpdateOrCreateGear(" + datastr  + ");");
+            timeMeasurer.Report("EvalAsync");
+            return re;
         }
+
+        //public async Task<string> StopAnimate()
+        //{
+        //    var re = await EvalAsync($"SceneController.StopAnimate();");
+        //    return re;
+        //}
+
+        //public async Task<string> StartAnimate()
+        //{
+        //    var re = await EvalAsync($"SceneController.StartAnimate();");
+        //    return re;
+        //}
 
         public void AddRackTrace() {
             //Three.jsデータを作る。
@@ -157,7 +178,7 @@ namespace Gears.ViewModels
                     var index = MergeToSingleList<List<int>, int>(new[] { curveLineIndex, normalLineIndex, speedLineIndex });
                     var bufferData = new BufferGeometryData(BufferGeometryData.Types.line) { position = buffer, index = index, color = color };
 
-                    AddBufferGeometry(bufferData);
+                    await AddBufferGeometry(bufferData);
                 };
             plotCurveAndNormal(
                 RackTraces[i].Flank_Left,
@@ -198,13 +219,14 @@ namespace Gears.ViewModels
 
         int sg = 10;
         int sb = 10;
-        public void UpdateOrAddGear() {
+        public async Task<bool> UpdateOrAddGear() {
             for (int i = 0; i < 2; i++)
             {
                 
                 var gearProifile = GearProfiles[i];
 
                 #region 断面プロファイル作成
+                
                 var FlankAndFilletIntersectPointPara = NonlinearFindRoot.FindRoot((double[] paras) =>
                 {
                     double u1 = paras[0];
@@ -371,6 +393,7 @@ namespace Gears.ViewModels
                     var N = GetNormalized(tipPoints[index]);
                     return N;
                 });
+                timeMeasurer.Report("断面プロファイル作成");
                 #endregion
 
                 #region 歯面を作成
@@ -431,10 +454,10 @@ namespace Gears.ViewModels
                 var leftFilletData = CreateScrewFace(flankPoints_Left, flankNormal_Left, sb, false);
                 var leftFlankData = CreateScrewFace(filletPoints_Left, filletNormal_Left, sb, false);
                 var tipData = CreateScrewFace(tipPoints, tipNormal, sb, false);
+                timeMeasurer.Report("歯面を作成");
                 #endregion
 
                 #region 前後端面作成
-                
                 var frontFacePoints = new List<double[]>();
                 frontFacePoints.AddRange(filletPoints_Left);
                 frontFacePoints.RemoveLast();
@@ -561,6 +584,7 @@ namespace Gears.ViewModels
                         CreateRotateMatrix(Axis.Z, (-b[i] / L[i]) * 2 * PI),
                         CreateMirrorMatrix(Axis.Z)
                         )).FlipSide();
+                timeMeasurer.Report("前後端面作成");
                 #endregion
 
                 #region メッシュ統合
@@ -568,7 +592,7 @@ namespace Gears.ViewModels
                 firstToothBufferData.Merge(rightFlankData, rightFilletData, rooData, leftFilletData, leftFlankData, tipData, frontFaceBufferData, backFaceBufferData);
                 firstToothBufferData.name = i == 0 ? "pinionTooth" : "gearTooth";
                 firstToothBufferData.SetType(BufferGeometryData.Types.mesh);
-                firstToothBufferData.color = 0x555555;
+                firstToothBufferData.color = null;
                 firstToothBufferData.castShadow = true;
                 firstToothBufferData.receiveShadow = true;
                 double[,] gearM;
@@ -581,9 +605,11 @@ namespace Gears.ViewModels
                         CreateTranslateMatrix(new Vector3D(a * (double)z[i] / z.Sum(), 0, 0)),
                         CreateRotateMatrix(Axis.Z, PI / 2 + PI / z[i]));
                 firstToothBufferData.matrix =  (double[])MatrixTranspose(gearM).GetReshaped(new[] { 4 * 4 });
-                UpdateOrCreateGear(firstToothBufferData);
+                timeMeasurer.Report("メッシュ統合");
                 #endregion
 
+                UpdateOrCreateGear(firstToothBufferData);
+                timeMeasurer.Report("UpdateOrAddGear");
                 //for (int j = 1; j < z[i]; j++)
                 //{
                 //    var theta = 2 * PI / z[i] * j;
@@ -591,6 +617,7 @@ namespace Gears.ViewModels
                 //        $"'{firstToothBufferData.name}', new THREE.Matrix4().makeRotationZ({theta}));");
                 //}
             }
+            return true;
         }
 
     }

@@ -11,135 +11,185 @@
              mc:Ignorable="d"
              x:Class="Gears.Views.DesignPage"
              x:DataType="vm:DesignViewModel"
+             x:Name="root"
              BindingContextChanged="ContentPage_BindingContextChanged">
     <ContentPage.Resources>
-        <Style x:Key="TabTitleStyle" TargetType="Button">
+        <Style Class="TabTitleStyleForButton" TargetType="Button" CanCascade="True">
             <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             <Setter Property="FontSize" Value="Medium"/>
             <Setter Property="BackgroundColor" Value="Transparent"/>
             <Setter Property="HorizontalOptions" Value="Fill"/>
             <Setter Property="VerticalOptions" Value="Fill"/>
         </Style>
+        <Style Class="TabTitleStyleForLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Grid x:Name="tabBarGrid" ColumnSpacing="0" BackgroundColor="{StaticResource NavigationBarColor}" MinimumHeightRequest="50">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Button Text="Rack" Grid.Column="0" Style="{x:StaticResource TabTitleStyle}" Clicked="NavigateButton_Clicked"/>
-                <Button Text="Gear" Grid.Column="1" Style="{x:StaticResource TabTitleStyle}" Clicked="NavigateButton_Clicked"/>
-                <Button Text="Detail" Grid.Column="2" Style="{x:StaticResource TabTitleStyle}" Clicked="NavigateButton_Clicked"/>
-                <BoxView x:Name="tabActiveBar" Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="End" HeightRequest="5" BackgroundColor="{StaticResource SecondaryColor}"></BoxView>
-            </Grid>
-            <AbsoluteLayout x:Name="AbsLayout" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <cs:MyWebView x:Name="myWebView"
-                              AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                              AbsoluteLayout.LayoutFlags="All"/>
-                <view:RiseUpStackLayout  x:Name="BasciRackPanel"  IsVisible="True"
-            BindingContext="{Binding RackParameterViewModel}"
-            BackgroundColor="{StaticResource TranslucantColor}" 
-                                AbsoluteLayout.LayoutFlags="All"
-                                AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.45"
+        <AbsoluteLayout x:Name="AbsLayout">
+            <StackLayout AbsoluteLayout.LayoutFlags="All"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+                <Grid x:Name="tabBarGrid" ColumnSpacing="0" RowSpacing="0" BackgroundColor="{StaticResource NavigationBarColor}" VerticalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="RackTabButton" Text="Rack" Grid.Column="0" StyleClass="TabTitleStyleForButton" Clicked="NavigateButton_Clicked"/>
+                    <Button x:Name="GearTabButton" Text="Gear" Grid.Column="1" StyleClass="TabTitleStyleForButton" Clicked="NavigateButton_Clicked"/>
+                    <Button x:Name="DetailTabButton" Grid.Column="2" StyleClass="TabTitleStyleForButton" Clicked="NavigateButton_Clicked"/>
+                    <Grid Grid.Column="2" InputTransparent="True" CascadeInputTransparent="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Detail" Grid.Column="0" StyleClass="TabTitleStyleForLabel" InputTransparent="True"/>
+                        <ImageButton x:Name="PinSwichButton"
+                            Grid.Column="1"
+                            Source="{rs:ImageResource Gears.Resources.pin-ineffective.png}"
+                            HorizontalOptions="Start"
+                            HeightRequest="20" 
+                            WidthRequest="20" 
+                            Margin="10"
+                            Clicked="ImageButton_Clicked"
+                            eff:BackgroundColorEffect.BackgroundColor="Transparent">
+                            <ImageButton.Effects>
+                                <eff:BackgroundColorEffect/>
+                            </ImageButton.Effects>
+                        </ImageButton>
+                    </Grid>
+                    <BoxView x:Name="tabActiveBar" Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="End" HeightRequest="5" BackgroundColor="{StaticResource SecondaryColor}"></BoxView>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                        <cs:MyWebView x:Name="myWebView"/>
+                        <StackLayout x:Name="BasciRackPanel"
+                                 InputTransparent="True"
+                                 CascadeInputTransparent="False"
+                                 VerticalOptions="Fill">
+                            <BoxView x:Name="BasciRackPanelEmpityArea"
+                            VerticalOptions="FillAndExpand" InputTransparent="True">
+                            </BoxView>
+                            <view:RiseUpStackLayout IsVisible="True"
+                                BindingContext="{Binding RackParameterViewModel}"
+                                BackgroundColor="{StaticResource TranslucantColor}" 
+                                HeightRequest="350"
+                                VerticalOptions="End"
                                 Padding="20, 0, 20, 20"
                                 IsExpanded="True">
-                    <view:RiseUpStackLayout.Content>
-                        <StackLayout x:DataType="vm:RackParameterViewModel">
-                            <StackLayout Orientation="Horizontal"  Padding="0,0,12,0" VerticalOptions="End">
-                                <Label Text="歯直角モジュール" VerticalOptions="Center"/>
-                                <Picker
+                                <view:RiseUpStackLayout.Content>
+                                    <StackLayout x:DataType="vm:RackParameterViewModel">
+                                        <StackLayout Orientation="Horizontal"  Padding="0,0,12,0" VerticalOptions="End">
+                                            <Label Text="歯直角モジュール" VerticalOptions="Center"/>
+                                            <Picker
                             ItemsSource="{Binding ModuleList}"
                             ItemDisplayBinding="{Binding DisplayName}" 
                             SelectedItem="{Binding Module}"
                             HorizontalOptions="FillAndExpand"
                             SelectedIndex="1">
-                                </Picker>
-                            </StackLayout>
-                            <ListView ItemsSource="{Binding InputItems}" RowHeight="80" SelectionMode="None">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="vm:InputItemViewModel">
-                                        <ViewCell>
-                                            <StackLayout VerticalOptions="FillAndExpand">
-                                                <Grid Padding="0, 10, 0, 5"
+                                            </Picker>
+                                        </StackLayout>
+                                        <ListView ItemsSource="{Binding InputItems}" RowHeight="80" SelectionMode="None">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate x:DataType="vm:InputItemViewModel">
+                                                    <ViewCell>
+                                                        <StackLayout VerticalOptions="FillAndExpand">
+                                                            <Grid Padding="0, 10, 0, 5"
                                             eff:LongPressEffect.Command="{Binding ShowEntryCommand}"
                                             eff:LongPressEffect.CommandParameter="{x:Reference AbsLayout}">
-                                                    <Grid.Effects>
-                                                        <eff:LongPressEffect/>
-                                                    </Grid.Effects>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition />
-                                                        <ColumnDefinition Width="60"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Label Grid.Column="0" Text="{Binding Name}"/>
-                                                    <Label Grid.Column="1" Text="{Binding GuideString}"/>
-                                                    <Label Grid.Column="2" Text="{Binding Value}"/>
-                                                </Grid>
-                                                <cs:MySlider
+                                                                <Grid.Effects>
+                                                                    <eff:LongPressEffect/>
+                                                                </Grid.Effects>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition/>
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                    <ColumnDefinition />
+                                                                    <ColumnDefinition Width="60"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Label Grid.Column="0" Text="{Binding Name}"/>
+                                                                <Label Grid.Column="1" Text="{Binding GuideString}"/>
+                                                                <Label Grid.Column="2" Text="{Binding Value}"/>
+                                                            </Grid>
+                                                            <cs:MySlider
                                             Maximum="{Binding Max}"
                                             Minimum="{Binding Min}"
                                             Value="{Binding Value}"
                                             Step="{Binding Step}"
                                             IsStepped="True"/>
-                                            </StackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                                        </StackLayout>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackLayout>
+                                </view:RiseUpStackLayout.Content>
+                            </view:RiseUpStackLayout>
                         </StackLayout>
-                    </view:RiseUpStackLayout.Content>
-                </view:RiseUpStackLayout>
-                <view:RiseUpStackLayout x:Name="GearParaPanel" IsVisible="true"
-                                    BindingContext="{Binding GearParameterViewModel}"
-                    Padding="20, 0, 20, 20" 
-                        AbsoluteLayout.LayoutBounds="0.5, 1, 1, 0.6"
-                        AbsoluteLayout.LayoutFlags="All"
+                        <StackLayout x:Name="GearParaPanel"
+                                 InputTransparent="True"
+                                 CascadeInputTransparent="False"
+                                 VerticalOptions="Fill">
+                            <BoxView x:Name="GearParaPanelEmpityArea"
+                            VerticalOptions="FillAndExpand" InputTransparent="True">
+                            </BoxView>
+                            <view:RiseUpStackLayout IsVisible="true"
+                        BindingContext="{Binding GearParameterViewModel}"
+                        Padding="20, 0, 20, 20" 
+                        HeightRequest="350"
+                        VerticalOptions="End"
                         BackgroundColor="{StaticResource TranslucantColor}">
-                    <view:RiseUpStackLayout.Content>
-                        <StackLayout x:DataType="vm:GearParameterViewModel">
-                            <ListView x:Name="listView" ItemsSource="{Binding InputItems}" SelectionMode="None" VerticalOptions="End" RowHeight="80">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="vm:InputItemViewModel">
-                                        <ViewCell>
-                                            <StackLayout>
-                                                <Grid Padding="0, 10, 0, 5"
+                                <view:RiseUpStackLayout.Content>
+                                    <StackLayout x:DataType="vm:GearParameterViewModel">
+                                        <ListView x:Name="listView" ItemsSource="{Binding InputItems}" SelectionMode="None" VerticalOptions="End" RowHeight="80">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate x:DataType="vm:InputItemViewModel">
+                                                    <ViewCell>
+                                                        <StackLayout>
+                                                            <Grid Padding="0, 10, 0, 5"
                                                 eff:LongPressEffect.Command="{Binding ShowEntryCommand}"
                                                 eff:LongPressEffect.CommandParameter="{x:Reference AbsLayout}">
-                                                    <Grid.Effects>
-                                                        <eff:LongPressEffect/>
-                                                    </Grid.Effects>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition />
-                                                        <ColumnDefinition Width="60"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Label Grid.Column="0" Text="{Binding Name}"/>
-                                                    <Label Grid.Column="1" Text="{Binding GuideString}"/>
-                                                    <Label Grid.Column="2" Text="{Binding Value}"/>
-                                                </Grid>
-                                                <cs:MySlider
+                                                                <Grid.Effects>
+                                                                    <eff:LongPressEffect/>
+                                                                </Grid.Effects>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                    <ColumnDefinition />
+                                                                    <ColumnDefinition Width="60"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Label Grid.Column="0" Text="{Binding Name}"/>
+                                                                <Label Grid.Column="1" Text="{Binding GuideString}"/>
+                                                                <Label Grid.Column="2" Text="{Binding Value}"/>
+                                                            </Grid>
+                                                            <cs:MySlider
                                             Maximum="{Binding Max}"
                                             Minimum="{Binding Min}"
                                             Value="{Binding Value}"
                                             Step="{Binding Step}"
                                             IsStepped="True"/>
-                                            </StackLayout>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                                        </StackLayout>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackLayout>
+                                </view:RiseUpStackLayout.Content>
+                            </view:RiseUpStackLayout>
                         </StackLayout>
-                    </view:RiseUpStackLayout.Content>
-                </view:RiseUpStackLayout>
-                <view:GearDetailView x:Name="DetailPanel" BindingContext="{Binding GearDetailViewModel}"
-                                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                                     AbsoluteLayout.LayoutFlags="All"/>
-            </AbsoluteLayout>
-        </StackLayout>
+                        <StackLayout x:Name="DetailPanel" x:DataType="{x:Null}" HeightRequest="{Binding Height, TargetNullValue=-1}">
+                            <view:GearDetailView BindingContext="{Binding BindingContext.GearDetailViewModel, Source={x:Reference root}}"
+                                     VerticalOptions="Fill" HorizontalOptions="Fill"/>
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

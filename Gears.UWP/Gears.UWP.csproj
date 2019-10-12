@@ -93,6 +93,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Custom\Effects\BackgroundColorEffect.cs" />
     <Compile Include="Custom\Effects\LongPressEffect.cs" />
     <Compile Include="Custom\Renderer\MyWebViewRenderer.cs" />
     <Compile Include="Custom\Renderer\MySliderRenderer.cs" />
@@ -120,6 +121,7 @@
     <Content Include="Assets\www\index.html" />
     <Content Include="Assets\www\SceneBuilder.js" />
     <Content Include="Assets\www\jquery.js" />
+    <Content Include="Assets\www\timeMeasurer.js" />
     <Content Include="Assets\www\TrackballControls.js" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />

@@ -65,10 +65,11 @@
         <Frame x:Name="DetailPanel"
                     x:DataType="vm:GearDetailViewModel"
                                  Margin="20" HorizontalOptions="Fill"
-                            BackgroundColor="#FFFFFFFF"
-                       AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                       AbsoluteLayout.LayoutFlags="All">
-            <ListView ItemsSource="{Binding Model, Converter={StaticResource GearModelConverter}}" ItemTemplate="{StaticResource gearDetailViewDataTamplateSelector}">
+                            BackgroundColor="#FFFFFFFF">
+            <ListView 
+                    ItemsSource="{Binding Model, Converter={StaticResource GearModelConverter}}"
+                    ItemTemplate="{StaticResource gearDetailViewDataTamplateSelector}"
+                    VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             </ListView>
         </Frame>
     </ContentView.Content>

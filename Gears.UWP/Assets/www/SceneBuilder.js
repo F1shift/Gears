@@ -25,6 +25,7 @@ function InvokeCS(data) {
 
 var performanceSetting;
 function SceneInit(targetCanvas) {
+	var timeMeasurer = CreateTimeMeasurer();
     if (platform == "UWP") //On computer
 	{
 		performanceSetting = {
@@ -64,45 +65,55 @@ function SceneInit(targetCanvas) {
 	//#region シーンを作成
 	var scene = new THREE.Scene();
 	//scene.background = new THREE.Color(0x000000);
-	// scene.background = new THREE.CubeTextureLoader()
-	// 				.setPath( 'cube/' )
-	// 				.load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] );
 
-    var evnTexture;
-    if (performanceSetting.envMapEnabled)
-    {
-        new THREE.RGBELoader()
-            .setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
-            .load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
-                //new THREE.EXRLoader()
-                //    .setDataType(THREE.HalfFloatType)
-                //    .load('textures/086_hdrmaps_com_free_1k.exr', function (texture) {
+	
+	//#endregion
 
-                texture.minFilter = THREE.NearestFilter;
-                // texture.magFilter = THREE.NearestFilter;
-                texture.encoding = THREE.LinearEncoding;
+	//#region load texture 
+	var evnTexture;
+	var DefaultMeshMaterial;
+	var DefaultLineMaterial = new THREE.LineBasicMaterial({ color:0xFF0000 });
+	var textureLoaded = false;
+	var SceneInitFinished = false;
+	if (performanceSetting.envMapEnabled)
+	{
+		new THREE.RGBELoader()
+			.setDataType(THREE.FloatType) // alt: FloatType, HalfFloatType
+			.load('textures/autoshop_01_1k.hdr', function (texture, textureData) {
 
-                var cubemapGenerator = new THREE.EquirectangularToCubeGenerator(texture, { resolution: 512, type: THREE.HalfFloatType });
-                var exrBackground = cubemapGenerator.renderTarget.texture;
-                var cubeMapTexture = cubemapGenerator.update(renderer);
+				texture.minFilter = THREE.NearestFilter;
+				// texture.magFilter = THREE.NearestFilter;
+				texture.encoding = THREE.LinearEncoding;
 
-                var pmremGenerator = new THREE.PMREMGenerator(cubeMapTexture);
-                pmremGenerator.update(renderer);
+				var cubemapGenerator = new THREE.EquirectangularToCubeGenerator(texture, { resolution: 512, type: THREE.HalfFloatType });
+				var exrBackground = cubemapGenerator.renderTarget.texture;
+				var cubeMapTexture = cubemapGenerator.update(renderer);
 
-                var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker(pmremGenerator.cubeLods);
-                pmremCubeUVPacker.update(renderer);
+				var pmremGenerator = new THREE.PMREMGenerator(cubeMapTexture);
+				pmremGenerator.update(renderer);
 
-                var exrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
+				var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker(pmremGenerator.cubeLods);
+				pmremCubeUVPacker.update(renderer);
 
-                texture.dispose();
-                pmremGenerator.dispose();
-                pmremCubeUVPacker.dispose();
+				var exrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
 
-                evnTexture = exrBackground;
-                //scene.background = exrBackground;
-            });
-    }
+				texture.dispose();
+				pmremGenerator.dispose();
+				pmremCubeUVPacker.dispose();
 
+				evnTexture = exrBackground;
+				DefaultMeshMaterial = new THREE.MeshStandardMaterial({
+					color: 0x555555,
+					metalness: 1,
+					roughness: 0.5,
+					envMapIntensity: 1,
+					envMap: evnTexture
+					});
+				textureLoaded = true;
+				if(SceneInitFinished)
+					InvokeCS("StartAutoUpdate");
+			});
+	}
 	//#endregion
 
 	//#region カメラを作成
@@ -349,278 +360,283 @@ function SceneInit(targetCanvas) {
 	//#endregion
 	
 	//#region
-	var SceneController = {
-        Meshs: [],
+	var Meshs = [];
 
-		Clear:function(){
-            SceneController.Meshs.forEach((value, index, array) => {
-                scene.remove(value);
-                if (value.geometry != null) {
-                    value.geometry.dispose();
-                }
-                if (value.material != null) {
-                    value.material.dispose();
-                }
-			});
-			SceneController.Meshs = [];
-        },
-
-		AddBufferGeometryMesh:function(data){
-			var position = data.position;
-			var index = data.index;
-			var color = data.color;
-			var meshtype = data.type;
-			var normal = data.normal;
-			var geometry = new THREE.BufferGeometry();
-			geometry.addAttribute('position', new THREE.Float32BufferAttribute(position, 3));
-			
-			if(index != null && index !== void(0))
-				geometry.setIndex(index);
-			else
-				throw "THREE.BufferGeometry has no index information";
-
-			if(normal == null && normal !== void(0))
-				geometry.computeVertexNormals();
-			else
-				geometry.addAttribute('normal', new THREE.Float32BufferAttribute(normal, 3));
-			
-			
-
-			var material;
-			switch(meshtype){
-				case "line":
-					if(color != null && color !== void(0))
-					{
-						if(Array.isArray(color))
-						{
-							geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
-							material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors });
-						}
-						else
-						{
-							material = new THREE.MeshStandardMaterial({ color:color });
-						}
-					}
-					else{
-						material = new THREE.LineBasicMaterial({ color:0xFF0000 });
-					}
-                    var linemesh = new THREE.LineSegments(geometry, material);
-                    SceneController.Meshs.push(linemesh);
-					scene.add(linemesh);
-					break;
-				case "mesh":
-					if(color != null)
-					{
-						if(Array.isArray(color))
-						{
-							geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
-							material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
-						}
-						else
-						{
-							material = new THREE.MeshStandardMaterial( {
-								color:color,
-								metalness: 1,
-								roughness: 0.5,
-								envMapIntensity: 1,
-                                envMap: evnTexture
-							} );
-						}
-					}
-					else{
-						material = new THREE.MeshStandardMaterial({ color:0xFF0000 });
-					}
-					var mesh = new THREE.Mesh(geometry, material);
-					mesh.name = data.name;
-					mesh.castShadow = data.castShadow;
-                    mesh.receiveShadow = data.receiveShadow;
-                    if (data.matrix != null) {
-                        mesh.applyMatrix(data.matrix);
-                    }
-					SceneController.Meshs.push(mesh);
-					scene.add(mesh);
-					break;
-				default:
-					Console.log("Unsupported mesh type of '" + meshtype + "'");
-					break;
+	var Clear = function(){
+		Meshs.forEach((value, index, array) => {
+			scene.remove(value);
+			if (value.geometry != null) {
+				value.geometry.dispose();
 			}
-			
-        },
-
-		CopyMesh : function(name, newMatrix, copyedObjectName = null){
-			var orgMesh = SceneController.Meshs.find((value) => value.name == name);
-			if(orgMesh == null)
-			{
-				console.log("Mesh called '" + name + "' is not found when copy mesh");
-				return;
+			if (value.material != null) {
+				value.material.dispose();
 			}
-			var newMesh;
-			switch(orgMesh.type){
-				case "Line":
-					newMesh = new THREE.LineSegments(orgMesh.geometry, orgMesh.material);
-					break;
-				case "Mesh":
-					newMesh = new THREE.Mesh(orgMesh.geometry, orgMesh.material);
-			}
-			if(newMatrix != null)
-				newMesh.applyMatrix(newMatrix);
-			newMesh.name = copyedObjectName;
-			newMesh.castShadow = orgMesh.castShadow;
-			newMesh.receiveShadow = orgMesh.receiveShadow;
-			if(newMesh != null){
-				SceneController.Meshs.push(newMesh);
-				scene.add(newMesh);
-			}
-        },
-
-        CreateGear: function (data) {
-            var geometry = new THREE.BufferGeometry();
-            geometry.addAttribute('position', new THREE.Float32BufferAttribute(data.position, 3));
-
-            if (data.index != null && data.index !== void (0))
-                geometry.setIndex(data.index);
-            else
-                throw "CreateGear : data has no index information";
-
-            if (data.normal == null && data.normal !== void (0))
-                geometry.computeVertexNormals();
-            else
-                geometry.addAttribute('normal', new THREE.Float32BufferAttribute(data.normal, 3));
-
-            var material;
-            if (data.color != null) {
-                if (Array.isArray(data.color)) {
-                    geometry.addAttribute('color', new THREE.Float32BufferAttribute(data.color, 3));
-                    material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
-                }
-                else {
-                    material = new THREE.MeshStandardMaterial({
-                        color: data.color,
-                        metalness: 1,
-                        roughness: 0.5,
-                        envMapIntensity: 1,
-                        envMap: evnTexture
-                    });
-                }
-            }
-            else {
-                material = new THREE.MeshStandardMaterial({ color: 0xFF0000 });
-            }
-            var mesh = new THREE.Mesh(geometry, material);
-            mesh.name = "tooth";
-            mesh.castShadow = data.castShadow;
-            mesh.receiveShadow = data.receiveShadow;
-
-            var group = new THREE.Group();
-            group.name = data.name;
-            if (data.matrix != null) {
-                group.position.set(0, 0, 0);
-                group.rotation.set(0, 0, 0);
-                group.applyMatrix(new THREE.Matrix4().fromArray(data.matrix));
-            }
-            group.add(mesh);
-
-            for (var i = 1; i < data.z; i++) {
-                var newMesh = new THREE.Mesh(geometry, material);
-                newMesh.applyMatrix(new THREE.Matrix4().makeRotationZ(2 * Math.PI / data.z * i));
-                newMesh.name = mesh.name + i;
-                newMesh.castShadow = mesh.castShadow;
-                newMesh.receiveShadow = mesh.receiveShadow;
-                group.add(newMesh);
-            }
-
-            SceneController.Meshs.push(group);
-            scene.add(group);
-        },
-
-        UpdatreGear: function (data, orgGroup = null) {
-            if (orgGroup == null) {
-                orgGroup = SceneController.Meshs.find((item) => item.name === data.name);
-            }
-            var orgMesh = orgGroup.children.find(item => item.name == "tooth");
-            var geometry = orgMesh.geometry;
-            //Set attribute dynamic
-            if (geometry.attributes.position.usage !== THREE.DynamicDrawUsage) {
-                geometry.attributes.position.usage = THREE.DynamicDrawUsage;
-            }
-            if (geometry.attributes.normal &&
-                geometry.attributes.normal.usage !== THREE.DynamicDrawUsage) {
-                geometry.attributes.normal.usage = THREE.DynamicDrawUsage;
-            }
-
-            //update attributes
-            if (data.position != null
-                && data.position !== void (0)
-                && data.normal != null
-                && data.normal !== void (0)
-            ) {
-                for (var i = 0; i < data.position.length; i++) {
-                    geometry.attributes.position.array[i] = data.position[i];
-                    geometry.attributes.normal.array[i] = data.normal[i];
-                    geometry.attributes.position.needsUpdate = true;
-                    geometry.attributes.normal.needsUpdate = true;
-                }
-            }
-
-            //update index
-            if (data.index != null && data.index !== void (0))
-                geometry.setIndex(data.index);
-
-
-            if (data.color != null && orgMesh.material.color != data.color) {
-                var material;
-                if (Array.isArray(data.color)) {
-                    geometry.addAttribute('color', new THREE.Float32BufferAttribute(data.color, 3));
-                    material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
-                }
-                else {
-                    material = new THREE.MeshStandardMaterial({
-                        color: data.color,
-                        metalness: 1,
-                        roughness: 0.5,
-                        envMapIntensity: 1,
-                        envMap: evnTexture
-                    });
-                }
-                orgMesh.material = material;
-            }
-            orgMesh.castShadow = data.castShadow;
-            orgMesh.receiveShadow = data.receiveShadow;
-
-            if (orgGroup.children.length != data.z) {
-                var orgMeshCopys = orgGroup.children.filter(item => item != orgMesh);
-                orgMeshCopys.forEach((item) => {
-                    orgGroup.remove(item);
-                });
-                
-                for (var i = 1; i < data.z; i++) {
-                    var newMesh = new THREE.Mesh(geometry, material);
-                    newMesh.applyMatrix(new THREE.Matrix4().makeRotationZ(2 * Math.PI / data.z * i));
-                    newMesh.name = orgMesh.name + i;
-                    newMesh.castShadow = orgMesh.castShadow;
-                    newMesh.receiveShadow = orgMesh.receiveShadow;
-                    orgGroup.add(newMesh);
-                }
-            }
-
-            if (data.matrix != null) {
-                orgGroup.position.set(0, 0, 0);
-                orgGroup.rotation.set(0, 0, 0);
-                orgGroup.applyMatrix(new THREE.Matrix4().fromArray(data.matrix));
-            }
-        },
-
-        UpdateOrCreateGear: function (data) {
-            var orgGroup = SceneController.Meshs.find((item) => item.name === data.name);
-            if (orgGroup != null
-                && data.position.length == orgGroup.children[0].geometry.attributes.position.count * 3) {
-                SceneController.UpdatreGear(data, orgGroup);
-            }
-            else {
-                SceneController.CreateGear(data);
-            }
-        },
+		});
+		Meshs = [];
 	};
+	var AddBufferGeometryMesh = function(data){
+		var position = data.position;
+		var index = data.index;
+		var color = data.color;
+		var meshtype = data.type;
+		var normal = data.normal;
+		var geometry = new THREE.BufferGeometry();
+		geometry.addAttribute('position', new THREE.Float32BufferAttribute(position, 3));
+		
+		if(index != null && index !== void(0))
+			geometry.setIndex(index);
+		else
+			throw "THREE.BufferGeometry has no index information";
+
+		if(normal == null && normal !== void(0))
+			geometry.computeVertexNormals();
+		else
+			geometry.addAttribute('normal', new THREE.Float32BufferAttribute(normal, 3));
+		
+		
+
+		var material;
+		switch(meshtype){
+			case "line":
+				if(color != null && color !== void(0))
+				{
+					if(Array.isArray(color))
+					{
+						geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
+						material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors });
+					}
+					else
+					{
+						material = new THREE.LineBasicMaterial({ color:color });
+					}
+				}
+				else{
+					material = DefaultLineMaterial;
+				}
+				var linemesh = new THREE.LineSegments(geometry, material);
+				Meshs.push(linemesh);
+				scene.add(linemesh);
+				break;
+			case "mesh":
+				if(color != null)
+				{
+					if(Array.isArray(color))
+					{
+						geometry.addAttribute('color', new THREE.Float32BufferAttribute(color, 3));
+						material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
+					}
+					else
+					{
+						material = new THREE.MeshStandardMaterial( {
+							color:color,
+							metalness: 1,
+							roughness: 0.5,
+							envMapIntensity: 1,
+							envMap: evnTexture
+						} );
+					}
+				}
+				else{
+					material = DefaultMeshMaterial;
+				}
+				var mesh = new THREE.Mesh(geometry, material);
+				mesh.name = data.name;
+				mesh.castShadow = data.castShadow;
+				mesh.receiveShadow = data.receiveShadow;
+				if (data.matrix != null) {
+					mesh.applyMatrix(data.matrix);
+				}
+				Meshs.push(mesh);
+				scene.add(mesh);
+				break;
+			default:
+				Console.log("Unsupported mesh type of '" + meshtype + "'");
+				break;
+		}
+		
+	};
+	var CopyMesh = function(name, newMatrix, copyedObjectName = null){
+		var orgMesh = Meshs.find((value) => value.name == name);
+		if(orgMesh == null)
+		{
+			console.log("Mesh called '" + name + "' is not found when copy mesh");
+			return;
+		}
+		var newMesh;
+		switch(orgMesh.type){
+			case "Line":
+				newMesh = new THREE.LineSegments(orgMesh.geometry, orgMesh.material);
+				break;
+			case "Mesh":
+				newMesh = new THREE.Mesh(orgMesh.geometry, orgMesh.material);
+		}
+		if(newMatrix != null)
+			newMesh.applyMatrix(newMatrix);
+		newMesh.name = copyedObjectName;
+		newMesh.castShadow = orgMesh.castShadow;
+		newMesh.receiveShadow = orgMesh.receiveShadow;
+		if(newMesh != null){
+			Meshs.push(newMesh);
+			scene.add(newMesh);
+		}
+	};
+	var CreateGear = function (data) {
+		var geometry = new THREE.BufferGeometry();
+		geometry.addAttribute('position', new THREE.Float32BufferAttribute(data.position, 3));
+
+		if (data.index != null && data.index !== void (0))
+			geometry.setIndex(data.index);
+		else
+			throw "CreateGear : data has no index information";
+
+		if (data.normal == null && data.normal !== void (0))
+			geometry.computeVertexNormals();
+		else
+			geometry.addAttribute('normal', new THREE.Float32BufferAttribute(data.normal, 3));
+
+		var material;
+		if (data.color != null) {
+			if (Array.isArray(data.color)) {
+				geometry.addAttribute('color', new THREE.Float32BufferAttribute(data.color, 3));
+				material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
+			}
+			else {
+				material = new THREE.MeshStandardMaterial({
+					color: data.color,
+					metalness: 1,
+					roughness: 0.5,
+					envMapIntensity: 1,
+					envMap: evnTexture
+				});
+			}
+		}
+		else {
+			material = DefaultMeshMaterial;
+		}
+		var mesh = new THREE.Mesh(geometry, material);
+		mesh.name = "tooth";
+		mesh.castShadow = data.castShadow;
+		mesh.receiveShadow = data.receiveShadow;
+
+		var group = new THREE.Group();
+		group.name = data.name;
+		if (data.matrix != null) {
+			group.position.set(0, 0, 0);
+			group.rotation.set(0, 0, 0);
+			group.applyMatrix(new THREE.Matrix4().fromArray(data.matrix));
+		}
+		group.add(mesh);
+
+		for (var i = 1; i < data.z; i++) {
+			var newMesh = new THREE.Mesh(geometry, material);
+			newMesh.applyMatrix(new THREE.Matrix4().makeRotationZ(2 * Math.PI / data.z * i));
+			newMesh.name = mesh.name + i;
+			newMesh.castShadow = mesh.castShadow;
+			newMesh.receiveShadow = mesh.receiveShadow;
+			group.add(newMesh);
+		}
+
+		Meshs.push(group);
+		scene.add(group);
+	};
+	var UpdatreGear = function (data, orgGroup = null) {
+		timeMeasurer.StartOrReset();
+		if (orgGroup == null) {
+			orgGroup = Meshs.find((item) => item.name === data.name);
+		}
+		var orgMesh = orgGroup.children.find(item => item.name == "tooth");
+		var geometry = orgMesh.geometry;
+		//Set attribute dynamic
+		if (geometry.attributes.position.usage !== THREE.DynamicDrawUsage) {
+			geometry.attributes.position.usage = THREE.DynamicDrawUsage;
+		}
+		if (geometry.attributes.normal &&
+			geometry.attributes.normal.usage !== THREE.DynamicDrawUsage) {
+			geometry.attributes.normal.usage = THREE.DynamicDrawUsage;
+		}
+		timeMeasurer.Report("get orgMesh and set to DynamicDrawUsage");
+
+		//update attributes
+		if (data.position != null
+			&& data.position !== void (0)
+			&& data.normal != null
+			&& data.normal !== void (0)
+		) {
+			for (var i = 0; i < data.position.length; i++) {
+				geometry.attributes.position.array[i] = data.position[i];
+				geometry.attributes.normal.array[i] = data.normal[i];
+			}
+			geometry.attributes.position.needsUpdate = true;
+			geometry.attributes.normal.needsUpdate = true;
+		}
+		timeMeasurer.Report("Set position and normal");
+
+		//update index
+		if (data.index != null && data.index !== void (0))
+			geometry.setIndex(data.index);
+		timeMeasurer.Report("Set index:");
+
+		var material;
+		if (data.color != null && orgMesh.material.color != data.color) {
+			
+			if (Array.isArray(data.color)) {
+				geometry.addAttribute('color', new THREE.Float32BufferAttribute(data.color, 3));
+				material = new THREE.MeshStandardMaterial({ vertexColors: THREE.VertexColors });
+			}
+			else {
+				material = new THREE.MeshStandardMaterial({
+					color: data.color,
+					metalness: 1,
+					roughness: 0.5,
+					envMapIntensity: 1,
+					envMap: evnTexture
+				});
+			}
+			orgMesh.material = material;
+		}
+		else
+		{
+			material = orgMesh.material;
+		}
+		orgMesh.castShadow = data.castShadow;
+		orgMesh.receiveShadow = data.receiveShadow;
+		timeMeasurer.Report("Set Material and shadow settings.");
+
+		if (orgGroup.children.length != data.z) {
+			var orgMeshCopys = orgGroup.children.filter(item => item != orgMesh);
+			orgMeshCopys.forEach((item) => {
+				orgGroup.remove(item);
+			});
+			
+			for (var i = 1; i < data.z; i++) {
+				var newMesh = new THREE.Mesh(geometry, material);
+				newMesh.applyMatrix(new THREE.Matrix4().makeRotationZ(2 * Math.PI / data.z * i));
+				newMesh.name = orgMesh.name + i;
+				newMesh.castShadow = orgMesh.castShadow;
+				newMesh.receiveShadow = orgMesh.receiveShadow;
+				orgGroup.add(newMesh);
+			}
+		}
+		timeMeasurer.Report("Copy Single tooth Mesh");
+
+		if (data.matrix != null) {
+			orgGroup.position.set(0, 0, 0);
+			orgGroup.rotation.set(0, 0, 0);
+			orgGroup.applyMatrix(new THREE.Matrix4().fromArray(data.matrix));
+		}
+		timeMeasurer.Report("Set Gear position");
+	};
+	var UpdateOrCreateGear = function (data) {
+		var orgGroup = Meshs.find((item) => item.name === data.name);
+		if (orgGroup != null
+			&& data.position.length == orgGroup.children[0].geometry.attributes.position.count * 3) {
+			UpdatreGear(data, orgGroup);
+		}
+		else {
+			CreateGear(data);
+		}
+	};
+	
 
 	//#region Animation
 	function render() {
@@ -631,6 +647,7 @@ function SceneInit(targetCanvas) {
 		renderer.render(scene, camera);
 	}
 
+	
 	function tick() {
 		//回転させる
 		if (pointLight2 != null) {
@@ -662,6 +679,35 @@ function SceneInit(targetCanvas) {
 	requestAnimationFrame(tick);
 	//#endregion
 
-    InvokeCS("StartAutoUpdate");
+	var SceneController = {};
+	Object.defineProperties(SceneController, {
+		DefaultMeshMaterial:{
+			get: () => DefaultMeshMaterial
+		},
+		DefaultLineMaterial:{
+			get: () => DefaultLineMaterial
+		},
+		Clear: {
+			get: () => Clear
+		},
+		AddBufferGeometryMesh:{
+			get: () => AddBufferGeometryMesh
+		},
+		CopyMesh : {
+			get: () => CopyMesh
+		},
+		CreateGear : {
+			get: () => CreateGear
+		},
+		UpdatreGear : {
+			get:() =>UpdatreGear
+		},
+		UpdateOrCreateGear : {
+			get: () => UpdateOrCreateGear
+		}
+	});
+	SceneInitFinished = true;
+	if(textureLoaded)
+	    InvokeCS("StartAutoUpdate");
 	return SceneController;
 }

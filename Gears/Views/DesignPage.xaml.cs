@@ -13,6 +13,8 @@ namespace Gears.Views
     public partial class DesignPage : ContentPage
     {
         int? currentTabIndex;
+        bool IsDetailPanelPined = false;
+        uint animateLength = 250;
 
         public DesignPage()
         {
@@ -60,15 +62,15 @@ namespace Gears.Views
             switch (index)
             {
                 case 0:
-                    tabActiveBar.TranslateTo(0, 0);
+                    tabActiveBar.TranslateTo(0, 0, length: animateLength);
                     newPanel = BasciRackPanel;
                     break;
                 case 1:
-                    tabActiveBar.TranslateTo(tabActiveBar.Width * 1, 0);
+                    tabActiveBar.TranslateTo(tabActiveBar.Width * 1, 0, length: animateLength);
                     newPanel = GearParaPanel;
                     break;
                 case 2:
-                    tabActiveBar.TranslateTo(tabActiveBar.Width * 2, 0);
+                    tabActiveBar.TranslateTo(tabActiveBar.Width * 2, 0, length: animateLength);
                     newPanel = DetailPanel;
                     break;
                 default:
@@ -89,33 +91,52 @@ namespace Gears.Views
                     throw new Exception("Tab index out of range!");
             }
 
-            uint animateLength = 250;
+            
             if (OldPanel != newPanel)
             {
-                if (currentTabIndex < index)
+                if (OldPanel != DetailPanel || IsDetailPanelPined  == false)
                 {
-                    OldPanel.TranslateTo(-this.Width, OldPanel.TranslationY, length: animateLength);
-                }
-                else
-                {
-                    OldPanel.TranslateTo(this.Width, OldPanel.TranslationY, length: animateLength);
-                }
-                OldPanel.FadeTo(0, length: animateLength);
-                var timer = new System.Timers.Timer();
-                timer.Interval = animateLength;
-                timer.Elapsed += (s, e) =>
-                {
-                    Device.BeginInvokeOnMainThread(() =>
+                    if (currentTabIndex < index)
                     {
-                        OldPanel.IsVisible = false;
-                    });
-                    timer.Stop();
-                };
-                timer.Start();
+                        OldPanel.TranslateTo(-this.Width, OldPanel.TranslationY, length: animateLength);
+                    }
+                    else
+                    {
+                        OldPanel.TranslateTo(this.Width, OldPanel.TranslationY, length: animateLength);
+                    }
+                    OldPanel.FadeTo(0, length: animateLength);
+                    var timer = new System.Timers.Timer();
+                    timer.Interval = animateLength;
+                    timer.Elapsed += (s, e) =>
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            OldPanel.IsVisible = false;
+                        });
+                        timer.Stop();
+                    };
+                    timer.Start();
+                }
+                else if(OldPanel == DetailPanel || IsDetailPanelPined == true)
+                {
+                    switch (index)
+                    {
+                        case 0:
+                            DetailPanel.BindingContext = BasciRackPanelEmpityArea;
+                            break;
+                        case 1:
+                            DetailPanel.BindingContext = GearParaPanelEmpityArea;
+                            break;
+                        default:
+                            DetailPanel.BindingContext = null;
+                            break;
+                    }
+                }
             }
-
-            //AbsLayout.Children.Remove(newPanel);
-            //AbsLayout.Children.Add(newPanel);
+            if (newPanel == DetailPanel)
+            {
+                newPanel.BindingContext = null;
+            }
             newPanel.IsVisible = true;
             newPanel.TranslateTo(0, newPanel.TranslationY, length: animateLength);
             newPanel.FadeTo(1, length: animateLength);
@@ -133,19 +154,65 @@ namespace Gears.Views
         private void NavigateButton_Clicked(object sender, EventArgs e)
         {
             var button = (Button)sender;
-            switch (button.Text)
+            if (sender == RackTabButton)
             {
-                case "Rack":
-                    Navigate(0);
-                    break;
-                case "Gear":
-                    Navigate(1);
-                    break;
-                case "Detail":
-                    Navigate(2);
-                    break;
-                default:
-                    break;
+                Navigate(0);
+            }
+            else if (sender == GearTabButton)
+            {
+                Navigate(1);
+            }
+            else if (sender == DetailTabButton)
+            {
+                Navigate(2);
+            }
+            else
+            {
+
+            }
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            IsDetailPanelPined = !IsDetailPanelPined;
+            if (IsDetailPanelPined)
+            {
+                PinSwichButton.Source = ImageSource.FromResource("Gears.Resources.pin-effective.png");
+                switch (currentTabIndex)
+                {
+                    case 0:
+                        DetailPanel.BindingContext = BasciRackPanelEmpityArea;
+                        break;
+                    case 1:
+                        DetailPanel.BindingContext = GearParaPanelEmpityArea;
+                        break;
+                    default:
+                        DetailPanel.BindingContext = null;
+                        break;
+                }
+                DetailPanel.IsVisible = true;
+                DetailPanel.VerticalOptions = LayoutOptions.Start;
+                DetailPanel.FadeTo(1, length: animateLength);
+                DetailPanel.TranslateTo(0, 0, length: animateLength);
+            }
+            else
+            {
+                PinSwichButton.Source = ImageSource.FromResource("Gears.Resources.pin-ineffective.png");
+                if (currentTabIndex != 2)
+                {
+                    DetailPanel.TranslateTo(DetailPanel.Width, 0, length: animateLength);
+                    var timer = new System.Timers.Timer();
+                    timer.Interval = animateLength;
+                    timer.Elapsed += (s, ee) =>
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            DetailPanel.VerticalOptions = LayoutOptions.Fill;
+                        });
+                        timer.Stop();
+                    };
+                    timer.Start();
+                }
             }
         }
     }
