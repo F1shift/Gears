@@ -19,9 +19,9 @@ namespace Gears.Models
         [IsInput]
         public double mn { get; set; }
         [IsInput]
-        public double αn { get; set; }
+        public double αn { get; set; } 
         [IsInput]
-        public double β { get; set; }
+        public double β { get; set; } 
         [IsInput]
         public int[] z { get; set; } = new int[2];
         [IsInput]
@@ -99,6 +99,19 @@ namespace Gears.Models
             }
         }
 
+        public void SetToDefualt() {
+            this.mn = 3;
+            this.αn = 20 / 180.0 * PI;
+            this.β = 15 / 180.0 * PI;
+            this.ρ_c[0] = this.ρ_c[1] = 0.35;
+            this.ha_c = 1;
+            this.hf_c = 1;
+            this.z[0] = 12;
+            this.z[1] = 60;
+            this.b_c[0] = this.b_c[1] = 20;
+            this.xn[0] = 0.09809;
+            this.xn[1] = 0;
+        }
         public void CopyInputFrom(CylindricalGearBasic target) {
             var type = typeof(CylindricalGearBasic);
             foreach (var property in type.GetProperties())

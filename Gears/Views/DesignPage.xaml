@@ -8,6 +8,7 @@
              xmlns:vm="clr-namespace:Gears.ViewModels"
              xmlns:eff="clr-namespace:Gears.Custom.Effects"
              xmlns:cs="clr-namespace:Gears.Custom.Controls"
+             xmlns:app="clr-namespace:Gears"
              mc:Ignorable="d"
              x:Class="Gears.Views.DesignPage"
              x:DataType="vm:DesignViewModel"

@@ -19,7 +19,7 @@ namespace Gears.Views
         public DesignPage()
         {
             InitializeComponent();
-            this.BindingContext = Application.Current.Resources["DesignViewModel"];
+            this.BindingContext = App.AppViewModel.DesignViewModel;
         }
 
         protected override void OnAppearing()

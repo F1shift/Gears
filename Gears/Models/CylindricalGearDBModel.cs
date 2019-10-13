@@ -1,0 +1,164 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+using Gears.Utility;
+using static System.Math;
+using static Gears.Utility.Math;
+using static Gears.Utility.EnumerableExtentions;
+
+namespace Gears.Models
+{
+    internal class CylindricalGearDBModel : INotifyPropertyChanged
+    {
+        public string Name { get; set; } = "Cylindical Gear";
+        public string Discription { get {
+                return $"Module : {mn}, Teeth Number : [{z1}, {z2}]";
+            } }
+        public string Created { get; set; } = DateTime.Now.ToLocalTime() + " created.";
+        public string LastUsed { get; set; } = DateTime.Now.ToLocalTime() + " updated.";
+        [PropertyMapping()]
+        public double mn { get; set; }
+        [PropertyMapping()]
+        public double αn { get; set; }
+        [PropertyMapping()]
+        public double β { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.z))]
+        public int z1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.z))]
+        public int z2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.xn))]
+        public double xn1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.xn))]
+        public double xn2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.ρ_c))]
+        public double ρ_c1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.ρ_c))]
+        public double ρ_c2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.b_c))]
+        public double b_c1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.b_c))]
+        public double b_c2 { get; set; }
+        [PropertyMapping()]
+        public double ha_c { get; set; }
+        [PropertyMapping()]
+        public double hf_c { get; set; }
+        [PropertyMapping()]
+        public double mt { get; set; }
+        [PropertyMapping()]
+        public double αt { get; set; }
+        [PropertyMapping()]
+        public double αwt { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.L))]
+        public double L1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.L))]
+        public double L2 { get; set; }
+        [PropertyMapping()]
+        public double y { get; set; }
+        [PropertyMapping()]
+        public double a { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.d))]
+        public double d1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.d))]
+        public double d2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.db))]
+        public double db1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.db))]
+        public double db2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.dw))]
+        public double dw1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.dw))]
+        public double dw2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.ha))]
+        public double ha1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.ha))]
+        public double ha2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.hf))]
+        public double hf1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.hf))]
+        public double hf2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.h))]
+        public double h1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.h))]
+        public double h2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.ρ))]
+        public double ρ1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.ρ))]
+        public double ρ2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.da))]
+        public double da1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.da))]
+        public double da2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.df))]
+        public double df1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.df))]
+        public double df2 { get; set; }
+        [PropertyMapping(0, nameof(CylindricalGearBasic.b))]
+        public double b1 { get; set; }
+        [PropertyMapping(1, nameof(CylindricalGearBasic.b))]
+        public double b2 { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void CopyFrom(CylindricalGearBasic source)
+        {
+            var sourceType = source.GetType();
+            var thisType = this.GetType();
+            foreach (var thisProperty in thisType.GetProperties())
+            {
+                if (Attribute.IsDefined(thisProperty, typeof(PropertyMappingAttribute)))
+                {
+                    var mappingAttribute = (PropertyMappingAttribute)Attribute.GetCustomAttribute(thisProperty, typeof(PropertyMappingAttribute));
+                    if (mappingAttribute.PropertyName == null)
+                        mappingAttribute.PropertyName = thisProperty.Name;
+                    var sourceProperty = sourceType.GetProperty(mappingAttribute.PropertyName);
+                    if (sourceProperty.PropertyType.IsArray)
+                    {
+                        var value = (sourceProperty.GetValue(source) as Array).GetValue(mappingAttribute.ArrayIndex);
+                        thisProperty.SetValue(this, value);
+                    }
+                    else
+                    {
+                        thisProperty.SetValue(this, sourceProperty.GetValue(source));
+                    }
+                }
+            } 
+        }
+
+        public void CopyTo(CylindricalGearBasic source)
+        {
+            var sourceType = source.GetType();
+            var thisType = this.GetType();
+            foreach (var thisProperty in thisType.GetProperties())
+            {
+                if (Attribute.IsDefined(thisProperty, typeof(PropertyMappingAttribute)))
+                {
+                    var mappingAttribute = (PropertyMappingAttribute)Attribute.GetCustomAttribute(thisProperty, typeof(PropertyMappingAttribute));
+                    if (mappingAttribute.PropertyName == null)
+                        mappingAttribute.PropertyName = thisProperty.Name;
+                    var sourceProperty = sourceType.GetProperty(mappingAttribute.PropertyName);
+                    if (sourceProperty.PropertyType.IsArray)
+                    {
+                        var value = thisProperty.GetValue(source);
+                        (sourceProperty.GetValue(source) as Array).SetValue(value, mappingAttribute.ArrayIndex);
+                    }
+                    else
+                    {
+                        sourceProperty.SetValue(source, thisProperty.GetValue(this));
+                    }
+                }
+            }
+        }
+
+        [AttributeUsage(AttributeTargets.Property)]
+        class PropertyMappingAttribute : Attribute
+        {
+            public string PropertyName { get; set; }
+            public int ArrayIndex { get; set; }
+            public PropertyMappingAttribute(int arrayIndex = -1, string propertyName = null)
+            {
+                PropertyName = propertyName;
+                ArrayIndex = arrayIndex;
+            }
+        }
+    }
+}

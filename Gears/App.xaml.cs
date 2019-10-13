@@ -7,13 +7,17 @@ using Gears.Views;
 using Gears.Models;
 using System.Collections.Generic;
 using System.Reflection;
+using Gears.ViewModels;
 
 namespace Gears
 {
     public partial class App : Application
     {
+        internal static AppViewModel AppViewModel { get; set; } 
+
         public App()
         {
+            AppViewModel = new ViewModels.AppViewModel();
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();

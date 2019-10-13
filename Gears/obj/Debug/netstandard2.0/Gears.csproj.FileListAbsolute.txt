@@ -36,3 +36,4 @@ C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.dll
 C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.pdb
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Gears.csprojAssemblyReference.cache
 C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Data\GitHub\Gears\Gears\obj\Debug\netstandard2.0\Views\BrowesPage.xaml.g.cs
