@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Timers;
 
@@ -9,17 +10,31 @@ namespace Gears.ViewModels
     class SimpleCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        public Action<object> TodoAntion;
+        Func<object, Task<object>> _TodoAntion;
+        public Func<object, Task<object>> TodoAntion
+        {
+            get
+            {
+                return _TodoAntion;
+            }
+            set
+            {
+                if (_TodoAntion != value)
+                {
+                    _TodoAntion = value;
+                }
+            }
+        }
 
         public bool IsRunning { get; set; }
-        public Action RemaingTask { get; set; }
+        Action remaingTask;
         /// <summary>
         /// Min interval between two excution in millisecond.
         /// </summary>
         public uint MinInterval { get; set; } = 0;
         DateTime lastRunnedTime;
 
-        public SimpleCommand(Action<object> action)
+        public SimpleCommand(Func<object, Task<object>> action)
         {
             TodoAntion = action;
         }
@@ -33,7 +48,7 @@ namespace Gears.ViewModels
             return (DateTime.Now - lastRunnedTime).TotalMilliseconds < MinInterval;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             if (TodoAntion != null && !IsRunning && !IsInInterval())
             {
@@ -48,15 +63,15 @@ namespace Gears.ViewModels
                         if (!IsRunning)
                         {
                             CanExecuteChanged?.Invoke(this, new EventArgs());
-                            RemaingTask?.Invoke();
+                            remaingTask?.Invoke();
                         }
                         timer.Stop();
                     };
                     timer.Start();
                 }
-                TodoAntion?.Invoke(parameter);
+                await TodoAntion?.Invoke(parameter);
                 IsRunning = false;
-                RemaingTask?.Invoke();
+                remaingTask?.Invoke();
                 if (!IsInInterval())
                 {
                     CanExecuteChanged?.Invoke(this, new EventArgs());
@@ -64,9 +79,9 @@ namespace Gears.ViewModels
             }
             else
             {
-                RemaingTask = () => {
+                remaingTask = () => {
                     Execute(parameter);
-                    RemaingTask = null;
+                    remaingTask = null;
                 };
             }
         }

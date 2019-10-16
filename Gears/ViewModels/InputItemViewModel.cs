@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Gears.Views;
@@ -59,9 +60,10 @@ namespace Gears.ViewModels
         public InputItemViewModel()
         {
             ShowEntryCommand = new SimpleCommand(
-            (area) => {
-                EntryView.Entry.Text = Value.ToString();
-                _popupController.ShowPopup((AbsoluteLayout)area, EntryView);
+            async (area) => {
+                    EntryView.Entry.Text = Value.ToString();
+                    _popupController.ShowPopup((AbsoluteLayout)area, EntryView);
+                return null;
             });
         }
     }

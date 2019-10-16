@@ -22,10 +22,10 @@ namespace Gears.ViewModels
 
         public GearDetailViewModel()
         {
-            UpdateCommand = new SimpleCommand((obj)=>CheckUpdate());
+            UpdateCommand = new SimpleCommand((obj)=> { CheckUpdate(); return null; });
         }
 
-        public bool CheckUpdate(object para = null) {
+        public bool CheckUpdate() {
             var newModel = new CylindricalGearBasic();
 
             newModel.mn = RackParameterViewModel.Module.Value;

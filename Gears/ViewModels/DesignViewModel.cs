@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Gears.ViewModels;
@@ -31,13 +32,14 @@ namespace Gears.ViewModels
             GearDetailViewModel.GearParameterViewModel = this.GearParameterViewModel;
             GearDetailViewModel.RackParameterViewModel = this.RackParameterViewModel;
 
-            UpdateCommand = new SimpleCommand((obj) => Update());
+            UpdateCommand = new SimpleCommand((obj) => Update()) ;
         }
 
-        public void Update() {
-            var updated = GearDetailViewModel.CheckUpdate();
-            if(updated)
-                ThreeDModelingViewModel.UpdateCommand.Execute(null);
+        public async Task<object> Update() {
+            var updated = await Device.InvokeOnMainThreadAsync<bool>( ()=> GearDetailViewModel.CheckUpdate());
+            if (updated)
+                await ThreeDModelingViewModel.UpdateOrAddGear();
+            return null;
         }
 
         System.Timers.Timer autoUpdateTimer = new System.Timers.Timer();
@@ -45,7 +47,7 @@ namespace Gears.ViewModels
             autoUpdateTimer.Stop();
             autoUpdateTimer = new System.Timers.Timer();
             autoUpdateTimer.Interval = interval;
-            autoUpdateTimer.Elapsed += (s, e) => Device.BeginInvokeOnMainThread(()=>UpdateCommand.Execute(null));
+            autoUpdateTimer.Elapsed += (s, e) => UpdateCommand.Execute(null);
             autoUpdateTimer.Start();
         }
 

@@ -33,7 +33,6 @@ namespace Gears.ViewModels
                 {
                     timeMeasurer.StartOrReset();
                     //await StopAnimate();
-                    Initial();
                     timeMeasurer.Report(nameof(Initial));
                     //await EvalAsync($"SceneController.Clear();");
                     //AddRackTrace();
@@ -43,6 +42,7 @@ namespace Gears.ViewModels
                     await UpdateOrAddGear();
                     //await StartAnimate();
                     timeMeasurer.PrintAllRecord();
+                    return null;
                 });
         }
 
@@ -220,6 +220,7 @@ namespace Gears.ViewModels
         int sg = 10;
         int sb = 10;
         public async Task<bool> UpdateOrAddGear() {
+            Initial();
             for (int i = 0; i < 2; i++)
             {
                 
