@@ -43,7 +43,7 @@ namespace Gears.Custom.Controls
 
             if (EvaluateJavaScriptRequested != null)
             {
-                string str = await Device.InvokeOnMainThreadAsync<string>(()=>EvaluateJavaScriptRequested(script));
+                string str = await Device.InvokeOnMainThreadAsync<string>(()=>EvaluateJavaScriptRequested?.Invoke(script));
                 if (str != null)
                     str = str.Trim('"');
                 return str;

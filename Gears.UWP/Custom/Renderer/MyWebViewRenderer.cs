@@ -62,12 +62,12 @@ namespace Gears.UWP.Custom.Renderer
 
         private async Task<string> OnEvaluateJavaScriptRequested(string script)
         {
-            return await this.Control.InvokeScriptAsync("eval", new string[] { script });
+            return await this.Control?.InvokeScriptAsync("eval", new string[] { script });
         }
 
         void OnWebViewScriptNotify(object sender, NotifyEventArgs e)
         {
-            Element.OnWebViewScriptNotify(e.Value);
+            Element?.OnWebViewScriptNotify?.Invoke(e.Value);
         }
     }
 }

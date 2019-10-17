@@ -124,9 +124,9 @@ namespace Gears.Models
             } 
         }
 
-        public void CopyTo(CylindricalGearBasic source)
+        public void CopyTo(CylindricalGearBasic target)
         {
-            var sourceType = source.GetType();
+            var targetType = target.GetType();
             var thisType = this.GetType();
             foreach (var thisProperty in thisType.GetProperties())
             {
@@ -135,15 +135,15 @@ namespace Gears.Models
                     var mappingAttribute = (PropertyMappingAttribute)Attribute.GetCustomAttribute(thisProperty, typeof(PropertyMappingAttribute));
                     if (mappingAttribute.PropertyName == null)
                         mappingAttribute.PropertyName = thisProperty.Name;
-                    var sourceProperty = sourceType.GetProperty(mappingAttribute.PropertyName);
-                    if (sourceProperty.PropertyType.IsArray)
+                    var targetProperty = targetType.GetProperty(mappingAttribute.PropertyName);
+                    if (targetProperty.PropertyType.IsArray)
                     {
-                        var value = thisProperty.GetValue(source);
-                        (sourceProperty.GetValue(source) as Array).SetValue(value, mappingAttribute.ArrayIndex);
+                        var value = thisProperty.GetValue(this);
+                        (targetProperty.GetValue(target) as Array).SetValue(value, mappingAttribute.ArrayIndex);
                     }
                     else
                     {
-                        sourceProperty.SetValue(source, thisProperty.GetValue(this));
+                        targetProperty.SetValue(target, thisProperty.GetValue(this));
                     }
                 }
             }

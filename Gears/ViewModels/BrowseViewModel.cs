@@ -10,7 +10,7 @@ namespace Gears.ViewModels
 {
     class BrowseViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<CylindricalGearDBModel> GearList { get; set; }
+        public ObservableCollection<DBItemViewModel> GearList { get; set; }
         public BrowseViewModel()
         {
             Initialize();
@@ -19,7 +19,7 @@ namespace Gears.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual async void Initialize() {
-            GearList = new ObservableCollection<CylindricalGearDBModel>();
+            GearList = new ObservableCollection<DBItemViewModel>();
 
             var database = JIS1701DataBase.DataBase;
             await database.DeleteAllAsync<CylindricalGearDBModel>();
@@ -34,7 +34,7 @@ namespace Gears.ViewModels
             }
             foreach (var item in await database.Table<CylindricalGearDBModel>().ToListAsync())
             {
-                GearList.Add(item);
+                GearList.Add(new DBItemViewModel() { DBModel = item });
             }
         }
     }

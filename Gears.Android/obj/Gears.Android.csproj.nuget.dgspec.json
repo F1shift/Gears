@@ -46,41 +46,101 @@
               "target": "Package",
               "version": "[3.1.3, )"
             },
+            "Xamarin.Android.Arch.Core.Common": {
+              "target": "Package",
+              "version": "[1.1.1.3, )"
+            },
+            "Xamarin.Android.Arch.Lifecycle.Common": {
+              "target": "Package",
+              "version": "[1.1.1.3, )"
+            },
+            "Xamarin.Android.Arch.Lifecycle.Runtime": {
+              "target": "Package",
+              "version": "[1.1.1.3, )"
+            },
+            "Xamarin.Android.Arch.Lifecycle.ViewModel": {
+              "target": "Package",
+              "version": "[1.1.1.3, )"
+            },
+            "Xamarin.Android.Support.Annotations": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.Collections": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.Compat": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.Core.UI": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
             "Xamarin.Android.Support.Core.Utils": {
               "target": "Package",
-              "version": "[28.0.0.1, )"
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.CursorAdapter": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
             },
             "Xamarin.Android.Support.CustomTabs": {
               "target": "Package",
-              "version": "[28.0.0.1, )"
+              "version": "[28.0.0.3, )"
             },
             "Xamarin.Android.Support.Design": {
               "target": "Package",
-              "version": "[28.0.0.1, )"
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.Fragment": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.Interpolator": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.Loader": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.Media.Compat": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.VersionedParcelable": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
             },
             "Xamarin.Android.Support.v4": {
               "target": "Package",
-              "version": "[28.0.0.1, )"
+              "version": "[28.0.0.3, )"
             },
             "Xamarin.Android.Support.v7.AppCompat": {
               "target": "Package",
-              "version": "[28.0.0.1, )"
+              "version": "[28.0.0.3, )"
             },
             "Xamarin.Android.Support.v7.CardView": {
               "target": "Package",
-              "version": "[28.0.0.1, )"
+              "version": "[28.0.0.3, )"
             },
             "Xamarin.Android.Support.v7.MediaRouter": {
               "target": "Package",
-              "version": "[28.0.0.1, )"
+              "version": "[28.0.0.3, )"
+            },
+            "Xamarin.Android.Support.v7.RecyclerView": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",
-              "version": "[1.3.0, )"
+              "version": "[1.3.1, )"
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[4.2.0.709249, )"
+              "version": "[4.2.0.848062, )"
             }
           }
         }
@@ -141,15 +201,15 @@
             },
             "Xamarin.Essentials": {
               "target": "Package",
-              "version": "[1.3.0, )"
+              "version": "[1.3.1, )"
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[4.2.0.709249, )"
+              "version": "[4.2.0.848062, )"
             },
             "sqlite-net-pcl": {
               "target": "Package",
-              "version": "[1.5.231, )"
+              "version": "[1.6.292, )"
             }
           },
           "imports": [
