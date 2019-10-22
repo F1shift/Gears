@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-10-17T14:04:25.369</Modified>
+      <Modified>2019-10-19T10:22:57.205</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.exe">
       <PackagePath>entrypoint\Gears.UWP.exe</PackagePath>
-      <Modified>2019-10-17T14:04:24.768</Modified>
+      <Modified>2019-10-19T10:22:56.036</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\newtonsoft.json\12.0.2\lib\netstandard2.0\Newtonsoft.Json.dll">
       <PackagePath>Newtonsoft.Json.dll</PackagePath>
@@ -96,7 +96,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.dll">
       <PackagePath>Gears.dll</PackagePath>
-      <Modified>2019-10-17T14:04:19.561</Modified>
+      <Modified>2019-10-19T10:22:17.865</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Microsoft\Xamarin\NuGet\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -327,11 +327,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-10-17T14:04:24.508</Modified>
+      <Modified>2019-10-19T10:22:55.767</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-10-17T14:04:24.508</Modified>
+      <Modified>2019-10-19T10:22:55.767</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -347,7 +347,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\Gears.UWP.exe">
       <PackagePath>Gears.UWP.exe</PackagePath>
-      <Modified>2019-10-17T14:04:25.366</Modified>
+      <Modified>2019-10-19T10:22:57.190</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

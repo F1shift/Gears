@@ -6,11 +6,15 @@ using Gears.Utility;
 using static System.Math;
 using static Gears.Utility.Math;
 using static Gears.Utility.EnumerableExtentions;
+using SQLite;
 
 namespace Gears.Models
 {
+    [Table(nameof(CylindricalGearDBModel))]
     internal class CylindricalGearDBModel : INotifyPropertyChanged
     {
+        [PrimaryKey, AutoIncrement]
+        public string Id { get; set; }
         public string Name { get; set; } = "Cylindical Gear";
         public string Discription { get {
                 return $"Module : {mn}, Teeth Number : [{z1}, {z2}]";

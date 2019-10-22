@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Gears.ViewModels;
+using Gears.Custom.Effects;
 
 namespace Gears.Views
 {
@@ -27,6 +28,21 @@ namespace Gears.Views
                 Source = ImageSource.FromResource("Gears.Resources.arrow-left.png"),
                 Padding = new Thickness(10),
             };
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    backbutton.HeightRequest = 50;
+                    backbutton.WidthRequest = 50;
+                    break;
+                case Device.UWP:
+                    backbutton.HeightRequest = 40;
+                    backbutton.WidthRequest = 40;
+                    break;
+                default:
+                    throw new NotImplementedException($"Code for {Device.RuntimePlatform} not implement");
+            }
+            backbutton.SetValue(BackgroundColorEffect.BackgroundColorProperty, Color.Transparent);
+            backbutton.Effects.Add(new BackgroundColorEffect());
             backbutton.Clicked += (s, ee) => { Page.Navigation.PopModalAsync(); };
             var stacklayout = new StackLayout();
             stacklayout.Orientation = StackOrientation.Horizontal;
