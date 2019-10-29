@@ -19,7 +19,7 @@
                 </OnPlatform>
             </ToolbarItem.Text>
         </ToolbarItem>
-        <ToolbarItem IconImageSource="{rs:ImageResource Gears.Resources.add.png}">
+        <ToolbarItem IconImageSource="{rs:ImageResource Gears.Resources.add.png}" Clicked="addButton_Clicked">
             <ToolbarItem.Text>
                 <OnPlatform x:TypeArguments="x:String">
                     <On Platform="UWP">Add</On>
@@ -28,14 +28,16 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <ListView x:Name="lll" ItemsSource="{Binding GearList}" HasUnevenRows="True" SelectionMode="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="vm:DBItemViewModel">
-                        <view:DBItemViewCell Page="{x:Reference root}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+        <AbsoluteLayout x:Name="absLayout">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+                <ListView x:Name="lll" ItemsSource="{Binding ProjectList}" HasUnevenRows="True" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:DBItemViewModel">
+                            <view:DBItemViewCell Page="{x:Reference root}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

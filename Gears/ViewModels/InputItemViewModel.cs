@@ -60,9 +60,9 @@ namespace Gears.ViewModels
         public InputItemViewModel()
         {
             ShowEntryCommand = new SimpleCommand(
-            async (area) => {
+            async (coverArea) => {
                     EntryView.Entry.Text = Value.ToString();
-                    _popupController.ShowPopup((AbsoluteLayout)area, EntryView);
+                    _popupController.ShowPopup((AbsoluteLayout)coverArea, EntryView);
                 return null;
             });
         }

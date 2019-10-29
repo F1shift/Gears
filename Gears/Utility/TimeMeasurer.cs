@@ -42,13 +42,13 @@ namespace Gears.Utility
                 timeSpanFormatter = DefautTimeSpanFormatter;
             }
             EndTime = DateTime.Now;
+            var timeSpan = EndTime - LastTime;
 #if DEBUG
             if (StartTime == null)
             {
                 Debug.WriteLine($"[{nameof(TimeMeasurer)}] (Caller:{callerPath}//{memberName} in line:{lineNumber}) : {nameof(StartTime)} is null! StartOrReset(); should be runned before Report();");
                 return;
             }
-            var timeSpan = EndTime - LastTime;
             TotalTime += timeSpan;
             Debug.WriteLine($"[{timeTag}] : Since Last reportation : {timeSpanFormatter(timeSpan)}; Since start {timeSpanFormatter(TotalTime)}");
 #endif

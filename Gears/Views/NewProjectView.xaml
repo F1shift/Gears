@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Gears.Views.NewProjectView"
+             BackgroundColor="White"
+             WidthRequest="300" HorizontalOptions="Center" VerticalOptions="Center" Margin="0, -30, 0, 0">
+  <ContentView.Content>
+        <StackLayout Padding="15" Spacing="10">
+            <Label x:Name="TitleLable" x:FieldModifier="public" Style="{x:DynamicResource Key=SubTitleStyle}" Text="プロジェクト名"/>
+            <Entry x:Name="Entry" x:FieldModifier="public" HorizontalOptions="FillAndExpand"/>
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="OKButton" x:FieldModifier="public" Grid.Column="0" Text="OK"></Button>
+                <Button x:Name="CancelButton" x:FieldModifier="public" Grid.Column="1" Text="Cancel"></Button>
+            </Grid>
+      </StackLayout>
+  </ContentView.Content>
+</ContentView>

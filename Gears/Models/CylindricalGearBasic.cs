@@ -143,7 +143,6 @@ namespace Gears.Models
                 }
             }
         }
-
         public bool HasSameInputWith(CylindricalGearBasic  target)
         {
             if (target == null)

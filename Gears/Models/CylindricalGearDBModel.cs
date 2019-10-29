@@ -14,7 +14,7 @@ namespace Gears.Models
     internal class CylindricalGearDBModel : INotifyPropertyChanged
     {
         [PrimaryKey, AutoIncrement]
-        public string Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; } = "Cylindical Gear";
         public string Discription { get {
                 return $"Module : {mn}, Teeth Number : [{z1}, {z2}]";
