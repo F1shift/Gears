@@ -49,6 +49,13 @@ namespace Gears.ViewModels
                 }
             }
         }
+        public bool IsSelected { get; set; }
+        public static StaticSettings Settings { get; set;} = new StaticSettings();
+        public static SimpleCommand SwithToSelectionMode { get; set; } = new SimpleCommand(async (para) =>
+        {
+            Settings.IsSelectionMode = true;
+            return true;
+        });
 
         public CylindricalGearDBModel DBModel { get; set; }
 
@@ -59,5 +66,12 @@ namespace Gears.ViewModels
                 return vm;
             } }
 
+
+        public class StaticSettings : INotifyPropertyChanged
+        {
+            public bool IsSelectionMode { get; set; } = false;
+
+            public event PropertyChangedEventHandler PropertyChanged;
+        }
     }
 }

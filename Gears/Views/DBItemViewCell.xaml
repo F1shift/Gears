@@ -3,24 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-           xmlns:vm="clr-namespace:Gears.ViewModels"
+             xmlns:vm="clr-namespace:Gears.ViewModels"
              xmlns:md="clr-namespace:Gears.Models"
              xmlns:rs="clr-namespace:Gears.Resources"
              xmlns:view="clr-namespace:Gears.Views"
+             xmlns:eff="clr-namespace:Gears.Custom.Effects"
              mc:Ignorable="d"
              x:Class="Gears.Views.DBItemViewCell" x:DataType="vm:DBItemViewModel">
-  <ViewCell.View>
-        <StackLayout>
+    <ViewCell.Effects>
+        <eff:LongPressEffect/>
+    </ViewCell.Effects>
+    <ViewCell.View>
+    <StackLayout>
             <Grid Padding="10">
+                <Grid.Triggers>
+                    <DataTrigger TargetType="Grid" 
+                                 Binding="{Binding IsSelectionMode, Source={x:Static vm:DBItemViewModel.Settings}}"
+                                 Value="True">
+                        <Setter Property="ColumnDefinitions" >
+                            <Setter.Value>
+                                <ColumnDefinitionCollection>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </ColumnDefinitionCollection>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Grid.Triggers>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="150"/>
                 </Grid.RowDefinitions>
-                <Image Source="{rs:ImageResource Gears.Resources.Gear-256.png}"/>
-                <Grid Grid.Column="1">
+                <CheckBox Grid.Column="0"/>
+                <Image Grid.Column="1" Source="{rs:ImageResource Gears.Resources.Gear-256.png}"/>
+                <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
