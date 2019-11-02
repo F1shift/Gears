@@ -7,26 +7,12 @@
              xmlns:md="clr-namespace:Gears.Models"
              xmlns:rs="clr-namespace:Gears.Resources"
              xmlns:view="clr-namespace:Gears.Views"
+             xmlns:ctl="clr-namespace:Gears.Custom.Controls"
+             xmlns:vc="clr-namespace:Gears.Custom.ValueConverters"
              mc:Ignorable="d"
              x:Class="Gears.Views.BrowesPage"
              x:DataType="vm:BrowseViewModel"
              x:Name="root">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="{rs:ImageResource Gears.Resources.search.png}">
-            <ToolbarItem.Text>
-                <OnPlatform x:TypeArguments="x:String">
-                    <On Platform="UWP">Search</On>
-                </OnPlatform>
-            </ToolbarItem.Text>
-        </ToolbarItem>
-        <ToolbarItem IconImageSource="{rs:ImageResource Gears.Resources.add.png}" Clicked="addButton_Clicked">
-            <ToolbarItem.Text>
-                <OnPlatform x:TypeArguments="x:String">
-                    <On Platform="UWP">Add</On>
-                </OnPlatform>
-            </ToolbarItem.Text>
-        </ToolbarItem>
-    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout x:Name="absLayout">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1">

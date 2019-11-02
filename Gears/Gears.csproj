@@ -29,7 +29,6 @@
     <None Remove="Resources\add.png" />
     <None Remove="Resources\arrow-left.png" />
     <None Remove="Resources\Arrow.png" />
-    <None Remove="Resources\checkall.png" />
     <None Remove="Resources\Gear-256.png" />
     <None Remove="Resources\Gear.jpg" />
     <None Remove="Resources\pin-effective.png" />
@@ -37,6 +36,7 @@
     <None Remove="Resources\PowerSkiving.png" />
     <None Remove="Resources\Rack.jpg" />
     <None Remove="Resources\search.png" />
+    <None Remove="Resources\select-all.png" />
     <None Remove="Resources\trash.png" />
   </ItemGroup>
 
@@ -45,7 +45,7 @@
     <EmbeddedResource Include="Resources\add.png" />
     <EmbeddedResource Include="Resources\arrow-left.png" />
     <EmbeddedResource Include="Resources\Arrow.png" />
-    <EmbeddedResource Include="Resources\checkall.png" />
+    <EmbeddedResource Include="Resources\select-all.png" />
     <EmbeddedResource Include="Resources\Gear-256.png" />
     <EmbeddedResource Include="Resources\Gear.jpg" />
     <EmbeddedResource Include="Resources\Rack.jpg" />

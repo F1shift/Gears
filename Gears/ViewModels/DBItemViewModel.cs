@@ -50,28 +50,25 @@ namespace Gears.ViewModels
             }
         }
         public bool IsSelected { get; set; }
-        public static StaticSettings Settings { get; set;} = new StaticSettings();
-        public static SimpleCommand SwithToSelectionMode { get; set; } = new SimpleCommand(async (para) =>
-        {
-            Settings.IsSelectionMode = true;
-            return true;
-        });
+        
 
         public CylindricalGearDBModel DBModel { get; set; }
 
         public GearDetailViewModel GearDetailViewModel
-        { get {
+        { 
+            get {
                 var vm = new GearDetailViewModel() { Model = new CylindricalGearBasic() };
                 DBModel.CopyTo(vm.Model);
                 return vm;
-            } }
+            } 
+        }
 
-
-        public class StaticSettings : INotifyPropertyChanged
+        public DBItemViewModel()
         {
-            public bool IsSelectionMode { get; set; } = false;
+            if (true)
+            {
 
-            public event PropertyChangedEventHandler PropertyChanged;
+            }
         }
     }
 }

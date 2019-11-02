@@ -8,38 +8,25 @@
              xmlns:rs="clr-namespace:Gears.Resources"
              xmlns:view="clr-namespace:Gears.Views"
              xmlns:eff="clr-namespace:Gears.Custom.Effects"
+             xmlns:local="clr-namespace:Gears"
              mc:Ignorable="d"
-             x:Class="Gears.Views.DBItemViewCell" x:DataType="vm:DBItemViewModel">
-    <ViewCell.Effects>
-        <eff:LongPressEffect/>
-    </ViewCell.Effects>
+             x:Class="Gears.Views.DBItemViewCell" x:DataType="vm:DBItemViewModel" >
     <ViewCell.View>
     <StackLayout>
-            <Grid Padding="10">
-                <Grid.Triggers>
-                    <DataTrigger TargetType="Grid" 
-                                 Binding="{Binding IsSelectionMode, Source={x:Static vm:DBItemViewModel.Settings}}"
-                                 Value="True">
-                        <Setter Property="ColumnDefinitions" >
-                            <Setter.Value>
-                                <ColumnDefinitionCollection>
-                                    <ColumnDefinition Width="40"/>
-                                    <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </ColumnDefinitionCollection>
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
-                </Grid.Triggers>
+            <Grid Padding="10"
+                  eff:LongPressEffect.Command="{Binding BrowseViewModel.SwithToSelectionModeCommand, Source={x:Static local:App.AppViewModel}}">
+                <Grid.Effects>
+                    <eff:LongPressEffect/>
+                </Grid.Effects>
                 <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="150"/>
                         <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="150"/>
                 </Grid.RowDefinitions>
-                <CheckBox Grid.Column="0"/>
+                <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}" IsVisible="{Binding BrowseViewModel.IsSelectionMode, Source={x:Static local:App.AppViewModel}}"/>
                 <Image Grid.Column="1" Source="{rs:ImageResource Gears.Resources.Gear-256.png}"/>
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>

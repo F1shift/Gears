@@ -18,7 +18,8 @@ namespace Gears.Custom.Effects
         /// Command とCommandParameterのBindable Propertyを追加する。
         /// </summary>
         public static readonly BindableProperty CommandProperty = BindableProperty.CreateAttached("Command", typeof(ICommand), typeof(LongPressEffect), null);
-        public static ICommand GetCommand(BindableObject view) {
+        public static ICommand GetCommand(BindableObject view)
+        {
             return (ICommand)view.GetValue(CommandProperty);
         }
         public static void SetCommand(BindableObject view, ICommand value)
