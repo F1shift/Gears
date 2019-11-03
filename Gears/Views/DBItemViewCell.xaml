@@ -10,11 +10,13 @@
              xmlns:eff="clr-namespace:Gears.Custom.Effects"
              xmlns:local="clr-namespace:Gears"
              mc:Ignorable="d"
-             x:Class="Gears.Views.DBItemViewCell" x:DataType="vm:DBItemViewModel" >
+             x:Class="Gears.Views.DBItemViewCell" x:DataType="vm:DBItemViewModel"
+            x:Name="root">
     <ViewCell.View>
     <StackLayout>
             <Grid Padding="10"
-                  eff:LongPressEffect.Command="{Binding BrowseViewModel.SwithToSelectionModeCommand, Source={x:Static local:App.AppViewModel}}">
+                  eff:LongPressEffect.Command="{Binding BrowseViewModel.SwithToSelectionModeCommand, Source={x:Static local:App.AppViewModel}}"
+                  eff:LongPressEffect.CommandParameter="{Binding BindingContext, Source={x:Reference root}}">
                 <Grid.Effects>
                     <eff:LongPressEffect/>
                 </Grid.Effects>
@@ -27,7 +29,7 @@
                     <RowDefinition Height="150"/>
                 </Grid.RowDefinitions>
                 <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}" IsVisible="{Binding BrowseViewModel.IsSelectionMode, Source={x:Static local:App.AppViewModel}}"/>
-                <Image Grid.Column="1" Source="{rs:ImageResource Gears.Resources.Gear-256.png}"/>
+                <ImageButton Grid.Column="1" Source="{rs:ImageResource Gears.Resources.Gear-256.png}" Clicked="ImageButton_Clicked"/>
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

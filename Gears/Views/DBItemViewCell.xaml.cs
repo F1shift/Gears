@@ -14,6 +14,7 @@ namespace Gears.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DBItemViewCell : ViewCell
     {
+
         public Page Page { get; set; }
         public DBItemViewCell()
         {
@@ -53,6 +54,16 @@ namespace Gears.Views
                     Content = stacklayout
                 });
             Page.Navigation.PushModalAsync(new NavigationPage(page));
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            var vm = BindingContext as DBItemViewModel;
+            App.AppViewModel.BrowseViewModel.OpenProject(vm);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                App.AppMainPage.MenuPage.NavigateTo(1);
+            });
         }
     }
 }

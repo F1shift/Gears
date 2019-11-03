@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using Gears.DataBases;
 using Gears.Models;
+using static Gears.Utility.Math;
 
 namespace Gears.ViewModels
 {
@@ -35,6 +36,14 @@ namespace Gears.ViewModels
                 new InputItemViewModel(){ Name = "歯元円径係数", Value = 0.35, Min = 0.1, Max = 0.4,  Step = 0.01 },
             };
             callBack?.Invoke();
+        }
+
+        public void CopyFrom(CylindricalGearBase gearBase) {
+            Module = ModuleList.Find((item) => item.Value == gearBase.mn);
+            InputItems.First((item) => item.Name == "圧力角").Value = gearBase.αn.RadToDeg();
+            InputItems.First((item) => item.Name == "歯先係数").Value = gearBase.ha_c;
+            InputItems.First((item) => item.Name == "歯元係数").Value = gearBase.hf_c;
+            InputItems.First((item) => item.Name == "歯元円径係数").Value = gearBase.ρ_c[0];
         }
     }
 }

@@ -8,7 +8,7 @@
             x:Class="Gears.Views.MainPage">
 
     <MasterDetailPage.Master>
-        <views:MenuPage x:Name="MenuPage"/>
+        <views:MenuPage x:Name="MenuPage" x:FieldModifier="public"/>
     </MasterDetailPage.Master>
 
     <MasterDetailPage.Detail>

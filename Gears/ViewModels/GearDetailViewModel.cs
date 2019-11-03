@@ -14,7 +14,7 @@ namespace Gears.ViewModels
         
         public RackParameterViewModel RackParameterViewModel { get; set; }
         public GearParameterViewModel GearParameterViewModel { get; set; }
-        public CylindricalGearBasic Model { get; set; }
+        public CylindricalGearBase Model { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,11 +22,11 @@ namespace Gears.ViewModels
 
         public GearDetailViewModel()
         {
-            UpdateCommand = new SimpleCommand((obj)=> { CheckUpdate(); return null; });
+            UpdateCommand = new SimpleCommand(async (obj) => { CheckUpdate(); return null; });
         }
 
         public bool CheckUpdate() {
-            var newModel = new CylindricalGearBasic();
+            var newModel = new CylindricalGearBase();
 
             newModel.mn = RackParameterViewModel.Module.Value;
             newModel.αn = GetValueFromList(RackParameterViewModel.InputItems, "圧力角").DegToRad();

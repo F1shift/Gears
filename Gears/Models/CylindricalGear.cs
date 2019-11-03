@@ -12,7 +12,7 @@ namespace Gears.Models
     /// 本計算はKHK小原歯車工業の公開資料による作ったCylindricalGearBaseをもとに
     /// 噛み合い方程式で歯車3D形状を求めるメソッドを実装したクラス。
     /// </summary>
-    internal class CylindricalGear : CylindricalGearBasic
+    internal class CylindricalGear : CylindricalGearBase
     {
         internal class BasicRack
         {

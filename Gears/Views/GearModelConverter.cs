@@ -18,7 +18,7 @@ namespace Gears.Views
             {
                 return null;
             }
-            var model = (CylindricalGearBasic)value;
+            var model = (CylindricalGearBase)value;
             List<TableRow> RowCollection = new List<TableRow>();
 
             RowCollection.Add(new TitleRow() { Title = "Cylindrical Gear Parameters" });

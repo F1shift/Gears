@@ -14,14 +14,15 @@ namespace Gears
     public partial class App : Application
     {
         internal static AppViewModel AppViewModel { get; set; } 
-
+        internal static MainPage AppMainPage { get; set; }
         public App()
         {
             AppViewModel = new ViewModels.AppViewModel();
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new MainPage();
+            AppMainPage = new MainPage();
+            MainPage = AppMainPage;
         }
 
         protected override void OnStart()

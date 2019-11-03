@@ -22,6 +22,7 @@ namespace Gears.ViewModels
 
         public bool IsDetailViewPined { get; set; }
         public SimpleCommand UpdateCommand { get; set; }
+        public SimpleCommand SaveProjectCommand { get; set; }
 
         public DesignViewModel()
         {
@@ -32,7 +33,8 @@ namespace Gears.ViewModels
             GearDetailViewModel.GearParameterViewModel = this.GearParameterViewModel;
             GearDetailViewModel.RackParameterViewModel = this.RackParameterViewModel;
 
-            UpdateCommand = new SimpleCommand((obj) => Update()) ;
+            UpdateCommand = new SimpleCommand(async (para) => { await Update(); return true; }) ;
+            SaveProjectCommand = new SimpleCommand(async (para) => { SaveProject(); return true; });
         }
 
         public async Task<object> Update() {
@@ -71,6 +73,10 @@ namespace Gears.ViewModels
                 default:
                     break;
             }
+        }
+
+        public void SaveProject() {
+            App.AppViewModel.BrowseViewModel.SaveProject(GearDetailViewModel.Model);
         }
     }
 }

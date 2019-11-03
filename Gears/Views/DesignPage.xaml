@@ -14,6 +14,10 @@
              x:DataType="vm:DesignViewModel"
              x:Name="root"
              BindingContextChanged="ContentPage_BindingContextChanged">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" IconImageSource="{rs:ImageResource Source=Gears.Resources.save_alt.png}" Command="{Binding SaveProjectCommand}">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <Style Class="TabTitleStyleForButton" TargetType="Button" CanCascade="True">
             <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>

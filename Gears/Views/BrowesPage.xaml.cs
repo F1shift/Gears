@@ -74,6 +74,8 @@ namespace Gears.Views
             this.BindingContext = vm;
 
             toolbarItem_Add.Clicked += this.addButton_Clicked;
+            toolbarItem_SelectAll.SetBinding(ToolbarItem.CommandProperty, nameof(vm.SelectionAllCommand));
+            toolbarItem_Delete.SetBinding(ToolbarItem.CommandProperty, nameof(vm.DeleteSelectedItemCommand));
             toolbarItem_ClearSelection.SetBinding(ToolbarItem.CommandProperty, nameof(vm.QuitSelectionModeCommand));
 
             App.AppViewModel.BrowseViewModel.PropertyChanged += (sender, e) =>

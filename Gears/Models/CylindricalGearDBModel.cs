@@ -27,21 +27,21 @@ namespace Gears.Models
         public double αn { get; set; }
         [PropertyMapping()]
         public double β { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.z))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.z))]
         public int z1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.z))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.z))]
         public int z2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.xn))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.xn))]
         public double xn1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.xn))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.xn))]
         public double xn2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.ρ_c))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.ρ_c))]
         public double ρ_c1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.ρ_c))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.ρ_c))]
         public double ρ_c2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.b_c))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.b_c))]
         public double b_c1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.b_c))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.b_c))]
         public double b_c2 { get; set; }
         [PropertyMapping()]
         public double ha_c { get; set; }
@@ -53,57 +53,57 @@ namespace Gears.Models
         public double αt { get; set; }
         [PropertyMapping()]
         public double αwt { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.L))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.L))]
         public double L1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.L))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.L))]
         public double L2 { get; set; }
         [PropertyMapping()]
         public double y { get; set; }
         [PropertyMapping()]
         public double a { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.d))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.d))]
         public double d1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.d))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.d))]
         public double d2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.db))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.db))]
         public double db1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.db))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.db))]
         public double db2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.dw))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.dw))]
         public double dw1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.dw))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.dw))]
         public double dw2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.ha))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.ha))]
         public double ha1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.ha))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.ha))]
         public double ha2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.hf))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.hf))]
         public double hf1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.hf))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.hf))]
         public double hf2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.h))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.h))]
         public double h1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.h))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.h))]
         public double h2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.ρ))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.ρ))]
         public double ρ1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.ρ))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.ρ))]
         public double ρ2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.da))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.da))]
         public double da1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.da))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.da))]
         public double da2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.df))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.df))]
         public double df1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.df))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.df))]
         public double df2 { get; set; }
-        [PropertyMapping(0, nameof(CylindricalGearBasic.b))]
+        [PropertyMapping(0, nameof(CylindricalGearBase.b))]
         public double b1 { get; set; }
-        [PropertyMapping(1, nameof(CylindricalGearBasic.b))]
+        [PropertyMapping(1, nameof(CylindricalGearBase.b))]
         public double b2 { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void CopyFrom(CylindricalGearBasic source)
+        public void CopyFrom(CylindricalGearBase source)
         {
             var sourceType = source.GetType();
             var thisType = this.GetType();
@@ -128,7 +128,7 @@ namespace Gears.Models
             } 
         }
 
-        public void CopyTo(CylindricalGearBasic target)
+        public void CopyTo(CylindricalGearBase target)
         {
             var targetType = target.GetType();
             var thisType = this.GetType();

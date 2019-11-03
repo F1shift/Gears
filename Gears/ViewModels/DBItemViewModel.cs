@@ -50,14 +50,13 @@ namespace Gears.ViewModels
             }
         }
         public bool IsSelected { get; set; }
-        
 
         public CylindricalGearDBModel DBModel { get; set; }
 
         public GearDetailViewModel GearDetailViewModel
         { 
             get {
-                var vm = new GearDetailViewModel() { Model = new CylindricalGearBasic() };
+                var vm = new GearDetailViewModel() { Model = new CylindricalGearBase() };
                 DBModel.CopyTo(vm.Model);
                 return vm;
             } 
@@ -65,10 +64,7 @@ namespace Gears.ViewModels
 
         public DBItemViewModel()
         {
-            if (true)
-            {
-
-            }
+            
         }
     }
 }

@@ -16,10 +16,9 @@ namespace Gears.ViewModels
     {
         public ObservableCollection<DBItemViewModel> ProjectList { get; set; }
         public ObservableCollection<DBItemViewModel> SeachResultList { get; set; }
-        public ObservableCollection<DBItemViewModel> CurrentProject { get; set; }
+        public DBItemViewModel CurrentProject { get; set; }
         public bool IsSelectionMode { get; set; } = false;
-        public SimpleCommand SwithToSelectionModeCommand { get; set; }
-        public SimpleCommand QuitSelectionModeCommand { get; set; }
+        
 
         public BrowseViewModel()
         {
@@ -28,6 +27,11 @@ namespace Gears.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
         public SimpleCommand AddNewCommand { get; set; }
+        public SimpleCommand SwithToSelectionModeCommand { get; set; }
+        public SimpleCommand SelectionAllCommand { get; set; }
+        public SimpleCommand QuitSelectionModeCommand { get; set; }
+        public SimpleCommand DeleteSelectedItemCommand { get; set; }
+        public SimpleCommand OpenProjectCommand { get; set; }
 
         protected virtual async void Initialize() {
             ProjectList = new ObservableCollection<DBItemViewModel>();
@@ -49,7 +53,19 @@ namespace Gears.ViewModels
             AddNewCommand = new SimpleCommand(async (name) => await AddNew((string)name));
             SwithToSelectionModeCommand = new SimpleCommand(async (para) =>
             {
-                SwithToSelectionMode();
+                if (SwithToSelectionMode())
+                {
+                    var vm = para as DBItemViewModel;
+                    if (vm != null)
+                    {
+                        vm.IsSelected = true;
+                    }
+                }
+                return true;
+            });
+            SelectionAllCommand = new SimpleCommand(async (para) =>
+            {
+                SelectAll();
                 return true;
             });
             QuitSelectionModeCommand = new SimpleCommand(async (para) =>
@@ -57,11 +73,20 @@ namespace Gears.ViewModels
                 QuitSelectionMode();
                 return true;
             });
+            DeleteSelectedItemCommand = new SimpleCommand(async (para) => {
+                DeleteSelectedItem();
+                return true;
+            });
+            OpenProjectCommand = new SimpleCommand(async (para) =>
+            {
+                OpenProject(para as DBItemViewModel);
+                return true;
+            });
         }
 
         async Task<bool> AddNew(string projectName = "new project") {
             var gearDBModel = new CylindricalGearDBModel();
-            var gearbasic = new CylindricalGearBasic();
+            var gearbasic = new CylindricalGearBase();
             gearbasic.SetToDefualt();
             gearDBModel.CopyFrom(gearbasic);
             gearDBModel.Name = projectName;
@@ -70,9 +95,17 @@ namespace Gears.ViewModels
             return true;
         }
 
-        public void SwithToSelectionMode()
+        public bool SwithToSelectionMode()
         {
-            IsSelectionMode = true;
+            if (IsSelectionMode == false)
+            {
+                IsSelectionMode = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void QuitSelectionMode()
@@ -84,15 +117,41 @@ namespace Gears.ViewModels
             IsSelectionMode = false;
         }
 
-        public void DeleteSelectedItem()
+        public async void DeleteSelectedItem()
         {
-            var selected = from item in ProjectList
+            var selected = (from item in ProjectList
                            where item.IsSelected
-                           select item;
+                           select item).ToList();
+            var db = JIS1701DataBase.DataBase;
             foreach (var item in selected)
             {
                 ProjectList.Remove(item);
+                await db.DeleteAsync(item.DBModel);
             }
+            QuitSelectionMode();
+        }
+
+        public void SelectAll(){
+            foreach (var item in ProjectList)
+            {
+                item.IsSelected = true;
+            }
+        }
+
+        public void OpenProject(DBItemViewModel dbvm)
+        {
+            var gearBase = new CylindricalGearBase();
+            dbvm.DBModel.CopyTo(gearBase);
+            CurrentProject = dbvm;
+            App.AppViewModel.DesignViewModel.RackParameterViewModel.CopyFrom(gearBase);
+            App.AppViewModel.DesignViewModel.GearParameterViewModel.CopyFrom(gearBase);
+            App.AppViewModel.DesignViewModel.GearDetailViewModel.UpdateCommand.Execute(null);
+        }
+
+        public async void SaveProject(CylindricalGearBase gearBase)
+        {
+            CurrentProject.DBModel.CopyFrom(gearBase);
+             await JIS1701DataBase.DataBase.InsertOrReplaceAsync(CurrentProject.DBModel);
         }
     }
 }
