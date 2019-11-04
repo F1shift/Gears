@@ -14,15 +14,32 @@ namespace Gears.ViewModels
 {
     class BrowseViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<DBItemViewModel> ProjectList { get; set; }
-        public ObservableCollection<DBItemViewModel> SeachResultList { get; set; }
+        ObservableCollection<DBItemViewModel> _ProjectList;
+        public ObservableCollection<DBItemViewModel> ProjectList { 
+            get {
+                if (_ProjectList == null)
+                {
+                    _ProjectList = new ObservableCollection<DBItemViewModel>();
+                }
+                return _ProjectList;
+            }
+        }
+        ObservableCollection<DBItemViewModel> _SeachResultList;
+        public ObservableCollection<DBItemViewModel> SeachResultList { 
+            get {
+                if (_SeachResultList == null)
+                {
+                    _SeachResultList = new ObservableCollection<DBItemViewModel>();
+                }
+                return _SeachResultList;
+            }
+        }
         public DBItemViewModel CurrentProject { get; set; }
         public bool IsSelectionMode { get; set; } = false;
         
 
         public BrowseViewModel()
         {
-            Initialize();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,18 +50,9 @@ namespace Gears.ViewModels
         public SimpleCommand DeleteSelectedItemCommand { get; set; }
         public SimpleCommand OpenProjectCommand { get; set; }
 
-        protected virtual async void Initialize() {
-            ProjectList = new ObservableCollection<DBItemViewModel>();
-            SeachResultList = new ObservableCollection<DBItemViewModel>();
-
+        public virtual async Task<bool> Initialize() {
             var database = JIS1701DataBase.DataBase;
             await database.CreateTableAsync<CylindricalGearDBModel>();
-            if (await database.Table<CylindricalGearDBModel>().CountAsync() == 0)
-            {
-                await AddNew();
-                await AddNew();
-                await AddNew();
-            }
             foreach (var item in await database.Table<CylindricalGearDBModel>().ToListAsync())
             {
                 var dbItemViewModel = new DBItemViewModel() { DBModel = item };
@@ -82,15 +90,17 @@ namespace Gears.ViewModels
                 OpenProject(para as DBItemViewModel);
                 return true;
             });
+            return true;
         }
 
-        async Task<bool> AddNew(string projectName = "new project") {
+        async Task<bool> AddNew(string projectName = "new project", int? id = null) {
             var gearDBModel = new CylindricalGearDBModel();
             var gearbasic = new CylindricalGearBase();
             gearbasic.SetToDefualt();
             gearDBModel.CopyFrom(gearbasic);
             gearDBModel.Name = projectName;
-            await JIS1701DataBase.DataBase.InsertAsync(gearDBModel);
+            gearDBModel.Id = id;
+            await JIS1701DataBase.DataBase.InsertOrReplaceAsync(gearDBModel);
             ProjectList.Add(new DBItemViewModel() { DBModel = gearDBModel });
             return true;
         }
@@ -138,10 +148,39 @@ namespace Gears.ViewModels
             }
         }
 
+        public async void OpenProject(int id)
+        {
+            if (ProjectList.Count == 0)
+            {
+                await AddNew(id: id);
+            }
+            var project = ProjectList.FirstOrDefault((pj) => pj.DBModel.Id == id);
+            if (project == null)
+            {
+                await AddNew(id: id);
+                project = ProjectList.FirstOrDefault((pj) => pj.DBModel.Id == id);
+            }
+            if (CurrentProject != null)
+            {
+                CurrentProject.IsCurrent = false;
+            }
+            project.IsCurrent = true;
+            CurrentProject = project;
+            var gearBase = project.DBModel.GetGearBase();
+            App.AppViewModel.DesignViewModel.RackParameterViewModel.CopyFrom(gearBase);
+            App.AppViewModel.DesignViewModel.GearParameterViewModel.CopyFrom(gearBase);
+            App.AppViewModel.DesignViewModel.GearDetailViewModel.UpdateCommand.Execute(null);
+        }
+
         public void OpenProject(DBItemViewModel dbvm)
         {
             var gearBase = new CylindricalGearBase();
             dbvm.DBModel.CopyTo(gearBase);
+            if (CurrentProject != null)
+            {
+                CurrentProject.IsCurrent = false;
+            }
+            dbvm.IsCurrent = true;
             CurrentProject = dbvm;
             App.AppViewModel.DesignViewModel.RackParameterViewModel.CopyFrom(gearBase);
             App.AppViewModel.DesignViewModel.GearParameterViewModel.CopyFrom(gearBase);
@@ -151,6 +190,10 @@ namespace Gears.ViewModels
         public async void SaveProject(CylindricalGearBase gearBase)
         {
             CurrentProject.DBModel.CopyFrom(gearBase);
+            if (ProjectList.Contains(CurrentProject) == false)
+            {
+                ProjectList.Add(CurrentProject);
+            }
              await JIS1701DataBase.DataBase.InsertOrReplaceAsync(CurrentProject.DBModel);
         }
     }

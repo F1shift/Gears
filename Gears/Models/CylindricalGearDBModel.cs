@@ -153,6 +153,13 @@ namespace Gears.Models
             }
         }
 
+        public CylindricalGearBase GetGearBase()
+        {
+            var gearBase = new CylindricalGearBase();
+            CopyTo(gearBase);
+            return gearBase;
+        }
+
         [AttributeUsage(AttributeTargets.Property)]
         class PropertyMappingAttribute : Attribute
         {

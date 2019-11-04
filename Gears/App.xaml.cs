@@ -8,31 +8,46 @@ using Gears.Models;
 using System.Collections.Generic;
 using System.Reflection;
 using Gears.ViewModels;
+using Gears.DataBases;
 
 namespace Gears
 {
     public partial class App : Application
     {
         internal static AppViewModel AppViewModel { get; set; } 
+        internal static AppSettings AppSettings { get; set; } 
         internal static MainPage AppMainPage { get; set; }
         public App()
         {
-            AppViewModel = new ViewModels.AppViewModel();
             InitializeComponent();
+        }
 
+        protected override async void OnStart()
+        {
+            try
+            {
+                AppSettings = await JIS1701DataBase.DataBase.Table<AppSettings>().FirstAsync();
+            }
+            catch
+            {
+                AppSettings = new AppSettings();
+            }
+            AppViewModel = new ViewModels.AppViewModel();
+            await AppViewModel.Initialize();
+            if (AppSettings.LastUsedProjectID != null)
+            {
+                AppViewModel.BrowseViewModel.OpenProject((int)AppSettings.LastUsedProjectID);
+            }
             DependencyService.Register<MockDataStore>();
             AppMainPage = new MainPage();
             MainPage = AppMainPage;
         }
 
-        protected override void OnStart()
+        protected override async void OnSleep()
         {
-            
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
+            AppSettings.LastUsedProjectID = AppViewModel.BrowseViewModel.CurrentProject.DBModel.Id;
+            await JIS1701DataBase.DataBase.CreateTableAsync<AppSettings>();
+            await JIS1701DataBase.DataBase.InsertOrReplaceAsync(AppSettings);
         }
 
         protected override void OnResume()

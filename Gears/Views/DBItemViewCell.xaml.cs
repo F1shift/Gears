@@ -14,8 +14,6 @@ namespace Gears.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DBItemViewCell : ViewCell
     {
-
-        public Page Page { get; set; }
         public DBItemViewCell()
         {
             InitializeComponent();
@@ -44,7 +42,7 @@ namespace Gears.Views
             }
             backbutton.SetValue(BackgroundColorEffect.BackgroundColorProperty, Color.Transparent);
             backbutton.Effects.Add(new BackgroundColorEffect());
-            backbutton.Clicked += (s, ee) => { Page.Navigation.PopModalAsync(); };
+            backbutton.Clicked += (s, ee) => { App.AppMainPage.Navigation.PopModalAsync(); };
             var stacklayout = new StackLayout();
             stacklayout.Orientation = StackOrientation.Horizontal;
             stacklayout.Children.Add(backbutton);
@@ -53,7 +51,7 @@ namespace Gears.Views
                 {
                     Content = stacklayout
                 });
-            Page.Navigation.PushModalAsync(new NavigationPage(page));
+            App.AppMainPage.Navigation.PushModalAsync(new NavigationPage(page));
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)

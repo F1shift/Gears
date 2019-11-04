@@ -26,15 +26,20 @@ namespace Gears.ViewModels
 
         public DesignViewModel()
         {
+        }
+
+        public async Task<bool> Initialize() {
             RackParameterViewModel = new RackParameterViewModel();
+            await RackParameterViewModel.Initialize();
             GearParameterViewModel = new GearParameterViewModel();
             GearDetailViewModel = new GearDetailViewModel();
             ThreeDModelingViewModel = new ThreeDModelingViewModel(GearDetailViewModel);
             GearDetailViewModel.GearParameterViewModel = this.GearParameterViewModel;
             GearDetailViewModel.RackParameterViewModel = this.RackParameterViewModel;
 
-            UpdateCommand = new SimpleCommand(async (para) => { await Update(); return true; }) ;
+            UpdateCommand = new SimpleCommand(async (para) => { await Update(); return true; });
             SaveProjectCommand = new SimpleCommand(async (para) => { SaveProject(); return true; });
+            return true;
         }
 
         public async Task<object> Update() {

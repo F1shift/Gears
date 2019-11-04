@@ -20,6 +20,13 @@
                 <Grid.Effects>
                     <eff:LongPressEffect/>
                 </Grid.Effects>
+                <Grid.Triggers>
+                    <DataTrigger TargetType="Grid"
+                                 Binding="{Binding IsCurrent}"
+                                 Value="True">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SelectedItemColor}"/>
+                    </DataTrigger>
+                </Grid.Triggers>
                 <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="150"/>
@@ -38,7 +45,15 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Text="{Binding Name}" FontSize="Subtitle" FontAttributes="Bold"/>
+                    <Label Text="{Binding Name}" FontSize="Subtitle" FontAttributes="Bold">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding IsCurrent}"
+                                         Value="True">
+                                <Setter Property="Text" Value="{Binding Name, StringFormat='{0} (current)'}"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                     <Label Grid.Row="1" Text="{Binding Created}"/>
                     <Label Grid.Row="2" Text="{Binding LastUsed}"/>
                     <Label Grid.Row="3" Text="{Binding Discription}"/>

@@ -19,7 +19,7 @@
                 <ListView x:Name="lll" ItemsSource="{Binding ProjectList}" HasUnevenRows="True" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="vm:DBItemViewModel">
-                            <view:DBItemViewCell Page="{x:Reference root}"/>
+                            <view:DBItemViewCell/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

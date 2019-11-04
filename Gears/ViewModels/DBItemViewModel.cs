@@ -50,6 +50,7 @@ namespace Gears.ViewModels
             }
         }
         public bool IsSelected { get; set; }
+        public bool IsCurrent { get; set; }
 
         public CylindricalGearDBModel DBModel { get; set; }
 
