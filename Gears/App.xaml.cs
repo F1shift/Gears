@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Gears.ViewModels;
 using Gears.DataBases;
+using SQLite;
 
 namespace Gears
 {
@@ -24,6 +25,9 @@ namespace Gears
 
         protected override async void OnStart()
         {
+            AppMainPage = new MainPage();
+            MainPage = AppMainPage;
+            await JIS1701DataBase.Initalize();
             try
             {
                 AppSettings = await JIS1701DataBase.DataBase.Table<AppSettings>().FirstAsync();
@@ -32,22 +36,24 @@ namespace Gears
             {
                 AppSettings = new AppSettings();
             }
-            AppViewModel = new ViewModels.AppViewModel();
+            AppViewModel = new AppViewModel();
             await AppViewModel.Initialize();
             if (AppSettings.LastUsedProjectID != null)
             {
                 AppViewModel.BrowseViewModel.OpenProject((int)AppSettings.LastUsedProjectID);
             }
-            DependencyService.Register<MockDataStore>();
-            AppMainPage = new MainPage();
-            MainPage = AppMainPage;
+
+            AppMainPage.MenuPage.NavigateTo(1);
         }
 
         protected override async void OnSleep()
         {
-            AppSettings.LastUsedProjectID = AppViewModel.BrowseViewModel.CurrentProject.DBModel.Id;
-            await JIS1701DataBase.DataBase.CreateTableAsync<AppSettings>();
-            await JIS1701DataBase.DataBase.InsertOrReplaceAsync(AppSettings);
+            var current = AppViewModel?.BrowseViewModel?.CurrentProject;
+            if (current != null)
+            {
+                AppSettings.LastUsedProjectID = AppViewModel.BrowseViewModel.CurrentProject.DBModel.Id;
+                await JIS1701DataBase.DataBase.InsertOrReplaceAsync(AppSettings);
+            }
         }
 
         protected override void OnResume()

@@ -6,7 +6,6 @@ namespace Gears.DataBases
 {
     class VersionManager
     {
-        [PrimaryKey]
         public string Version { get; set; } = "x.x.x";
     }
 }

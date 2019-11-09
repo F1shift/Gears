@@ -13,57 +13,53 @@ namespace Gears.DataBases
     {
         static SQLiteAsyncConnection _DataBase;
         static string UsingVersion = "1.0.0";
-        static string dbpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "JIS1701.db3");
+        static string dbpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), $"JIS1701_{UsingVersion}.db3");
         public static SQLiteAsyncConnection DataBase {
             get
             {
-                if (_DataBase == null)
-                {
-                    if (!File.Exists(dbpath))
-                    {
-                        ResetDBFile().Wait();
-                        _DataBase = new SQLiteAsyncConnection(dbpath);
-                    }
-                    else
-                    {
-                        _DataBase = new SQLiteAsyncConnection(dbpath);
-                        try
-                        {
-                            var task = _DataBase.Table<VersionManager>().FirstAsync();
-                            task.Wait();
-                            var versionManager = task.Result;
-                            if (UsingVersion != versionManager.Version)
-                            {
-                                ResetDBFile().Wait();
-                                _DataBase = new SQLiteAsyncConnection(dbpath);
-                            }
-                        }
-                        catch
-                        {
-                            ResetDBFile().Wait();
-                            _DataBase = new SQLiteAsyncConnection(dbpath);
-                        }
-                    }
-                }
                 return _DataBase;
             }
         }
 
-        public static async Task<bool> ResetDBFile() {
+        public static async Task<bool> Initalize() {
+            if (!File.Exists(dbpath))
+            {
+                ResetDBFile();
+            }
+            _DataBase = new SQLiteAsyncConnection(dbpath);
+            return true;
+        }
+
+        public static void CreateBlankDB() {
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BlankDB.db3");
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            var DataBase = new SQLiteConnection(path);
+            DataBase.CreateTable<AppSettings>();
+            DataBase.Insert(new AppSettings() { ID = 1, LastUsedProjectID = 1 });
+            DataBase.CreateTable<ModuleItem>();
+        }
+
+        public static void ResetDBFile() {
             if (_DataBase != null)
             {
                 SQLiteAsyncConnection.ResetPool();
             }
-            if (File.Exists(dbpath))
+            foreach (var fileName in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)))
             {
-                File.Delete(dbpath);
+                if (fileName.Contains(".db3"))
+                {
+                    File.Delete(fileName);
+                }
             }
             var targetStream = File.Create(dbpath);
             var sourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Gears.DataBases.JIS1701.db3");
             sourceStream.CopyTo(targetStream);
             targetStream.Close();
             sourceStream.Close();
-            return true;
+            return;
         }
     }
 }

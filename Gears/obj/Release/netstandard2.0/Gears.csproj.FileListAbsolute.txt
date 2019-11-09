@@ -1,7 +1,6 @@
 C:\Data\GitHub\Gears\Gears\bin\Release\netstandard2.0\Gears.deps.json
 C:\Data\GitHub\Gears\Gears\bin\Release\netstandard2.0\Gears.dll
 C:\Data\GitHub\Gears\Gears\bin\Release\netstandard2.0\Gears.pdb
-C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\Gears.csprojAssemblyReference.cache
 C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\App.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\Views\AboutPage.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\Views\DesignPage.xaml.g.cs
@@ -21,3 +20,5 @@ C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\Views\DBItemViewCell.xaml.
 C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\Views\GearDetailView.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\Views\RiseUpStackLayout.xaml.g.cs
 C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\Gears.csproj.Fody.CopyLocal.cache
+C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\Views\NewProjectView.xaml.g.cs
+C:\Data\GitHub\Gears\Gears\obj\Release\netstandard2.0\Gears.csprojAssemblyReference.cache

@@ -15,8 +15,9 @@
              x:Name="root"
              BindingContextChanged="ContentPage_BindingContextChanged">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" IconImageSource="{rs:ImageResource Source=Gears.Resources.save_alt.png}" Command="{Binding SaveProjectCommand}">
-        </ToolbarItem>
+        <ToolbarItem Text="Save" IconImageSource="{rs:ImageResource Source=Gears.Resources.save_alt.png}" Command="{Binding SaveProjectCommand}"/>
+        <ToolbarItem Text="Export Excel" IconImageSource="{rs:ImageResource Source=Gears.Resources.share.png}" Command="{Binding ExportExcelCommand}" Order="Secondary"/>
+        <ToolbarItem Text="Export 3D Model" IconImageSource="{rs:ImageResource Source=Gears.Resources.share.png}" Command="{Binding ExportglTFCommand}" Order="Secondary"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <Style Class="TabTitleStyleForButton" TargetType="Button" CanCascade="True">

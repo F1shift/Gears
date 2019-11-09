@@ -10,9 +10,9 @@ namespace Gears.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public BrowseViewModel BrowseViewModel { get; set; } = new BrowseViewModel();
-        public DesignViewModel DesignViewModel { get; set; } = new DesignViewModel();
-        public SettingsViewModel SettingsViewModel { get; set; } = new SettingsViewModel();
+        public BrowseViewModel BrowseViewModel { get; set; }
+        public DesignViewModel DesignViewModel { get; set; }
+        public SettingsViewModel SettingsViewModel { get; set; }
 
         public AppViewModel()
         {

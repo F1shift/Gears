@@ -23,9 +23,13 @@ namespace Gears.ViewModels
         public bool IsDetailViewPined { get; set; }
         public SimpleCommand UpdateCommand { get; set; }
         public SimpleCommand SaveProjectCommand { get; set; }
+        public SimpleCommand ExportExcelCommand { get; set; }
+        public SimpleCommand ExportglTFCommand { get; set; }
 
         public DesignViewModel()
         {
+
+
         }
 
         public async Task<bool> Initialize() {
@@ -39,6 +43,8 @@ namespace Gears.ViewModels
 
             UpdateCommand = new SimpleCommand(async (para) => { await Update(); return true; });
             SaveProjectCommand = new SimpleCommand(async (para) => { SaveProject(); return true; });
+            ExportExcelCommand = new SimpleCommand(async (para) => {  return true; });
+            ExportglTFCommand = new SimpleCommand(async (para) => {  return true; });
             return true;
         }
 

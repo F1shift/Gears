@@ -461,7 +461,6 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Release\100\android\src\md5f92e0daf340890
 C:\Data\GitHub\Gears\Gears.Android\obj\Release\100\android\src\android\support\coordinatorlayout\R.java
 C:\Data\GitHub\Gears\Gears.Android\obj\Release\100\android\src\android\support\compat\R.java
 C:\Data\GitHub\Gears\Gears.Android\obj\Release\100\android\bin\packaged_resources
-C:\Data\GitHub\Gears\Gears.Android\obj\Release\100\android\src\com\companyname\gears\R.java
 C:\Data\GitHub\Gears\Gears.Android\obj\Release\100\android\bin\classes.dex
 C:\Data\GitHub\Gears\Gears.Android\obj\Release\100\stamp\_BuildAdditionalResourcesCache.stamp
 C:\Data\GitHub\Gears\Gears.Android\obj\Release\100\stamp\_CleanIntermediateIfNuGetsChange.stamp

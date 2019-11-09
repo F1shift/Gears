@@ -61,13 +61,11 @@ namespace Gears.ViewModels
             AddNewCommand = new SimpleCommand(async (name) => await AddNew((string)name));
             SwithToSelectionModeCommand = new SimpleCommand(async (para) =>
             {
-                if (SwithToSelectionMode())
+                SwithToSelectionMode();
+                var vm = para as DBItemViewModel;
+                if (vm != null)
                 {
-                    var vm = para as DBItemViewModel;
-                    if (vm != null)
-                    {
-                        vm.IsSelected = true;
-                    }
+                    vm.IsSelected = true;
                 }
                 return true;
             });

@@ -2,7 +2,6 @@ C:\Data\GitHub\Gears\Gears.Android\bin\Debug\Gears.Android.dll
 C:\Data\GitHub\Gears\Gears.Android\bin\Debug\Gears.Android.pdb
 C:\Data\GitHub\Gears\Gears.Android\bin\Debug\Gears.dll
 C:\Data\GitHub\Gears\Gears.Android\bin\Debug\Gears.pdb
-C:\Data\GitHub\Gears\Gears.Android\bin\Debug\Gears.dll.mdb
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\MonoAndroid,Version=v10.0.AssemblyAttributes.cs
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\build.props
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\adb.props
@@ -540,7 +539,6 @@ C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\android\src\md5f92e0daf340890c9
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\android\src\md5dcb6eccdc824e0677ffae8ccdde42930\CustomTabsServiceConnectionImpl.java
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\android\src\md5dcb6eccdc824e0677ffae8ccdde42930\KeepAliveService.java
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\android\bin\packaged_resources
-C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\android\src\com\companyname\gears\R.java
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\android\bin\classes.dex
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\stamp\_BuildAdditionalResourcesCache.stamp
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\stamp\_CleanIntermediateIfNuGetsChange.stamp
@@ -558,3 +556,4 @@ C:\Data\GitHub\Gears\Gears.Android\bin\Debug\com.f1shift.gears.apk
 C:\Data\GitHub\Gears\Gears.Android\bin\Debug\com.f1shift.gears-Signed.apk
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\android\bin\com.f1shift.gears.apk
 C:\Data\GitHub\Gears\Gears.Android\obj\Debug\100\android\src\com\f1shift\gears\R.java
+C:\Data\GitHub\Gears\Gears.Android\bin\Debug\Gears.dll.mdb

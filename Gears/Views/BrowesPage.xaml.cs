@@ -80,21 +80,7 @@ namespace Gears.Views
 
             App.AppViewModel.BrowseViewModel.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == nameof(vm.IsSelectionMode))
-                {
-                    ToolbarItems.Clear();
-                    if (vm.IsSelectionMode)
-                    {
-                        ToolbarItems.Add(toolbarItem_ClearSelection);
-                        ToolbarItems.Add(toolbarItem_SelectAll);
-                        ToolbarItems.Add(toolbarItem_Delete);
-                    }
-                    else
-                    {
-                        ToolbarItems.Add(toolbarItem_Search);
-                        ToolbarItems.Add(toolbarItem_Add);
-                    }
-                }
+                UpdateToolbar();
             };
             UpdateToolbar();
         }
@@ -110,12 +96,12 @@ namespace Gears.Views
             ToolbarItems.Clear();
             if (vm.IsSelectionMode)
             {
+                ToolbarItems.Add(toolbarItem_ClearSelection);
                 ToolbarItems.Add(toolbarItem_Delete);
                 ToolbarItems.Add(toolbarItem_SelectAll);
             }
             else
             {
-                ToolbarItems.Add(toolbarItem_Search);
                 ToolbarItems.Add(toolbarItem_Add);
             }
         }
