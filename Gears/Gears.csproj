@@ -32,6 +32,7 @@
     <None Remove="Resources\clear.png" />
     <None Remove="Resources\Gear-256.png" />
     <None Remove="Resources\Gear.jpg" />
+    <None Remove="Resources\Gear_Parameters.xlsx" />
     <None Remove="Resources\pin-effective.png" />
     <None Remove="Resources\pin-ineffective.png" />
     <None Remove="Resources\PowerSkiving.png" />
@@ -49,6 +50,7 @@
     <EmbeddedResource Include="Resources\arrow-left.png" />
     <EmbeddedResource Include="Resources\Arrow.png" />
     <EmbeddedResource Include="Resources\clear.png" />
+    <EmbeddedResource Include="Resources\Gear_Parameters.xlsx" />
     <EmbeddedResource Include="Resources\save_alt.png" />
     <EmbeddedResource Include="Resources\select-all.png" />
     <EmbeddedResource Include="Resources\Gear-256.png" />
@@ -61,6 +63,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.9.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.1.3" />
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />

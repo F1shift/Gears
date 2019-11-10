@@ -125,3 +125,10 @@ C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Xamarin.Essentials.pri.xml
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\Xamarin.Forms.Platform.UAP.pri.xml
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\ProjectArchitectures.txt
 C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\.winmd_cache\$Microsoft.Graphics.Canvas.winmd_636160427180000000.json
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\DocumentFormat.OpenXml.dll
+C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\System.IO.Packaging.dll
+C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\DocumentFormat.OpenXml\en\DocumentFormat.OpenXml.Resources.ExceptionMessages.resw
+C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\DocumentFormat.OpenXml\en\DocumentFormat.OpenXml.Validation.ValidationResources.resw
+C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\FxResources.System.IO.Packaging.SR.resw
+C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\resources.en.resfiles
+C:\Data\GitHub\Gears\Gears.UWP\obj\x86\Debug\resources.en.resfiles.intermediate

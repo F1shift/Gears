@@ -28,6 +28,9 @@
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.exe">
       <PackagePath>entrypoint\Gears.UWP.exe</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\documentformat.openxml\2.9.1\lib\netstandard1.3\DocumentFormat.OpenXml.dll">
+      <PackagePath>DocumentFormat.OpenXml.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\newtonsoft.json\12.0.2\lib\netstandard2.0\Newtonsoft.Json.dll">
       <PackagePath>Newtonsoft.Json.dll</PackagePath>
     </AppxPackagedFile>
@@ -51,6 +54,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\sqlitepclraw.provider.e_sqlite3.uwp10\1.1.13\lib\uap10.0\SQLitePCLRaw.provider.e_sqlite3.dll">
       <PackagePath>SQLitePCLRaw.provider.e_sqlite3.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\system.io.packaging\4.5.0\lib\netstandard2.0\System.IO.Packaging.dll">
+      <PackagePath>System.IO.Packaging.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Microsoft\Xamarin\NuGet\win2d.uwp\1.20.0\runtimes\win10-x86\native\Microsoft.Graphics.Canvas.dll">
       <PackagePath>Microsoft.Graphics.Canvas.dll</PackagePath>

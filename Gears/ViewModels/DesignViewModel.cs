@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.ComponentModel;
-using Xamarin.Forms;
+//using Xamarin.Forms;
 using Gears.ViewModels;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Gears.ViewModels
 {
@@ -43,13 +49,13 @@ namespace Gears.ViewModels
 
             UpdateCommand = new SimpleCommand(async (para) => { await Update(); return true; });
             SaveProjectCommand = new SimpleCommand(async (para) => { SaveProject(); return true; });
-            ExportExcelCommand = new SimpleCommand(async (para) => {  return true; });
+            ExportExcelCommand = new SimpleCommand(async (para) => { ExportExcel(); return true; });
             ExportglTFCommand = new SimpleCommand(async (para) => {  return true; });
             return true;
         }
 
         public async Task<object> Update() {
-            var updated = await Device.InvokeOnMainThreadAsync<bool>( ()=> GearDetailViewModel.CheckUpdate());
+            var updated = await Xamarin.Forms.Device.InvokeOnMainThreadAsync<bool>( ()=> GearDetailViewModel.CheckUpdate());
             if (updated)
                 await ThreeDModelingViewModel.UpdateOrAddGear();
             return null;
@@ -88,6 +94,66 @@ namespace Gears.ViewModels
 
         public void SaveProject() {
             App.AppViewModel.BrowseViewModel.SaveProject(GearDetailViewModel.Model);
+        }
+
+        public void ExportExcel() {
+            var filename = "Gear_Parameters.xlsx";
+            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var filePath = Path.Combine(folderPath, filename);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            var targetStream = File.Create(filePath);
+            var sourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Gears.Resources.{filename}");
+            sourceStream.CopyTo(targetStream);
+            targetStream.Close();
+            sourceStream.Close();
+            using (var document = SpreadsheetDocument.Open(filePath, true))
+            {
+                var modelType = this.GearDetailViewModel.Model.GetType();
+                var wbPart = document.WorkbookPart;
+                var wb = wbPart.Workbook;
+                var stringTable = wbPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
+                foreach (var sheet in wb.Descendants<Sheet>())
+                {
+                    if (sheet.Name == "Sheet1")
+                    {
+                        var wsheetPart = wbPart.GetPartById(sheet.Id) as WorksheetPart;
+                        if (wsheetPart == null)
+                        {
+                            throw new NullReferenceException("WorksheetPart Not Found !!");
+                        }
+
+                        var ws = wsheetPart.Worksheet;
+                        foreach (var row in ws.Descendants<Row>())
+                        {
+                            var list = new List<string>();
+                            foreach (Cell cell in row)
+                            {
+                                var name = (from item in wb.DefinedNames.ChildElements
+                                           where item.InnerText.Replace(sheet.Name, "").Replace("$", "").Replace("!", "") == cell.CellReference
+                                           select (item as DefinedName).Name.Value).FirstOrDefault();
+                                Console.WriteLine($"definedName:{name}, cell reference:{cell.CellReference} ");
+                                if (!String.IsNullOrEmpty(name))
+                                {
+                                    if (name.Contains("_"))
+                                    {
+                                        var strs = name.Split(',');
+                                        name = strs[0];
+                                        var index = Convert.ToInt32(strs[1]) - 1;
+                                        var array = modelType.GetProperty(name).GetValue(this.GearDetailViewModel.Model) as Array;
+                                        cell.CellValue = new CellValue(array.GetValue(index).ToString());
+                                    }
+                                    else
+                                        cell.CellValue = new CellValue(modelType.GetProperty(name).GetValue(this.GearDetailViewModel.Model).ToString());
+                                }
+                            }
+                        }
+                    }
+                }
+                document.Save();
+            }
         }
     }
 }
