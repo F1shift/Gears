@@ -226,6 +226,9 @@
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\stats.module.js">
       <PackagePath>Assets\www\stats.module.js</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\GLTFExporter.js">
+      <PackagePath>Assets\www\GLTFExporter.js</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\three.js">
       <PackagePath>Assets\www\three.js</PackagePath>
     </AppxPackagedFile>

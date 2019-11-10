@@ -6,11 +6,12 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.ComponentModel;
-//using Xamarin.Forms;
 using Gears.ViewModels;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Xamarin.Essentials;
+using static Gears.Utility.Math;
 
 namespace Gears.ViewModels
 {
@@ -50,7 +51,7 @@ namespace Gears.ViewModels
             UpdateCommand = new SimpleCommand(async (para) => { await Update(); return true; });
             SaveProjectCommand = new SimpleCommand(async (para) => { SaveProject(); return true; });
             ExportExcelCommand = new SimpleCommand(async (para) => { ExportExcel(); return true; });
-            ExportglTFCommand = new SimpleCommand(async (para) => {  return true; });
+            ExportglTFCommand = new SimpleCommand(async (para) => { await Export3DModel(); return true; });
             return true;
         }
 
@@ -75,20 +76,28 @@ namespace Gears.ViewModels
         }
 
         public void InvokeCSHandler(string data) {
-            switch (data)
+            if (data.Substring(0, nameof(SaveGLTF).Length) == nameof(SaveGLTF))
             {
-                case "Update":
-                    UpdateCommand.Execute(null);
-                    break;
-                case "UpdateWebSide":
-                    GearDetailViewModel.CheckUpdate();
-                    ThreeDModelingViewModel.UpdateCommand.Execute(null);
-                    break;
-                case "StartAutoUpdate":
-                    StartAutoUpdate();
-                    break;
-                default:
-                    break;
+                var jsonStr = data.Substring(nameof(SaveGLTF).Length);
+                SaveGLTF(jsonStr);
+            }
+            else
+            {
+                switch (data)
+                {
+                    case "Update":
+                        UpdateCommand.Execute(null);
+                        break;
+                    case "UpdateWebSide":
+                        GearDetailViewModel.CheckUpdate();
+                        ThreeDModelingViewModel.UpdateCommand.Execute(null);
+                        break;
+                    case "StartAutoUpdate":
+                        StartAutoUpdate();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -96,16 +105,17 @@ namespace Gears.ViewModels
             App.AppViewModel.BrowseViewModel.SaveProject(GearDetailViewModel.Model);
         }
 
-        public void ExportExcel() {
-            var filename = "Gear_Parameters.xlsx";
-            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        public async void ExportExcel() {
+            var templateName = "Gear_Parameters.xlsx";
+            var filename = $"{App.AppViewModel.BrowseViewModel.CurrentProject.Name}-{templateName}";
+            var folderPath = FileSystem.CacheDirectory;
             var filePath = Path.Combine(folderPath, filename);
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
             }
             var targetStream = File.Create(filePath);
-            var sourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Gears.Resources.{filename}");
+            var sourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Gears.Resources.{templateName}");
             sourceStream.CopyTo(targetStream);
             targetStream.Close();
             sourceStream.Close();
@@ -134,26 +144,75 @@ namespace Gears.ViewModels
                                 var name = (from item in wb.DefinedNames.ChildElements
                                            where item.InnerText.Replace(sheet.Name, "").Replace("$", "").Replace("!", "") == cell.CellReference
                                            select (item as DefinedName).Name.Value).FirstOrDefault();
-                                Console.WriteLine($"definedName:{name}, cell reference:{cell.CellReference} ");
+                                System.Diagnostics.Debug.WriteLine($"definedName:{name}, cell reference:{cell.CellReference} ");
                                 if (!String.IsNullOrEmpty(name))
                                 {
+                                    object value;
+                                    PropertyInfo property;
+                                    Gears.Models.CylindricalGearBase.IsAngleAttribute angleAtrr;
                                     if (name.Contains("_"))
                                     {
-                                        var strs = name.Split(',');
-                                        name = strs[0];
-                                        var index = Convert.ToInt32(strs[1]) - 1;
-                                        var array = modelType.GetProperty(name).GetValue(this.GearDetailViewModel.Model) as Array;
-                                        cell.CellValue = new CellValue(array.GetValue(index).ToString());
+                                        var strs = name.Split('_').ToList();
+                                        int index;
+                                        if (int.TryParse(strs.Last(), out index))
+                                        {
+                                            strs.RemoveAt(strs.Count - 1);
+                                            name = String.Join("_", strs);
+                                            index -= 1;
+                                            property = modelType.GetProperty(name);
+                                            var array = property.GetValue(this.GearDetailViewModel.Model) as Array;
+                                            value = array.GetValue(index);
+                                        }
+                                        else
+                                        {
+                                            name = String.Join("_", strs);
+                                            property = modelType.GetProperty(name);
+                                            value = property.GetValue(this.GearDetailViewModel.Model);
+                                        }
                                     }
                                     else
-                                        cell.CellValue = new CellValue(modelType.GetProperty(name).GetValue(this.GearDetailViewModel.Model).ToString());
+                                    {
+                                        property = modelType.GetProperty(name);
+                                        value = property.GetValue(this.GearDetailViewModel.Model);
+                                    }
+                                    angleAtrr = (Gears.Models.CylindricalGearBase.IsAngleAttribute)property.GetCustomAttribute(typeof(Gears.Models.CylindricalGearBase.IsAngleAttribute));
+                                    if (angleAtrr != null && angleAtrr.Unit == Models.CylindricalGearBase.IsAngleAttribute.Units.Rad)
+                                    {
+                                        value = Convert.ToDouble(value).RadToDeg();
+                                    }
+                                    cell.CellValue = new CellValue(value.ToString());
                                 }
                             }
                         }
                     }
                 }
                 document.Save();
+                await Share.RequestAsync(new ShareFileRequest()
+                {
+                    Title = $"{App.AppViewModel.BrowseViewModel.CurrentProject.Name} - {filename} ",
+                    File = new ShareFile(filePath)
+                });
             }
+        }
+
+        public async Task<bool> Export3DModel() {
+            var re = await ThreeDModelingViewModel.EvalAsync($"SceneController.ExportglTF();");
+            return true;
+        }
+
+        public void SaveGLTF(string json) {
+            var filename = $"{App.AppViewModel.BrowseViewModel.CurrentProject.Name}-3D_Model.gltf";
+            var folderPath = FileSystem.CacheDirectory;
+            var filePath = Path.Combine(folderPath, filename);
+            var targetStream = File.Create(filePath);
+            var sw = new StreamWriter(targetStream);
+            sw.Write(json);
+            targetStream.Close();
+            Share.RequestAsync(new ShareFileRequest()
+            {
+                Title = filename,
+                File = new ShareFile(filePath)
+            });
         }
     }
 }

@@ -3,6 +3,7 @@ public class MonoPackageManager_Resources {
 	public static String[] Assemblies = new String[]{
 		/* We need to ensure that "Gears.Android.dll" comes first in this list. */
 		"Gears.Android.dll",
+		"DocumentFormat.OpenXml.dll",
 		"FormsViewGroup.dll",
 		"Gears.dll",
 		"Newtonsoft.Json.dll",
@@ -13,6 +14,7 @@ public class MonoPackageManager_Resources {
 		"SQLitePCLRaw.core.dll",
 		"SQLitePCLRaw.lib.e_sqlite3.dll",
 		"SQLitePCLRaw.provider.e_sqlite3.dll",
+		"System.IO.Packaging.dll",
 		"Xamarin.Android.Arch.Core.Common.dll",
 		"Xamarin.Android.Arch.Core.Runtime.dll",
 		"Xamarin.Android.Arch.Lifecycle.Common.dll",

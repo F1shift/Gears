@@ -627,7 +627,14 @@ function SceneInit(targetCanvas) {
             CreateGear(data);
         }
     };
+    var ExportglTF = function () {
+        var exporter = new THREE.GLTFExporter();
 
+        exporter.parse(Meshs, function (gltf) {
+            var json = JSON.stringify(gltf);
+            InvokeCS("SaveGLTF" + json);
+        }, { onlyVisible :true});
+    };
 
     //#region Animation
     function render() {
@@ -695,6 +702,9 @@ function SceneInit(targetCanvas) {
         },
         UpdateOrCreateGear: {
             get: () => UpdateOrCreateGear
+        },
+        ExportglTF: {
+            get: () => ExportglTF
         }
     });
     SceneInitFinished = true;

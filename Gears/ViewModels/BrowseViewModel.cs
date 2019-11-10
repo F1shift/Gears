@@ -187,7 +187,10 @@ namespace Gears.ViewModels
 
         public async void SaveProject(CylindricalGearBase gearBase)
         {
-            CurrentProject.DBModel.CopyFrom(gearBase);
+            Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+            {
+                CurrentProject.CopyFrom(gearBase);
+            });
             if (ProjectList.Contains(CurrentProject) == false)
             {
                 ProjectList.Add(CurrentProject);

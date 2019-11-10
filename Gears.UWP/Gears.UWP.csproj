@@ -116,6 +116,7 @@
     <Content Include="Assets\www\RGBELoader.js" />
     <Content Include="Assets\www\stats.min.js" />
     <Content Include="Assets\www\stats.module.js" />
+    <Content Include="Assets\www\GLTFExporter.js" />
     <Content Include="Assets\www\three.js" />
     <Content Include="Assets\www\three.module.js" />
     <Content Include="Assets\www\index.html" />

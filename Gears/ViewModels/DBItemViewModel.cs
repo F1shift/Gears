@@ -67,5 +67,11 @@ namespace Gears.ViewModels
         {
             
         }
+
+        public void CopyFrom(CylindricalGearBase source)
+        {
+            DBModel.CopyFrom(source);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DBModel)));
+        }
     }
 }

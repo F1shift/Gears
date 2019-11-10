@@ -125,7 +125,7 @@ namespace Gears.Models
                         thisProperty.SetValue(this, sourceProperty.GetValue(source));
                     }
                 }
-            } 
+            }
         }
 
         public void CopyTo(CylindricalGearBase target)

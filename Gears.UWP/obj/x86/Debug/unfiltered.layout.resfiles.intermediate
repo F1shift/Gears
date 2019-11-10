@@ -29,6 +29,7 @@ Assets\Wide310x150Logo.scale-400.png
 Assets\www\equirectangular.png
 Assets\www\EquirectangularToCubeGenerator.js
 Assets\www\EXRLoader.js
+Assets\www\GLTFExporter.js
 Assets\www\index.html
 Assets\www\jquery.js
 Assets\www\PMREMCubeUVPacker.js

@@ -30,7 +30,7 @@ namespace Gears.Views
             RowCollection.Add(new SingleParameterRow() { Name = "Addendum Coeffifient", Value = model.ha_c.ToString(BasicFormat) });
             RowCollection.Add(new SingleParameterRow() { Name = "Dedendum Coeffifient", Value = model.hf_c.ToString(BasicFormat) });
             RowCollection.Add(new DoubleParameterRow() { Name = "Teeth Number", Value1 = model.z[0].ToString(BasicFormat), Value2 = model.z[1].ToString(BasicFormat) });
-            RowCollection.Add(new DoubleParameterRow() { Name = "Fillet Coeffifient", Value1 = model.ρ[0].ToString(BasicFormat), Value2 = model.ρ[1].ToString(BasicFormat) });
+            RowCollection.Add(new DoubleParameterRow() { Name = "Fillet Coeffifient", Value1 = model.ρ_c[0].ToString(BasicFormat), Value2 = model.ρ_c[1].ToString(BasicFormat) });
             RowCollection.Add(new DoubleParameterRow() { Name = "Face Width Coeffifient", Value1 = model.b_c[0].ToString(BasicFormat), Value2 = model.b_c[1].ToString(BasicFormat) });
             RowCollection.Add(new SubtitleRow() { Title = "Calculated Parameters" });
             RowCollection.Add(new SingleParameterRow() { Name = "Transverse Module", Value = model.mt.ToString(BasicFormat)});

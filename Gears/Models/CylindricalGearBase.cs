@@ -19,8 +19,10 @@ namespace Gears.Models
         [IsInput]
         public double mn { get; set; }
         [IsInput]
+        [IsAngle(IsAngleAttribute.Units.Rad)]
         public double αn { get; set; } 
         [IsInput]
+        [IsAngle(IsAngleAttribute.Units.Rad)]
         public double β { get; set; } 
         [IsInput]
         public int[] z { get; set; } = new int[2];
@@ -35,7 +37,9 @@ namespace Gears.Models
         [IsInput]
         public double hf_c { get; set; }
         public double mt { get; set; }//端面モジュール
+        [IsAngle(IsAngleAttribute.Units.Rad)]
         public double αt { get; set; }
+        [IsAngle(IsAngleAttribute.Units.Rad)]
         public double αwt { get; set; }
         public double[] L { get; set; } = new double[2];//リード
         public double y { get; set; }
@@ -166,8 +170,23 @@ namespace Gears.Models
         }
 
         [AttributeUsage(AttributeTargets.Property)]
-        class IsInputAttribute : Attribute
+        public class IsInputAttribute : Attribute
         {
+        }
+
+        public class IsAngleAttribute: Attribute
+        {
+            public Units Unit { get; set; }
+            public enum Units
+            {
+                Degree,
+                Rad
+            }
+
+            public IsAngleAttribute(Units unit)
+            {
+                this.Unit = unit;
+            }
         }
     }
 }
