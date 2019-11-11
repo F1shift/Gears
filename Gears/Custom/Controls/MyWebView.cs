@@ -24,6 +24,7 @@ namespace Gears.Custom.Controls
 
         public delegate Task<string> EvaluateJavaScriptDelegate(string script);
         public delegate void WebViewScriptNotifyDelegate(string script);
+        public delegate void OnNavigatingDelegate(string script);
 
         public event EvaluateJavaScriptDelegate EvaluateJavaScriptRequested;
         public WebViewScriptNotifyDelegate OnWebViewScriptNotify;

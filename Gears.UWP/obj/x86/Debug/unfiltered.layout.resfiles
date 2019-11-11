@@ -32,6 +32,7 @@ Assets\www\EXRLoader.js
 Assets\www\GLTFExporter.js
 Assets\www\index.html
 Assets\www\jquery.js
+Assets\www\OBJExporter.js
 Assets\www\PMREMCubeUVPacker.js
 Assets\www\PMREMGenerator.js
 Assets\www\RGBELoader.js

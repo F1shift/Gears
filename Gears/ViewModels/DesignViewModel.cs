@@ -76,10 +76,10 @@ namespace Gears.ViewModels
         }
 
         public void InvokeCSHandler(string data) {
-            if (data.Substring(0, nameof(SaveGLTF).Length) == nameof(SaveGLTF))
+            if (data.Substring(0, nameof(Save3DModel).Length) == nameof(Save3DModel))
             {
-                var jsonStr = data.Substring(nameof(SaveGLTF).Length);
-                SaveGLTF(jsonStr);
+                var jsonStr = data.Substring(nameof(Save3DModel).Length);
+                Save3DModel(jsonStr);
             }
             else
             {
@@ -196,17 +196,17 @@ namespace Gears.ViewModels
         }
 
         public async Task<bool> Export3DModel() {
-            var re = await ThreeDModelingViewModel.EvalAsync($"SceneController.ExportglTF();");
+            var re = await ThreeDModelingViewModel.EvalAsync($"SceneController.Export3DModel();");
             return true;
         }
 
-        public void SaveGLTF(string json) {
-            var filename = $"{App.AppViewModel.BrowseViewModel.CurrentProject.Name}-3D_Model.gltf";
+        public void Save3DModel(string data) {
+            var filename = $"{App.AppViewModel.BrowseViewModel.CurrentProject.Name}-3D_Model.obj.txt";
             var folderPath = FileSystem.CacheDirectory;
             var filePath = Path.Combine(folderPath, filename);
             var targetStream = File.Create(filePath);
             var sw = new StreamWriter(targetStream);
-            sw.Write(json);
+            sw.Write(data);
             targetStream.Close();
             Share.RequestAsync(new ShareFileRequest()
             {

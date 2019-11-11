@@ -205,7 +205,8 @@ function SceneInit(targetCanvas) {
         emissiveIntensity: 1,
         color: 0x000000
     });
-    pointLight2.add(new THREE.Mesh(pLightGeometry, pLightMaterial2));
+    var LightMesh = new THREE.Mesh(pLightGeometry, pLightMaterial2);
+    pointLight2.add(LightMesh);
     //#endregion
 
     //#region グラウンド
@@ -627,13 +628,12 @@ function SceneInit(targetCanvas) {
             CreateGear(data);
         }
     };
-    var ExportglTF = function () {
-        var exporter = new THREE.GLTFExporter();
-
-        exporter.parse(Meshs, function (gltf) {
-            var json = JSON.stringify(gltf);
-            InvokeCS("SaveGLTF" + json);
-        }, { onlyVisible :true});
+    var Export3DModel = function () {
+        var exporter = new THREE.OBJExporter();
+        pointLight2.remove(LightMesh);
+        var result = exporter.parse(scene);
+        pointLight2.add(LightMesh);
+        InvokeCS("Save3DModel" + result);
     };
 
     //#region Animation
@@ -703,8 +703,8 @@ function SceneInit(targetCanvas) {
         UpdateOrCreateGear: {
             get: () => UpdateOrCreateGear
         },
-        ExportglTF: {
-            get: () => ExportglTF
+        Export3DModel: {
+            get: () => Export3DModel
         }
     });
     SceneInitFinished = true;

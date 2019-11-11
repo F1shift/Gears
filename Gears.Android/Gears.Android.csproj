@@ -177,6 +177,8 @@
     <AndroidAsset Include="Assets\www\index.html" />
     <AndroidAsset Include="Assets\www\jquery.js" />
     <AndroidAsset Include="Assets\www\equirectangular.png" />
+    <AndroidAsset Include="Assets\www\GLTFExporter.js" />
+    <AndroidAsset Include="Assets\www\OBJExporter.js" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\www\three.js" />

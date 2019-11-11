@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-11-10T14:01:07.143</Modified>
+      <Modified>2019-11-11T13:42:32.740</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Gears.UWP.exe">
       <PackagePath>entrypoint\Gears.UWP.exe</PackagePath>
-      <Modified>2019-11-10T13:24:50.740</Modified>
+      <Modified>2019-11-11T13:41:06.842</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\formy\.nuget\packages\documentformat.openxml\2.9.1\lib\netstandard1.3\DocumentFormat.OpenXml.dll">
       <PackagePath>DocumentFormat.OpenXml.dll</PackagePath>
@@ -104,7 +104,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears\bin\Debug\netstandard2.0\Gears.dll">
       <PackagePath>Gears.dll</PackagePath>
-      <Modified>2019-11-10T13:24:43.999</Modified>
+      <Modified>2019-11-11T13:41:00.331</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Microsoft\Xamarin\NuGet\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -273,6 +273,10 @@
       <PackagePath>Assets\www\EXRLoader.js</PackagePath>
       <Modified>2019-10-12T04:54:53.444</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\OBJExporter.js">
+      <PackagePath>Assets\www\OBJExporter.js</PackagePath>
+      <Modified>2019-11-11T13:01:32.487</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMCubeUVPacker.js">
       <PackagePath>Assets\www\PMREMCubeUVPacker.js</PackagePath>
       <Modified>2019-10-12T04:54:53.461</Modified>
@@ -307,7 +311,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\SceneBuilder.js">
       <PackagePath>Assets\www\SceneBuilder.js</PackagePath>
-      <Modified>2019-11-10T14:01:01.857</Modified>
+      <Modified>2019-11-11T13:42:30.406</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\jquery.js">
       <PackagePath>Assets\www\jquery.js</PackagePath>
@@ -323,7 +327,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\index.html">
       <PackagePath>Assets\www\index.html</PackagePath>
-      <Modified>2019-11-10T12:31:50.222</Modified>
+      <Modified>2019-11-11T13:02:12.442</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -339,11 +343,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-11-10T13:24:50.428</Modified>
+      <Modified>2019-11-11T13:41:06.497</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-11-10T13:24:50.429</Modified>
+      <Modified>2019-11-11T13:41:06.497</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -355,11 +359,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2019-11-10T12:32:19.603</Modified>
+      <Modified>2019-11-11T13:15:38.021</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\bin\x86\Debug\Core\Gears.UWP.exe">
       <PackagePath>Gears.UWP.exe</PackagePath>
-      <Modified>2019-11-10T14:01:07.139</Modified>
+      <Modified>2019-11-11T13:42:32.740</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

@@ -111,6 +111,7 @@
     <Content Include="Assets\www\equirectangular.png" />
     <Content Include="Assets\www\EquirectangularToCubeGenerator.js" />
     <Content Include="Assets\www\EXRLoader.js" />
+    <Content Include="Assets\www\OBJExporter.js" />
     <Content Include="Assets\www\PMREMCubeUVPacker.js" />
     <Content Include="Assets\www\PMREMGenerator.js" />
     <Content Include="Assets\www\RGBELoader.js" />

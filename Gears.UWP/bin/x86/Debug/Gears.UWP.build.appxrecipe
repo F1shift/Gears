@@ -211,6 +211,9 @@
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\EXRLoader.js">
       <PackagePath>Assets\www\EXRLoader.js</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\OBJExporter.js">
+      <PackagePath>Assets\www\OBJExporter.js</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Data\GitHub\Gears\Gears.UWP\Assets\www\PMREMCubeUVPacker.js">
       <PackagePath>Assets\www\PMREMCubeUVPacker.js</PackagePath>
     </AppxPackagedFile>
