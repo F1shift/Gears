@@ -14,7 +14,8 @@
     <MasterDetailPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <views:AboutPage/>
+                <!--<views:AboutPage/>-->
+                <ContentPage></ContentPage>
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

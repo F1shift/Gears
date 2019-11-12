@@ -201,7 +201,11 @@ namespace Gears.ViewModels
         }
 
         public void Save3DModel(string data) {
-            var filename = $"{App.AppViewModel.BrowseViewModel.CurrentProject.Name}-3D_Model.obj.txt";
+            var filename = $"{App.AppViewModel.BrowseViewModel.CurrentProject.Name}-3D_Model.obj";
+            if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.Android)
+            {
+                filename += ".txt";
+            }
             var folderPath = FileSystem.CacheDirectory;
             var filePath = Path.Combine(folderPath, filename);
             var targetStream = File.Create(filePath);

@@ -109,7 +109,7 @@ namespace Gears.Models
             this.β = 15 / 180.0 * PI;
             this.ρ_c[0] = this.ρ_c[1] = 0.35;
             this.ha_c = 1;
-            this.hf_c = 1;
+            this.hf_c = 1.25;
             this.z[0] = 12;
             this.z[1] = 60;
             this.b_c[0] = this.b_c[1] = 20;
